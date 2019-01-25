@@ -900,6 +900,6 @@ public class HomeActivity extends AppCompatActivity
 
     // And to convert the image URI to the direct file system path of the image file
 
-    //---newly added on 19th dec, gallery code ends---------
+    //----newly added on 19th dec, gallery code ends---------
     //===============newly added 13th dec, Camera code ends============
 }
