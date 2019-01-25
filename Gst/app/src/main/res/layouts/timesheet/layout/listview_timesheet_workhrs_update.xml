@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff9f9">
+        <RelativeLayout
+            android:id="@+id/relative_task"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:background="#f5f5f5">
+            <TextView
+                android:id="@+id/tv_rcl_ts_wkhsupdte_glcode"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="3550-001-02"/>
+            <TextView
+                android:id="@+id/tv_rcl_ts_wkhsupdte_taskdescription"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="112 6176-200 Kroeschell \nAFMSA/711 HPW 099 Task nintynine Description"
+                android:layout_below="@id/tv_rcl_ts_wkhsupdte_glcode"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_rcl_ts_wkhsupdte_labourtype"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="PM Program Manager2"
+                android:layout_below="@id/tv_rcl_ts_wkhsupdte_taskdescription"
+                android:layout_marginTop="2dp"/>
+            <ImageButton
+                android:id="@+id/imgbtn_rcl_ts_wkhsupdte_addnote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/addnote"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+            <ImageButton
+                android:id="@+id/imgbtn_rcl_ts_wkhsupdte_viewnote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+        <EditText
+            android:id="@+id/edtxt_rcl_ts_wkhsupdate_addhrs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/relative_task"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:hint="8.0"/>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

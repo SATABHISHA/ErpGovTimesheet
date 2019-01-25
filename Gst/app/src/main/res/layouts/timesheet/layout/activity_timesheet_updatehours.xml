@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
+    <LinearLayout
+        android:id="@+id/lin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tool_bar"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:id="@+id/activity_enter_hours_txt_emp_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Employee Name : Oskar B.Synder"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="30dp"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/activity_enter_hours_txt_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Entry Date : Monday Sep 25"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="30dp"
+            android:textSize="16dp"/>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/lin"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:background="#EAEAEA"
+                android:layout_margin="15dp"
+                android:orientation="vertical">
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner"
+                    app:ms_arrowColor="#0000FF"
+                    app:ms_arrowSize="16dp"
+                    app:ms_floatingLabelColor="#6b6868"
+                    app:ms_floatingLabelText="Select Contract"
+                    app:ms_hint="Select Contract"
+                    app:ms_hintColor="#000000"
+                    app:ms_multiline="true"></fr.ganfra.materialspinner.MaterialSpinner>
+             <!--   <TextView
+                    android:id="@+id/activity_enter_hours_txt_contract"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#FFFFFF"
+                    android:inputType="text"
+                    android:textSize="14dp"
+                    android:text="Select Contract"
+                    android:padding="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#000000" />-->
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_select_task"
+                    app:ms_arrowColor="#0000FF"
+                    app:ms_arrowSize="16dp"
+                    app:ms_floatingLabelColor="#6b6868"
+                    app:ms_floatingLabelText="Select Task"
+                    app:ms_hint="Select Task"
+                    app:ms_hintColor="#000000"
+                    app:ms_multiline="true"></fr.ganfra.materialspinner.MaterialSpinner>
+           <!--     <TextView
+                    android:id="@+id/activity_enter_hours_txt_task"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#FFFFFF"
+                    android:inputType="text"
+                    android:textSize="14dp"
+                    android:padding="10dp"
+                    android:text="Select Task"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#000000" />-->
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner_select_labour_category"
+                    app:ms_arrowColor="#0000FF"
+                    app:ms_arrowSize="16dp"
+                    app:ms_floatingLabelColor="#6b6868"
+                    app:ms_floatingLabelText="Select Labour type"
+                    app:ms_hint="Select Labour type"
+                    app:ms_hintColor="#000000"
+                    app:ms_multiline="true"></fr.ganfra.materialspinner.MaterialSpinner>
+
+             <!--   <TextView
+                    android:id="@+id/activity_enter_hours_txt_labourCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#FFFFFF"
+                    android:inputType="text"
+                    android:textSize="14dp"
+                    android:padding="10dp"
+                    android:text="Select Labour Category"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#000000" /> -->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Cost Type"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14dp"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:id="@+id/activity_enter_hours_txt_cost_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="#FFFFFF"
+                    android:inputType="text"
+                    android:textSize="14dp"
+                    android:text="Select Cost Type"
+                    android:layout_marginTop="5dp"
+                    android:padding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#000000" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Hours"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="14dp"
+                    android:layout_marginTop="5dp"/>
+
+                <EditText
+                    android:id="@+id/activity_enter_hours_edt_hours"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#FFFFFF"
+                    android:inputType="number"
+                    android:textSize="14dp"
+                    android:padding="10dp"
+                    android:hint="Enter Hours"
+                    android:imeOptions="actionDone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColorHint="#757575" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <Button
+                        android:id="@+id/calendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Calendar"
+                        android:textAllCaps="false"
+                        android:background="@drawable/button_round"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="8dp"
+                        android:padding="5dp"
+                        android:layout_weight="33"/>
+
+                    <Button
+                        android:id="@+id/daylist"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Day List"
+                        android:textAllCaps="false"
+                        android:background="@drawable/button_round"
+                        android:textColor="@android:color/white"
+                        android:layout_marginLeft="8dp"
+                        android:padding="5dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="33"/>
+
+                    <Button
+                        android:id="@+id/save"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Save"
+                        android:layout_marginLeft="8dp"
+                        android:textAllCaps="false"
+                        android:padding="5dp"
+                        android:background="@drawable/button_round"
+                        android:textColor="@android:color/white"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="33"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
