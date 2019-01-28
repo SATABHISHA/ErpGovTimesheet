@@ -67,7 +67,7 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
     TextView  tv_ts_wrkhrs_date, tv_ts_wrkhrs_date_period, tv_ts_wkhrs_update_empname;
     public static TextView tv_ts_wrkhrs_totalhrs;
     ImageButton imgbtn_ts_wrkhrs_prev, imgbtn_ts_wrkhrs_next;
-    ListView listView;
+    ListView listView,listz;
     Button btn_save, btn_back;
     ArrayList<UserUpdateHoursModel> contractArrayList = new ArrayList<>();
     List<UserUpdateHoursModel> updateHoursModelList = new ArrayList<>();
