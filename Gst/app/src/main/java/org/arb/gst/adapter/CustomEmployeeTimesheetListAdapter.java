@@ -190,7 +190,6 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                         }else if(sum>24 && sum_initial_value>24){
                             sumValue = sum.toString();
                             tv_ts_wrkhrs_totalhrs.setText(sumValue);
-//                            Toast.makeText(context.getApplicationContext(),"Daily limit of 24 hours has been exceeded for this day! ",Toast.LENGTH_LONG).show();
                         }
 
                     }
