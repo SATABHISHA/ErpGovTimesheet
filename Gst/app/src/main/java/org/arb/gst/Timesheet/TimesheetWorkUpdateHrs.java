@@ -775,6 +775,16 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                                 }
                                 Log.d("sum->",sum.toString());
                                 sum_initial_value = sum;
+                                if(sum_initial_value>24){
+                                    String message = "Daily limit of 24 hours has been exceeded for this day!";
+                                    int color = Color.parseColor("#FFFF00");
+                                    Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message, Snackbar.LENGTH_LONG);
+
+                                    View sbView = snackbar.getView();
+                                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                                    textView.setTextColor(color);
+                                    snackbar.show();
+                                }
                                 loading.dismiss();
 
                             }else{

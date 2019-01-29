@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.text.Editable;
@@ -124,7 +125,7 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
         RelativeLayout relative_task;
         public EditText editText;
         ImageButton imgbtn_rcl_ts_wkhsupdte_addnote, imgbtn_rcl_ts_wkhsupdte_viewnote;
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(final View itemView) {
             super(itemView);
             tv_rcl_ts_wkhsupdte_glcode = (TextView)itemView.findViewById(R.id.tv_rcl_ts_wkhsupdte_glcode);
             tv_rcl_ts_wkhsupdte_taskdescription = (TextView)itemView.findViewById(R.id.tv_rcl_ts_wkhsupdte_taskdescription);
@@ -191,8 +192,6 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                             tv_ts_wrkhrs_totalhrs.setText(sumValue);
 //                            Toast.makeText(context.getApplicationContext(),"Daily limit of 24 hours has been exceeded for this day! ",Toast.LENGTH_LONG).show();
                         }
-
-
 
                     }
                     //==========code to iterate through recycler view and get the edittext field value code ends==========
