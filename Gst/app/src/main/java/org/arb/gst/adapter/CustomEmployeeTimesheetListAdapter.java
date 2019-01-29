@@ -137,6 +137,7 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
                 }
 
                 @Override
@@ -163,8 +164,28 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                             sum = sum+value;
                         }catch (Exception e){
                         }
-                        sumValue = sum.toString();
-                        tv_ts_wrkhrs_totalhrs.setText(sumValue);
+                        if(sum<=24){
+                            sumValue = sum.toString();
+                            tv_ts_wrkhrs_totalhrs.setText(sumValue);
+                        }else if(sum>24){
+                            //---------Alert dialog code starts--------
+                            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                            alertDialogBuilder.setMessage("Task hours cannot be greater than 24 in a single day!");
+                            alertDialogBuilder.setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface arg0, int arg1) {
+                                            alertDialogBuilder.setCancelable(true);
+                                            editText.setText("");
+                                        }
+                                    });
+                            final AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+
+                            //--------Alert dialog code ends--------
+                            break;
+                        }
+
 
                     }
                     //==========code to iterate through recycler view and get the edittext field value code ends==========
