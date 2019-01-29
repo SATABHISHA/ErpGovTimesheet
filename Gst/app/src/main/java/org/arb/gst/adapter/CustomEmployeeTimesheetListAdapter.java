@@ -33,6 +33,7 @@ import org.arb.gst.Timesheet.TimesheetWorkUpdateHrs;
 
 import java.util.ArrayList;
 
+import static org.arb.gst.Timesheet.TimesheetWorkUpdateHrs.sum_initial_value;
 import static org.arb.gst.Timesheet.TimesheetWorkUpdateHrs.tv_ts_wrkhrs_totalhrs;
 
 public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<CustomEmployeeTimesheetListAdapter.MyViewHolder> {
@@ -164,10 +165,11 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                             sum = sum+value;
                         }catch (Exception e){
                         }
+
                         if(sum<=24){
                             sumValue = sum.toString();
                             tv_ts_wrkhrs_totalhrs.setText(sumValue);
-                        }else if(sum>24){
+                        }else if(sum>24 && sum_initial_value<=24){
                             //---------Alert dialog code starts--------
                             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                             alertDialogBuilder.setMessage("Task hours cannot be greater than 24 in a single day!");
@@ -184,7 +186,12 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
 
                             //--------Alert dialog code ends--------
                             break;
+                        }else if(sum>24 && sum_initial_value>24){
+                            sumValue = sum.toString();
+                            tv_ts_wrkhrs_totalhrs.setText(sumValue);
+//                            Toast.makeText(context.getApplicationContext(),"Daily limit of 24 hours has been exceeded for this day! ",Toast.LENGTH_LONG).show();
                         }
+
 
 
                     }

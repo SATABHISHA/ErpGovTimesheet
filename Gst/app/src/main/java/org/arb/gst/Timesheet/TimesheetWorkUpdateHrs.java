@@ -78,6 +78,7 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
     List<String> list = new ArrayList<>();
     public String[] valueList;
     public Double sum = 0.0;
+    public static Double sum_initial_value = 0.0; //---mean to say that the initial sum total value directs to the value during page load
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -765,9 +766,15 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                                 }
                                 mRecyclerView.setAdapter(new CustomEmployeeTimesheetListAdapter(TimesheetWorkUpdateHrs.this,employeeTimesheetListModelArrayList));
                                 Log.d("jsonData",jsonArray.toString());
+                                Double sum = 0.0;
+                                Double value = 0.0;
                                 for(int i=0;i<employeeTimesheetListModelArrayList.size();i++){
                                     Log.d("EmployeeDetails",employeeTimesheetListModelArrayList.get(i).getContract());
+                                    value = Double.parseDouble(employeeTimesheetListModelArrayList.get(i).getHour());
+                                    sum = sum+value;
                                 }
+                                Log.d("sum->",sum.toString());
+                                sum_initial_value = sum;
                                 loading.dismiss();
 
                             }else{
