@@ -120,7 +120,7 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
         imgbtn_ts_wrkhrs_prev = (ImageButton)findViewById(R.id.imgbtn_ts_wrkhrs_prev);
         imgbtn_ts_wrkhrs_next = (ImageButton)findViewById(R.id.imgbtn_ts_wrkhrs_next);
         tv_ts_wrkhrs_date.setText(userSingletonModel.getDayDate());
-        tv_ts_wrkhrs_date_period.setText("(Period:"+userSingletonModel.getPeriodStartDate()+" To "+userSingletonModel.getPeriodEndDate()+")");  //----commented on 13/11/18(as it's looking odd)
+        tv_ts_wrkhrs_date_period.setText("(Period: "+userSingletonModel.getPeriodStartDate()+" To "+userSingletonModel.getPeriodEndDate()+")");  //----commented on 13/11/18(as it's looking odd)
         tv_ts_wkhrs_update_empname.setText(userSingletonModel.getEmpName());
         //==========Recycler code initializing and setting layoutManager starts======
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
