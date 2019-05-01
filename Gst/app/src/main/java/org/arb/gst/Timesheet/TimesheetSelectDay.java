@@ -678,13 +678,15 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 for (int d = 0; d < day.length(); d++) {
                                                     JSONObject dayHrs = day.getJSONObject(d);
                                                     WeekDays weekDays1 = new WeekDays();
-                                                    weekDays1.setDayName(dayHrs.getString("DayName"));
-                                                    weekDays1.setHours(dayHrs.getString("Hours"));
-                                                    weekDays1.setActiveYN(dayHrs.getString("ActiveYN"));
-                                                    weekDays1.setDayDate(dayHrs.getString("DayDate"));
-                                                    weekDays1.setColorCode(colorcode);
-                                                    weekDaysList.add(weekDays1);
-                                                    weekDaysArrayList.add(weekDays1);
+                                                    if(dayHrs.getString("ActiveYN").contentEquals("true")) { //---condition added on 1st may 2019
+                                                        weekDays1.setDayName(dayHrs.getString("DayName"));
+                                                        weekDays1.setHours(dayHrs.getString("Hours"));
+                                                        weekDays1.setActiveYN(dayHrs.getString("ActiveYN"));
+                                                        weekDays1.setDayDate(dayHrs.getString("DayDate"));
+                                                        weekDays1.setColorCode(colorcode);
+                                                        weekDaysList.add(weekDays1);
+                                                        weekDaysArrayList.add(weekDays1);
+                                                    }
                                                 }
                                                 datePeriod.clear();
                                                 for(int z=0;z<weekDaysList.size();z++){
