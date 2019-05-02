@@ -51,7 +51,7 @@ public class CaldroidSampleCustomAdapter extends CaldroidGridAdapter {
         TextView tv1 = (TextView) cellView.findViewById(R.id.tv1);
         TextView tv2 = (TextView) cellView.findViewById(R.id.tv2);
 
-        tv1.setTextColor(Color.WHITE);
+        tv1.setTextColor(Color.BLACK); //---changed from white color to black on May2nd 19
 
         // Get dateTime of this cell
         DateTime dateTime = this.datetimeList.get(position);
@@ -101,10 +101,14 @@ public class CaldroidSampleCustomAdapter extends CaldroidGridAdapter {
         if (shouldResetDiabledView && shouldResetSelectedView) {
             // Customize for today
             if (dateTime.equals(getToday())) {
-                cellView.setBackgroundResource(com.caldroid.R.drawable.red_border);
+//                cellView.setBackgroundResource(com.caldroid.R.drawable.red_border);
+                cellView.setBackgroundResource(R.drawable.blue_border);
                 tv1.setTextColor(Color.BLACK);
             } else {
-                cellView.setBackgroundResource(com.caldroid.R.drawable.disabled_cell_dark);
+//                cellView.setBackgroundResource(com.caldroid.R.drawable.disabled_cell_dark);
+                cellView.setBackgroundResource(R.color.cellColor); //--added on man2nd 19
+
+//                cellView.setBackgroundColor(Color.parseColor("#E6E6E6")); //--added on man2nd 19
             }
         }
 
@@ -118,8 +122,8 @@ public class CaldroidSampleCustomAdapter extends CaldroidGridAdapter {
                 bottomPadding);
 
         // Set custom color if required
-        cellView.setBackgroundColor(Color.parseColor("#F2F2F2"));
-        tv1.setTextColor(Color.BLACK);
+//        cellView.setBackgroundColor(Color.parseColor("#E6E6E6")); //--commented on man2nd 19
+//        tv1.setTextColor(Color.BLACK); //--commented on man2nd 19
         setCustomResources(dateTime, cellView, tv1);
 
         return cellView;
