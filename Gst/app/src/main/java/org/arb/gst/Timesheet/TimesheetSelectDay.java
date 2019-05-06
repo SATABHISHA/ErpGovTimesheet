@@ -678,6 +678,12 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 for (int d = 0; d < day.length(); d++) {
                                                     JSONObject dayHrs = day.getJSONObject(d);
                                                     WeekDays weekDays1 = new WeekDays();
+                                                    //--------following condition is newly added on 6th May 2019, starts...--------------
+                                                    if(d==0){
+                                                        userSingletonModel.setPeriodStartDate(dayHrs.getString("DayDate"));
+                                                    }
+                                                    //--------above condition is newly added on 6th May 2019, ends...--------------
+
                                                     if(dayHrs.getString("ActiveYN").contentEquals("true")) { //---condition added on 1st may 2019
                                                         weekDays1.setDayName(dayHrs.getString("DayName"));
                                                         weekDays1.setHours(dayHrs.getString("Hours"));
@@ -690,7 +696,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 }
                                                 datePeriod.clear();
                                                 for(int z=0;z<weekDaysList.size();z++){
-                                                    userSingletonModel.setPeriodStartDate(weekDaysList.get(0).getDayDate());
+//                                                    userSingletonModel.setPeriodStartDate(weekDaysList.get(0).getDayDate()); //--commented on 6th may 2019
                                                     userSingletonModel.setPeriodEndDate(weekDaysList.get(weekDaysList.size()-1).getDayDate());
                                                     datePeriod.add(weekDaysList.get(z).getDayDate());
                                                 }
