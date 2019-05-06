@@ -729,6 +729,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 params.put("UserId", userSingletonModel.getUserID());
                 params.put("UserType",userSingletonModel.getUserType());
                 params.put("StartDate",TimesheetHome.dateOnSelectedCalender);
+                Log.d("StartDate",TimesheetHome.dateOnSelectedCalender);
 
               /*  params.put("CorpId", "gst-inc-101");
                 params.put("UserId","1");
