@@ -834,5 +834,5 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     public void onNetworkConnectionChanged(boolean isConnected) {
         showSnack(isConnected);
     }
-    //=============Internet checking code ends(added 22nd Nov)=============
+    //=============Internet checking code ends (added 22nd Nov)=============
 }
