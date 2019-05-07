@@ -80,7 +80,8 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_day);
+//        setContentView(R.layout.activity_select_day);
+        setContentView(R.layout.activity_select_day_new);
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("Select Date");
         setSupportActionBar(mToolbar);
@@ -692,7 +693,10 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                         weekDays1.setColorCode(colorcode);
                                                         weekDaysList.add(weekDays1);
                                                         weekDaysArrayList.add(weekDays1);
+
                                                     }
+
+
                                                 }
                                                 datePeriod.clear();
                                                 for(int z=0;z<weekDaysList.size();z++){
@@ -707,7 +711,9 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 listView.setAdapter(new displayStatusAdapter());
                                                 listView.setDivider(null);
                                             }
+
                                         }
+
                                         loading.dismiss();
                                     }else{
                                         Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
