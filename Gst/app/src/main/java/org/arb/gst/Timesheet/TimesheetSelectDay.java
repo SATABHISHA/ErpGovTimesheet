@@ -675,7 +675,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
 
                                                 JSONArray day = days.getJSONArray("DayHrs");
-                                                for (int d = 0; d < day.length(); d++) {
+                                                for (int d = j; d < day.length(); d++) {
                                                     JSONObject dayHrs = day.getJSONObject(d);
                                                     WeekDays weekDays1 = new WeekDays();
                                                     //--------following condition is newly added on 6th May 2019, starts...--------------
