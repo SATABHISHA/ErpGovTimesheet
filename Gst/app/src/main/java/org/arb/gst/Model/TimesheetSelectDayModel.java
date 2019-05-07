@@ -1,8 +1,7 @@
 package org.arb.gst.Model;
 
 public class TimesheetSelectDayModel {
-    String EmpName,PeriodRange,statusCode,WeekDate,TotalHours,EmpNote,SupNote,DayStatus,StatusDescription,ColorCode,
-            dayName,hours,activeYN,dayDate;
+    String EmpName,PeriodRange,statusCode,WeekDate,TotalHours,EmpNote,SupNote,DayStatus,StatusDescription,ColorCode;
 
     //=====================Setter method starts===================
 
@@ -46,24 +45,6 @@ public class TimesheetSelectDayModel {
         ColorCode = colorCode;
     }
 
-    //================adding weekdays arraylist model on 7th may 2019...starts...
-    public void setDayName(String dayName) {
-        this.dayName = dayName;
-    }
-
-    public void setHours(String hours) {
-        this.hours = hours;
-    }
-
-    public void setActiveYN(String activeYN) {
-        this.activeYN = activeYN;
-    }
-
-    public void setDayDate(String dayDate) {
-        this.dayDate = dayDate;
-    }
-
-    //================adding weekdays arraylist model on 7th may 2019...ends...
 
     //=====================Setter method ends======================
 
@@ -109,23 +90,5 @@ public class TimesheetSelectDayModel {
     public String getColorCode() {
         return ColorCode;
     }
-
-    //================adding weekdays arraylist model on 7th may 2019...starts...
-    public String getDayName() {
-        return dayName;
-    }
-
-    public String getHours() {
-        return hours;
-    }
-
-    public String getActiveYN() {
-        return activeYN;
-    }
-
-    public String getDayDate() {
-        return dayDate;
-    }
-    //================adding weekdays arraylist model on 7th may 2019...ends...
     //=====================Getter method ends===================
 }

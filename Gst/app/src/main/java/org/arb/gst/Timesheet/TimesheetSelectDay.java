@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -65,6 +66,7 @@ import java.util.Map;
 public class TimesheetSelectDay extends AppCompatActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     ArrayList<TimesheetSelectDayModel> arrayListTimesheetSelectDayModelsWeekDay = new ArrayList<>();
+    List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay = new ArrayList<>();
     List<WeekDays> weekDaysList = new ArrayList<>();
     ArrayList<WeekDays> weekDaysArrayList = new ArrayList<>();
     public static ArrayList<String> datePeriod = new ArrayList<>();
@@ -80,8 +82,8 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_select_day);
-        setContentView(R.layout.activity_select_day_new);
+//        setContentView(R.layout.activity_select_day); //==commented on 6th may
+        setContentView(R.layout.activity_select_day_new);  //==added on 6th may
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("Select Date");
         setSupportActionBar(mToolbar);
@@ -110,9 +112,10 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         AppBarLayout mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
 
         //==========Recycler code initializing and setting layoutManager starts======
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_activity_select_day);
+            //----------following code commented on 6th may---
+       /* mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_activity_select_day);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));*/
         //==========Recycler code initializing and setting layoutManager ends======
 //        edtxtEmployeeNote = (EditText)findViewById(R.id.edtxt_employeenote);
         tv_empname = (TextView)findViewById(R.id.tv_empname);
@@ -156,7 +159,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
         img_empnote_view.setVisibility(View.GONE);
         img_empnote_add.setVisibility(View.GONE);
-        loadDataOfDayWiseTimeSheet();  //------function to load the timesheet day details
+//        loadDataOfDayWiseTimeSheet();  //------function to load the timesheet day details  //---commented on 6th may
 
     }
 
@@ -440,7 +443,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                     Log.d("saveData=>",responseData.toString());
                     Iterator<?> keys = resobj.keys();
                     loading.dismiss();
-                    loadDataOfDayWiseTimeSheet(); //---to load the fresh data after submitting the data
+//                    loadDataOfDayWiseTimeSheet(); //----commented on 6th may//---to load the fresh data after submitting the data
                             while(keys.hasNext() ) {
                                 String key = (String) keys.next();
                                 if (resobj.get(key) instanceof JSONObject) {
@@ -759,6 +762,254 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     }
     //===========volley code to get DayWiseTimeSheet using volley code ends============
 
+    //==========added on 6th may, volley code to get DayWiseTimeSheet using volley code starts(coded by Satabhisha)===========
+    public void loadDataOfDayWiseTimeSheetNew(){
+//        String url = "http://220.225.40.151:9012/TimesheetService.asmx/GetDayWiseTimeSheet";
+        String url = Config.BaseUrl+"GetDayWiseTimeSheet";
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObj = null;
+                        try{
+                            jsonObj = XML.toJSONObject(response);
+                            String responseData = jsonObj.toString();
+                            String val = "";
+                            JSONObject resobj = new JSONObject(responseData);
+                            Log.d("getDayData",responseData.toString());
+
+                            //------code to clear the arraylist so that after submitting the data fresh data will show in the list instead of redundant data code starts-----
+                            if(!weekDaysList.isEmpty()){
+                                weekDaysList.clear();
+                            }
+                            if(!weekDaysArrayList.isEmpty()){
+                                weekDaysArrayList.clear();
+                            }
+                            if(!arrayListTimesheetSelectDayModelsWeekDay.isEmpty()){
+                                arrayListTimesheetSelectDayModelsWeekDay.clear();
+                            }
+                            //----added on 6th may=======
+                            if(!listTimesheetSelectDayModelsWeekDay.isEmpty()){
+                                listTimesheetSelectDayModelsWeekDay.clear();
+                            }
+                            //----above code added on 6th may------
+
+                            //------code to clear the arraylist so that after submitting the data fresh data will show in the list instead of redundant data code ends-----
+
+                            Iterator<?> keys = resobj.keys();
+                            while(keys.hasNext() ) {
+                                String key = (String) keys.next();
+                                if (resobj.get(key) instanceof JSONObject) {
+                                    JSONObject xx = new JSONObject(resobj.get(key).toString());
+                                    val = xx.getString("content");
+                                    Log.d("getDayData1", xx.getString("content"));
+                                    JSONObject jsonObject = new JSONObject(val);
+                                    String status = jsonObject.getString("status");
+                                    if(status.equalsIgnoreCase("true")){
+                                        JSONArray jsonArray = jsonObject.getJSONArray("DayWiseTimeSheet");
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            JSONObject jobject = jsonArray.getJSONObject(i);
+
+                                            //=============Commented temporary starts==============
+                                   /*         empName = (jobject.getString("EmpName"));
+                                            periodRange = (jobject.getString("PeriodRange"));
+                                            statusCode = (jobject.getString("statusCode"));
+//                                             set text
+
+                                            txtPeriodDate.setText("Period Range: " + periodRange);*/
+
+                                        /*    if (from.equalsIgnoreCase("1")) {
+
+                                                txtEmpName.setText("Employee: " + getIntent().getExtras().getString("name"));
+
+                                                String status1 = getIntent().getExtras().getString("status");
+                                                if (status1.equalsIgnoreCase("1")
+                                                        || status1.equalsIgnoreCase("3")
+                                                        || status1.equalsIgnoreCase("4")
+                                                        || status1.equalsIgnoreCase("5")
+                                                        || status1.equalsIgnoreCase("6")
+                                                        || status1.equalsIgnoreCase("7")
+                                                        || status1.equalsIgnoreCase("8")
+                                                        || status1.equalsIgnoreCase("0")
+                                                        ) {
+                                                    btnSubmitted.setEnabled(false);
+                                                    btnApproved.setEnabled(false);
+                                                    btnReturned.setEnabled(false);
+                                                } else {
+                                                    btnSubmitted.setEnabled(false);
+                                                    btnApproved.setEnabled(true);
+                                                    btnReturned.setEnabled(true);
+                                                }
+                                            } else {
+
+                                                txtEmpName.setText("Employee: " + empName);
+
+                                                if (jobject.getString("statusCode").equalsIgnoreCase("2")
+                                                        || (jobject.getString("statusCode").equalsIgnoreCase("5"))
+                                                        || (jobject.getString("statusCode").equalsIgnoreCase("6"))
+                                                        || (jobject.getString("statusCode").equalsIgnoreCase("7"))
+                                                        || (jobject.getString("statusCode").equalsIgnoreCase("0"))
+                                                        || (jobject.getString("statusCode").equalsIgnoreCase("8"))
+                                                        || (jobject.getString("statusCode").equalsIgnoreCase("4"))) {
+                                                    btnSubmitted.setEnabled(false);
+                                                    btnApproved.setEnabled(false);
+                                                    btnReturned.setEnabled(false);
+                                                } else {
+                                                    btnSubmitted.setEnabled(true);
+                                                    btnApproved.setEnabled(false);
+                                                    btnReturned.setEnabled(false);
+                                                }
+                                            }*/
+                                            //=================Commented temporary ends==================
+
+                                            JSONArray weekDays = jobject.getJSONArray("WeekDays");
+                                            for (int j = 0; j < weekDays.length(); j++) {
+                                                JSONObject days = weekDays.getJSONObject(j);
+                                                TimesheetSelectDayModel timesheetSelectDayModel = new TimesheetSelectDayModel();
+//                                                Week week = new Week();
+                                                timesheetSelectDayModel.setWeekDate(days.getString("WeekDate"));
+                                                timesheetSelectDayModel.setTotalHours(days.getString("TotalHours"));
+                                                timesheetSelectDayModel.setEmpNote(days.getString("EmpNote"));
+                                                userSingletonModel.setTimesheetSelectDay_empNote(days.getString("EmpNote"));  //----added on 4th dec
+                                                timesheetSelectDayModel.setSupNote(days.getString("SupNote"));
+                                                userSingletonModel.setTimesheetSelectDay_supNote(days.getString("SupNote"));  //----added on 4th dec
+                                                timesheetSelectDayModel.setDayStatus(days.getString("DayStatus"));
+                                                timesheetSelectDayModel.setColorCode(days.getString("ColorCode"));
+                                                colorcode = days.getString("ColorCode");
+                                                timesheetSelectDayModel.setStatusDescription(days.getString("StatusDescription"));
+                                                tv_totalhrs.setText(timesheetSelectDayModel.getTotalHours());
+                                                arrayListTimesheetSelectDayModelsWeekDay.add(timesheetSelectDayModel);
+                                                listTimesheetSelectDayModelsWeekDay.add(timesheetSelectDayModel);
+
+                                                //--------newly added 4th dec and modified on 8th dec--------
+                                                //=============Following is the code to check whether empNote is empty or not(the empnote will be present in the dialog box and stored via SingletonModel class)==========
+                                                if ((days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED")  || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                                                    img_empnote_add.setVisibility(View.GONE);
+                                                    img_empnote_view.setVisibility(View.GONE);
+                                                }else if((days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED")  || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")){
+                                                    img_empnote_add.setVisibility(View.GONE);
+                                                    img_empnote_view.setVisibility(View.VISIBLE);
+                                                }else if(!days.getString("StatusDescription").contentEquals("APPROVED") || !days.getString("StatusDescription").contentEquals("SUBMITTED") || !days.getString("StatusDescription").contentEquals("POSTED")  || !days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")){
+                                                    img_empnote_add.setVisibility(View.VISIBLE);
+                                                    img_empnote_view.setVisibility(View.GONE);
+                                                }
+                                                //==============code to check empNote is empty or not ends===========
+
+                                                //***supervisor note is not modified
+                                                //=============Following is the code to check whether supNote is empty or not(the supnote will be present in the dialog box and stored via SingletonModel class)==========
+                                                if (userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")) {
+                                                    img_sup_note_view.setVisibility(View.GONE);
+                                                    tv_addOrView_supervisor_note.setClickable(false);
+                                                    //  img_sup_add_view.setVisibility(View.VISIBLE);  //----commented on 4th dec
+                                                } else if (!userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")) {
+                                                    //   img_sup_add_view.setVisibility(View.GONE);  //---commented on 4th dec
+                                                    img_sup_note_view.setVisibility(View.VISIBLE);
+                                                    tv_addOrView_supervisor_note.setClickable(true);
+                                                }
+                                                //==============code to check supNote is empty or not ends===========
+                                                //-------above code newly added on 4th dec---------
+
+                                                //=========newly added on 1st dec, to check conditions for button submit visibility/invisibility code starts ===========
+                                                //        btn_submit
+//                                                if(userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("NOT STARTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
+                                                if(days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED") || days.getString("StatusDescription").contentEquals("NOT STARTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")){
+                                                    btn_submit.setAlpha(0.5f);
+                                                    btn_submit.setEnabled(false);
+                                                    btn_submit.setClickable(false);
+                                                }else{
+                                                    btn_submit.setAlpha(1.0f);
+                                                    btn_submit.setEnabled(true);
+                                                    btn_submit.setClickable(true);
+                                                }
+                                                Log.d("Employee Status=>",userSingletonModel.getStatusDescription());
+                                                //=========newly added on 1st dec, to check conditions for button submit visibility/invisibility code ends===========
+
+
+                                                JSONArray day = days.getJSONArray("DayHrs");
+                                                for (int d = j; d < day.length(); d++) {
+                                                    JSONObject dayHrs = day.getJSONObject(d);
+                                                    WeekDays weekDays1 = new WeekDays();
+                                                    //--------following condition is newly added on 6th May 2019, starts...--------------
+                                                    if(d==0){
+                                                        userSingletonModel.setPeriodStartDate(dayHrs.getString("DayDate"));
+                                                    }
+                                                    //--------above condition is newly added on 6th May 2019, ends...--------------
+
+                                                    if(dayHrs.getString("ActiveYN").contentEquals("true")) { //---condition added on 1st may 2019
+                                                        weekDays1.setDayName(dayHrs.getString("DayName"));
+                                                        weekDays1.setHours(dayHrs.getString("Hours"));
+                                                        weekDays1.setActiveYN(dayHrs.getString("ActiveYN"));
+                                                        weekDays1.setDayDate(dayHrs.getString("DayDate"));
+                                                        weekDays1.setColorCode(colorcode);
+                                                        weekDaysList.add(weekDays1);
+                                                        weekDaysArrayList.add(weekDays1);
+
+                                                    }
+
+
+                                                }
+                                                datePeriod.clear();
+                                                for(int z=0;z<weekDaysList.size();z++){
+//                                                    userSingletonModel.setPeriodStartDate(weekDaysList.get(0).getDayDate()); //--commented on 6th may 2019
+                                                    userSingletonModel.setPeriodEndDate(weekDaysList.get(weekDaysList.size()-1).getDayDate());
+                                                    datePeriod.add(weekDaysList.get(z).getDayDate());
+                                                }
+
+                                                tv_period_date.setText("("+userSingletonModel.getPeriodStartDate()+" - "+userSingletonModel.getPeriodEndDate()+")");
+//                                                mRecyclerView.setAdapter(new CustomSelectDayAdapter(TimesheetSelectDay.this,weekDaysArrayList));
+                                                ListView listView = (ListView)findViewById(R.id.lv_color);
+                                                listView.setAdapter(new displayStatusAdapter());
+                                                listView.setDivider(null);
+                                            }
+
+                                        }
+
+                                        loading.dismiss();
+                                    }else{
+                                        Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                            loading.dismiss();
+                            Toast.makeText(getApplicationContext(),"Please try after sometime.Internal error",Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(),"Please try after sometime.Internal error",Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("CorpId", userSingletonModel.getCorpID());
+                params.put("UserId", userSingletonModel.getUserID());
+                params.put("UserType",userSingletonModel.getUserType());
+                params.put("StartDate",TimesheetHome.dateOnSelectedCalender);
+                Log.d("StartDate",TimesheetHome.dateOnSelectedCalender);
+
+              /*  params.put("CorpId", "gst-inc-101");
+                params.put("UserId","1");
+                params.put("UserType","MAIN");
+                params.put("StartDate","10-07-2018");*/
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(TimesheetSelectDay.this);
+        requestQueue.add(stringRequest);
+
+
+
+    }
+    //=========== added on 6th may, volley code to get DayWiseTimeSheet using volley code ends============
+
 
     //=========Custom listview for displaying status color and status description code starts========
     public class displayStatusAdapter extends BaseAdapter{
@@ -809,7 +1060,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         if (isConnected) {
 //            message = "Connected to Internet";
 //            color = Color.WHITE;
-            loadDataOfDayWiseTimeSheet();
+//            loadDataOfDayWiseTimeSheet();  //-----commented on 6th may
         } else {
             message = "Sorry! Not connected to internet";
             color = Color.parseColor("#FF4242");
@@ -829,7 +1080,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
         // register connection status listener
         MyApplication.getInstance().setConnectivityListener(this);
-        loadDataOfDayWiseTimeSheet();
+//        loadDataOfDayWiseTimeSheet();  //---commented on 6th may
     }
 
     /**
