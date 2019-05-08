@@ -1,6 +1,7 @@
 package org.arb.gst.Timesheet;
 
 import android.app.AlertDialog;
+import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -41,7 +43,6 @@ import org.arb.gst.Model.TimesheetSelectDayModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.Model.WeekDays;
 import org.arb.gst.R;
-import org.arb.gst.adapter.CustomSelectDayAdapter;
 import org.arb.gst.adapter.ExpandableListAdapter;
 import org.arb.gst.config.Config;
 import org.arb.gst.config.ConnectivityReceiver;
@@ -57,11 +58,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class TimesheetSelectDay extends AppCompatActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
+public class TimesheetSelectDay extends AppCompatActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener{
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     ArrayList<TimesheetSelectDayModel> arrayListTimesheetSelectDayModelsWeekDay = new ArrayList<>();
     List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay = new ArrayList<>();
-    HashMap<TimesheetSelectDayModel, List<WeekDays>> listDataChild;
+    HashMap<String, List<WeekDays>> listDataChild;
     List<WeekDays> weekDaysList = new ArrayList<>();
     ArrayList<WeekDays> weekDaysArrayList = new ArrayList<>();
     public static ArrayList<String> datePeriod = new ArrayList<>();
@@ -155,7 +156,6 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         img_empnote_view.setVisibility(View.GONE);
         img_empnote_add.setVisibility(View.GONE);
 //        loadDataOfDayWiseTimeSheet();  //------function to load the timesheet day details  //---commented on 6th may
-
         loadDataOfDayWiseTimeSheetNew();
     }
 
@@ -806,59 +806,6 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                         JSONArray jsonArray = jsonObject.getJSONArray("DayWiseTimeSheet");
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             JSONObject jobject = jsonArray.getJSONObject(i);
-
-                                            //=============Commented temporary starts==============
-                                   /*         empName = (jobject.getString("EmpName"));
-                                            periodRange = (jobject.getString("PeriodRange"));
-                                            statusCode = (jobject.getString("statusCode"));
-//                                             set text
-
-                                            txtPeriodDate.setText("Period Range: " + periodRange);*/
-
-                                        /*    if (from.equalsIgnoreCase("1")) {
-
-                                                txtEmpName.setText("Employee: " + getIntent().getExtras().getString("name"));
-
-                                                String status1 = getIntent().getExtras().getString("status");
-                                                if (status1.equalsIgnoreCase("1")
-                                                        || status1.equalsIgnoreCase("3")
-                                                        || status1.equalsIgnoreCase("4")
-                                                        || status1.equalsIgnoreCase("5")
-                                                        || status1.equalsIgnoreCase("6")
-                                                        || status1.equalsIgnoreCase("7")
-                                                        || status1.equalsIgnoreCase("8")
-                                                        || status1.equalsIgnoreCase("0")
-                                                        ) {
-                                                    btnSubmitted.setEnabled(false);
-                                                    btnApproved.setEnabled(false);
-                                                    btnReturned.setEnabled(false);
-                                                } else {
-                                                    btnSubmitted.setEnabled(false);
-                                                    btnApproved.setEnabled(true);
-                                                    btnReturned.setEnabled(true);
-                                                }
-                                            } else {
-
-                                                txtEmpName.setText("Employee: " + empName);
-
-                                                if (jobject.getString("statusCode").equalsIgnoreCase("2")
-                                                        || (jobject.getString("statusCode").equalsIgnoreCase("5"))
-                                                        || (jobject.getString("statusCode").equalsIgnoreCase("6"))
-                                                        || (jobject.getString("statusCode").equalsIgnoreCase("7"))
-                                                        || (jobject.getString("statusCode").equalsIgnoreCase("0"))
-                                                        || (jobject.getString("statusCode").equalsIgnoreCase("8"))
-                                                        || (jobject.getString("statusCode").equalsIgnoreCase("4"))) {
-                                                    btnSubmitted.setEnabled(false);
-                                                    btnApproved.setEnabled(false);
-                                                    btnReturned.setEnabled(false);
-                                                } else {
-                                                    btnSubmitted.setEnabled(true);
-                                                    btnApproved.setEnabled(false);
-                                                    btnReturned.setEnabled(false);
-                                                }
-                                            }*/
-                                            //=================Commented temporary ends==================
-
                                             JSONArray weekDays = jobject.getJSONArray("WeekDays");
                                             for (int j = 0; j < weekDays.length(); j++) {
                                                 JSONObject days = weekDays.getJSONObject(j);
@@ -923,7 +870,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
 
                                                 JSONArray day = days.getJSONArray("DayHrs");
-                                                for (int d = j; d < day.length(); d++) {
+                                                for (int d = 0; d < day.length(); d++) {
                                                     JSONObject dayHrs = day.getJSONObject(d);
                                                     WeekDays weekDays1 = new WeekDays();
                                                     //--------following condition is newly added on 6th May 2019, starts...--------------
@@ -940,15 +887,19 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                         weekDays1.setColorCode(colorcode);
                                                         weekDaysList.add(weekDays1);
                                                         weekDaysArrayList.add(weekDays1);
-                                                        if(!listTimesheetSelectDayModelsWeekDay.isEmpty()){
-                                                            listDataChild.put(listTimesheetSelectDayModelsWeekDay.get(j),weekDaysList);
-                                                        }
-
 
                                                     }
 
-
+                                                    /*ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
+                                                    explistviewData.setAdapter(new ExampleAdapter());*/
+//                                            ExpandableListAdapter explistAdapter;
+//                                            explistAdapter = new ExpandableListAdapter(this, listTimesheetSelectDayModelsWeekDay,listDataChild);
                                                 }
+
+                                                ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
+                                                explistviewData.setAdapter(new ExampleAdapter());
+
+//                                                listDataChild.put(String.valueOf(listTimesheetSelectDayModelsWeekDay.get(j)),weekDaysList);
                                                 datePeriod.clear();
                                                 for(int z=0;z<weekDaysList.size();z++){
 //                                                    userSingletonModel.setPeriodStartDate(weekDaysList.get(0).getDayDate()); //--commented on 6th may 2019
@@ -958,14 +909,12 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
                                                 tv_period_date.setText("("+userSingletonModel.getPeriodStartDate()+" - "+userSingletonModel.getPeriodEndDate()+")");
 //                                                mRecyclerView.setAdapter(new CustomSelectDayAdapter(TimesheetSelectDay.this,weekDaysArrayList));
-                                                ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
-                                                ExpandableListAdapter explistAdapter;
-                                                explistAdapter = new ExpandableListAdapter(this, listTimesheetSelectDayModelsWeekDay,listDataChild);
-                                                explistviewData.setAdapter(explistAdapter);
+
                                                 ListView listView = (ListView)findViewById(R.id.lv_color);
                                                 listView.setAdapter(new displayStatusAdapter());
                                                 listView.setDivider(null);
                                             }
+
 
                                         }
 
@@ -998,10 +947,10 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 params.put("StartDate",TimesheetHome.dateOnSelectedCalender);
                 Log.d("StartDate",TimesheetHome.dateOnSelectedCalender);
 
-              /*  params.put("CorpId", "gst-inc-101");
+                params.put("CorpId", "gst-inc-101");
                 params.put("UserId","1");
                 params.put("UserType","MAIN");
-                params.put("StartDate","10-07-2018");*/
+                params.put("StartDate","10-07-2018");
                 return params;
             }
         };
@@ -1014,6 +963,80 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     }
     //=========== added on 6th may, volley code to get DayWiseTimeSheet using volley code ends============
 
+    //===========added on 8th may starts==========
+    public class ExampleAdapter extends BaseExpandableListAdapter {
+
+        private Context context;
+
+        public ExampleAdapter() {
+
+            this.context = context;
+
+        }
+        @Override
+        public int getGroupCount() {
+            return arrayListTimesheetSelectDayModelsWeekDay.size();
+        }
+
+        @Override
+        public int getChildrenCount(int i) {
+            return weekDaysArrayList.size();
+        }
+
+        @Override
+        public Object getGroup(int i) {
+            return null;
+        }
+
+        @Override
+        public Object getChild(int i, int i1) {
+            return null;
+        }
+
+        @Override
+        public long getGroupId(int i) {
+            return 0;
+        }
+
+        @Override
+        public long getChildId(int i, int i1) {
+            return 0;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return false;
+        }
+
+        @Override
+        public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
+            LayoutInflater layoutInflater = getLayoutInflater();
+            view = layoutInflater.inflate(R.layout.listview_select_day_row_group,viewGroup,false);
+            TextView lblListHeader = view.findViewById(R.id.lblListHeader);
+            lblListHeader.setText(arrayListTimesheetSelectDayModelsWeekDay.get(i).getWeekDate());
+            return view;
+        }
+
+        @Override
+        public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
+            LayoutInflater layoutInflater = getLayoutInflater();
+            view = layoutInflater.inflate(R.layout.listview_select_day_row,viewGroup,false);
+            TextView tv_dayname = (TextView)view.findViewById(R.id.tv_dayname);
+            tv_dayname = (TextView)view.findViewById(R.id.tv_dayname);
+            tv_dayname.setText(weekDaysArrayList.get(i1).getDayName());
+           /* for(i=0;i<arrayListTimesheetSelectDayModelsWeekDay.size();i++){
+               tv_dayname = (TextView)view.findViewById(R.id.tv_dayname);
+               tv_dayname.setText(weekDaysArrayList.get(i1).getDayDate());
+            }*/
+            return view;
+        }
+
+        @Override
+        public boolean isChildSelectable(int i, int i1) {
+            return true;
+        }
+    }
+    //===========added on 8th may ends==========
 
     //=========Custom listview for displaying status color and status description code starts========
     public class displayStatusAdapter extends BaseAdapter{
