@@ -24,10 +24,10 @@ import java.util.List;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     Context context;
     List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay;
-    private HashMap<String, List<WeekDays>> weekDaysList;
+    private HashMap<TimesheetSelectDayModel, List<WeekDays>> weekDaysList;
 
     public ExpandableListAdapter(Response.Listener<String> context, List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay,
-                                 HashMap<String, List<WeekDays>> weekDaysList) {
+                                 HashMap<TimesheetSelectDayModel, List<WeekDays>> weekDaysList) {
         this.context = (Context) context;
         this.listTimesheetSelectDayModelsWeekDay = listTimesheetSelectDayModelsWeekDay;
         this.weekDaysList = weekDaysList;

@@ -1,7 +1,6 @@
 package org.arb.gst.Timesheet;
 
 import android.app.AlertDialog;
-import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -62,7 +61,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     ArrayList<TimesheetSelectDayModel> arrayListTimesheetSelectDayModelsWeekDay = new ArrayList<>();
     List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay = new ArrayList<>();
-    HashMap<String, List<WeekDays>> listDataChild;
+    HashMap<TimesheetSelectDayModel, List<WeekDays>> listDataChild;
     List<WeekDays> weekDaysList = new ArrayList<>();
     ArrayList<WeekDays> weekDaysArrayList = new ArrayList<>();
     public static ArrayList<String> datePeriod = new ArrayList<>();
@@ -808,6 +807,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                             JSONObject jobject = jsonArray.getJSONObject(i);
                                             JSONArray weekDays = jobject.getJSONArray("WeekDays");
                                             for (int j = 0; j < weekDays.length(); j++) {
+
                                                 JSONObject days = weekDays.getJSONObject(j);
                                                 TimesheetSelectDayModel timesheetSelectDayModel = new TimesheetSelectDayModel();
 //                                                Week week = new Week();
@@ -888,6 +888,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                         weekDaysList.add(weekDays1);
                                                         weekDaysArrayList.add(weekDays1);
 
+
                                                     }
 
                                                     /*ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
@@ -895,11 +896,11 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 //                                            ExpandableListAdapter explistAdapter;
 //                                            explistAdapter = new ExpandableListAdapter(this, listTimesheetSelectDayModelsWeekDay,listDataChild);
                                                 }
-
                                                 ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
                                                 explistviewData.setAdapter(new ExampleAdapter());
-
 //                                                listDataChild.put(String.valueOf(listTimesheetSelectDayModelsWeekDay.get(j)),weekDaysList);
+                                                int k=j;
+//                                                listDataChild.put(listTimesheetSelectDayModelsWeekDay.get(k),weekDaysList);
                                                 datePeriod.clear();
                                                 for(int z=0;z<weekDaysList.size();z++){
 //                                                    userSingletonModel.setPeriodStartDate(weekDaysList.get(0).getDayDate()); //--commented on 6th may 2019
@@ -917,6 +918,11 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
 
                                         }
+                                           /* ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
+//                                         explistviewData.setAdapter(new ExampleAdapter());
+                                            ExpandableListAdapter explistAdapter;
+                                            explistAdapter = new ExpandableListAdapter(this, listTimesheetSelectDayModelsWeekDay,listDataChild);
+                                            explistviewData.setAdapter(explistAdapter);*/
 
                                         loading.dismiss();
                                     }else{
