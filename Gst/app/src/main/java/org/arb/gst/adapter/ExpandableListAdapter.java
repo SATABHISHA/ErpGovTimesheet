@@ -10,11 +10,6 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.Response;
-
-import org.arb.gst.Model.TimesheetSelectDayModel;
-import org.arb.gst.Model.WeekDay;
-import org.arb.gst.Model.WeekDays;
 import org.arb.gst.R;
 import org.arb.gst.Timesheet.TimesheetSelectDay;
 
@@ -23,11 +18,11 @@ import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     Context context;
-    List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay;
-    private HashMap<TimesheetSelectDayModel, List<WeekDays>> weekDaysList;
+    List<String> listTimesheetSelectDayModelsWeekDay;
+    private HashMap<String, List<String>> weekDaysList;
 
-    public ExpandableListAdapter(Response.Listener<String> context, List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay,
-                                 HashMap<TimesheetSelectDayModel, List<WeekDays>> weekDaysList) {
+    public ExpandableListAdapter(TimesheetSelectDay context, List<String> listTimesheetSelectDayModelsWeekDay,
+                                 HashMap<String, List<String>> weekDaysList) {
         this.context = (Context) context;
         this.listTimesheetSelectDayModelsWeekDay = listTimesheetSelectDayModelsWeekDay;
         this.weekDaysList = weekDaysList;
@@ -70,7 +65,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-        String headerTitle = (String) getGroup(i);
+//        String headerTitle = (String) getGroup(i);
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -79,7 +74,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView lblListHeader = (TextView)view.findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(listTimesheetSelectDayModelsWeekDay.get(i).getTotalHours());
+        lblListHeader.setText(listTimesheetSelectDayModelsWeekDay.get(i));
         return view;
     }
 
@@ -105,7 +100,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         relativeLayout = (RelativeLayout)view.findViewById(R.id.relative_layout);
 
         //---------following is the code to get the first word from the string, code starts--------
-        String input = weekDaysList.get(i).get(i1).getDayName();
+//        String input = weekDaysList.get(i).get(i1);
+        String input = childText;
         int z = input.indexOf(' ');
         String word = input.substring(0, z);
         String rest = input.substring(i);
