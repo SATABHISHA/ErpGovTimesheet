@@ -1,6 +1,8 @@
 package org.arb.gst.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,11 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.Model.WeekDays;
 import org.arb.gst.R;
 import org.arb.gst.Timesheet.TimesheetSelectDay;
+import org.arb.gst.Timesheet.TimesheetWorkUpdateHrs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +27,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     List<String> listTimesheetSelectDayModelsWeekDay;
 //    private HashMap<String, List<String>> weekDaysList;
     private HashMap<String, ArrayList<WeekDays>> weekDaysArrayList;
+    UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
 
     public ExpandableListAdapter(TimesheetSelectDay context, List<String> listTimesheetSelectDayModelsWeekDay,
                                  HashMap<String, ArrayList<WeekDays>> weekDaysArrayList) {
@@ -84,7 +89,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
 //        final String childText = (String) getChild(i, i1);
-        WeekDays weekDays = (WeekDays)getChild(i,i1);
+        final WeekDays weekDays = (WeekDays)getChild(i,i1);
 
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -113,6 +118,59 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         tv_date.setText(weekDays.getDayDate());
         tv_hr.setText(weekDays.getHours());
         //---------code to get the first word from the string ends-----------
+        relativeLayout.setBackgroundColor(Color.parseColor(weekDays.getColorCode()));
+        userSingletonModel.setColorcode(weekDays.getColorCode());
+
+        //-----------have modified the following code on 9th May------------------
+        if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && weekDays.getHours().contentEquals("0.0")) {
+            imgbtn_add.setVisibility(View.INVISIBLE);
+            rl_add.setVisibility(View.INVISIBLE);//---added on 30th nov for large area selection of recycler item/button
+
+            imgbtn_view.setVisibility(View.VISIBLE);
+            rl_view.setVisibility(View.VISIBLE);//---added on 30th nov for large area selection of recycler item/button
+        } else if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !weekDays.getHours().contentEquals("0.0")){
+            imgbtn_add.setVisibility(View.INVISIBLE);
+            rl_add.setVisibility(View.INVISIBLE);//---added on 30th nov for large area selection of recycler item/button
+
+            imgbtn_view.setVisibility(View.VISIBLE);
+            rl_view.setVisibility(View.VISIBLE);//---added on 30th nov for large area selection of recycler item/button
+        } else if ((!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED") || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !weekDays.getHours().contentEquals("0.0")){
+            imgbtn_add.setVisibility(View.INVISIBLE);
+            rl_add.setVisibility(View.INVISIBLE);//---added on 30th nov for large area selection of recycler item/button
+
+            imgbtn_view.setVisibility(View.VISIBLE);
+            rl_view.setVisibility(View.VISIBLE);//---added on 30th nov for large area selection of recycler item/button
+        }else if ((!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED") || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && weekDays.getHours().contentEquals("0.0")){
+            imgbtn_add.setVisibility(View.VISIBLE);
+            rl_add.setVisibility(View.VISIBLE);//---added on 30th nov for large area selection of recycler item/button
+
+            imgbtn_view.setVisibility(View.INVISIBLE);
+            rl_view.setVisibility(View.INVISIBLE);//---added on 30th nov for large area selection of recycler item/button
+        }
+
+        imgbtn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userSingletonModel.setDayDate(weekDays.getDayDate());
+                context.startActivity(new Intent(context, TimesheetWorkUpdateHrs.class));
+            }
+        });
+        imgbtn_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userSingletonModel.setDayDate(weekDays.getDayDate());
+                context.startActivity(new Intent(context,TimesheetWorkUpdateHrs.class));
+            }
+        });
+        rl_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userSingletonModel.setDayDate(weekDays.getDayDate());
+                context.startActivity(new Intent(context,TimesheetWorkUpdateHrs.class));
+            }
+        });
+        //------------have modified the above code on 9th May--------------------
+
         return view;
     }
 

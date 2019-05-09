@@ -793,6 +793,9 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                             } if(!child.isEmpty()){
                                 child.clear();
                             }
+                            if(!listDataChild.isEmpty()){
+                                listDataChild.clear();
+                            }
                             //----above code added on 6th may------
 
                             //------code to clear the arraylist so that after submitting the data fresh data will show in the list instead of redundant data code ends-----
@@ -965,10 +968,10 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 params.put("StartDate",TimesheetHome.dateOnSelectedCalender);
                 Log.d("StartDate",TimesheetHome.dateOnSelectedCalender);
 
-                params.put("CorpId", "gst-inc-101");
+               /* params.put("CorpId", "gst-inc-101");
                 params.put("UserId","1");
                 params.put("UserType","MAIN");
-                params.put("StartDate","10-07-2018");
+                params.put("StartDate","10-07-2018");*/
                 return params;
             }
         };
