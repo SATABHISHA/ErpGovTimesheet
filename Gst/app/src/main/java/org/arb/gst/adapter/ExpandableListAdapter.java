@@ -10,22 +10,25 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.arb.gst.Model.WeekDays;
 import org.arb.gst.R;
 import org.arb.gst.Timesheet.TimesheetSelectDay;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     Context context;
     List<String> listTimesheetSelectDayModelsWeekDay;
-    private HashMap<String, List<String>> weekDaysList;
+//    private HashMap<String, List<String>> weekDaysList;
+    private HashMap<String, ArrayList<WeekDays>> weekDaysArrayList;
 
     public ExpandableListAdapter(TimesheetSelectDay context, List<String> listTimesheetSelectDayModelsWeekDay,
-                                 HashMap<String, List<String>> weekDaysList) {
+                                 HashMap<String, ArrayList<WeekDays>> weekDaysArrayList) {
         this.context = (Context) context;
         this.listTimesheetSelectDayModelsWeekDay = listTimesheetSelectDayModelsWeekDay;
-        this.weekDaysList = weekDaysList;
+        this.weekDaysArrayList = weekDaysArrayList;
     }
 
 
@@ -35,7 +38,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        return this.weekDaysList.get(this.listTimesheetSelectDayModelsWeekDay.get(i)).size();
+        return this.weekDaysArrayList.get(this.listTimesheetSelectDayModelsWeekDay.get(i)).size();
     }
 
     @Override
@@ -45,7 +48,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int i, int i1) {
-        return this.weekDaysList.get(this.listTimesheetSelectDayModelsWeekDay.get(i)).get(i1);
+        return this.weekDaysArrayList.get(this.listTimesheetSelectDayModelsWeekDay.get(i)).get(i1);
     }
 
     @Override
@@ -80,7 +83,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        final String childText = (String) getChild(i, i1);
+//        final String childText = (String) getChild(i, i1);
+        WeekDays weekDays = (WeekDays)getChild(i,i1);
 
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -101,11 +105,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         //---------following is the code to get the first word from the string, code starts--------
 //        String input = weekDaysList.get(i).get(i1);
-        String input = childText;
+//        String input = weekDaysArrayList.get(i).get(i1).getDayDate();
        /* int z = input.indexOf(' ');
         String word = input.substring(0, z);
         String rest = input.substring(i);*/
-        tv_dayname.setText(input);
+        tv_dayname.setText(weekDays.getDayDate());
         //---------code to get the first word from the string ends-----------
         return view;
     }

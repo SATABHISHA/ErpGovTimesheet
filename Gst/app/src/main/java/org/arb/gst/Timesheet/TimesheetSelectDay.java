@@ -61,7 +61,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     ArrayList<TimesheetSelectDayModel> arrayListTimesheetSelectDayModelsWeekDay = new ArrayList<>();
     List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay = new ArrayList<>();
-    HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
+    HashMap<String, ArrayList<WeekDays>> listDataChild = new HashMap<String, ArrayList<WeekDays>>();
     List<String> header = new ArrayList<String>();
     List<String> child = new ArrayList<>() ;
     List<WeekDays> weekDaysList = new ArrayList<>();
@@ -878,6 +878,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
                                                 JSONArray day = days.getJSONArray("DayHrs");
                                                 child = new ArrayList<>();
+                                                weekDaysArrayList = new ArrayList<>();
                                                 for (int d = 0; d < day.length(); d++) {
 
                                                     JSONObject dayHrs = day.getJSONObject(d);
@@ -897,7 +898,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                         weekDaysList.add(weekDays1);
                                                         weekDaysArrayList.add(weekDays1);
                                                         child.add(dayHrs.getString("DayDate"));
-                                                        listDataChild.put(header.get(j),child);
+                                                        listDataChild.put(header.get(j),weekDaysArrayList);
                                                     }
 
                                                 }
