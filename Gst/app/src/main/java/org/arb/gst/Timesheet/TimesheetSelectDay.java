@@ -63,7 +63,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay = new ArrayList<>();
     HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
     List<String> header = new ArrayList<String>();
-    List<String> child ;
+    List<String> child = new ArrayList<>() ;
     List<WeekDays> weekDaysList = new ArrayList<>();
     ArrayList<WeekDays> weekDaysArrayList = new ArrayList<>();
     public static ArrayList<String> datePeriod = new ArrayList<>();
@@ -790,6 +790,8 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                             //----added on 6th may=======
                             if(!listTimesheetSelectDayModelsWeekDay.isEmpty()){
                                 listTimesheetSelectDayModelsWeekDay.clear();
+                            } if(!child.isEmpty()){
+                                child.clear();
                             }
                             //----above code added on 6th may------
 
@@ -811,7 +813,6 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                             JSONArray weekDays = jobject.getJSONArray("WeekDays");
                                             for (int j = 0; j < weekDays.length(); j++) {
                                                 JSONObject days = weekDays.getJSONObject(j);
-                                                child = new ArrayList<>();
                                                 TimesheetSelectDayModel timesheetSelectDayModel = new TimesheetSelectDayModel();
 //                                                Week week = new Week();
                                                 timesheetSelectDayModel.setWeekDate(days.getString("WeekDate"));
@@ -876,6 +877,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
 
                                                 JSONArray day = days.getJSONArray("DayHrs");
+                                                child = new ArrayList<>();
                                                 for (int d = 0; d < day.length(); d++) {
 
                                                     JSONObject dayHrs = day.getJSONObject(d);
@@ -894,18 +896,14 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                         weekDays1.setColorCode(colorcode);
                                                         weekDaysList.add(weekDays1);
                                                         weekDaysArrayList.add(weekDays1);
-                                                        child.add(dayHrs.getString("DayName"));
+                                                        child.add(dayHrs.getString("DayDate"));
                                                         listDataChild.put(header.get(j),child);
-
                                                     }
 
-                                                    /*ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
-                                                    explistviewData.setAdapter(new ExampleAdapter());*/
-//                                            ExpandableListAdapter explistAdapter;
-//                                            explistAdapter = new ExpandableListAdapter(this, listTimesheetSelectDayModelsWeekDay,listDataChild);
                                                 }
-                                               /* ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
+                                                /*ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
                                                 explistviewData.setAdapter(new ExampleAdapter());*/  //===commented 9th may
+
 
                                                 int k=j;
 //                                                listDataChild.put(listTimesheetSelectDayModelsWeekDay.get(k),weekDaysList);
@@ -922,6 +920,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 ListView listView = (ListView)findViewById(R.id.lv_color);
                                                 listView.setAdapter(new displayStatusAdapter());
                                                 listView.setDivider(null);
+                                                //---temporary commenting 9th may
                                                 ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
                                                 ExpandableListAdapter explistAdapter;
                                                 explistAdapter = new ExpandableListAdapter(TimesheetSelectDay.this, header,listDataChild);
@@ -993,12 +992,14 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         }
         @Override
         public int getGroupCount() {
-            return arrayListTimesheetSelectDayModelsWeekDay.size();
+//            return arrayListTimesheetSelectDayModelsWeekDay.size();
+            return listTimesheetSelectDayModelsWeekDay.size();
         }
 
         @Override
         public int getChildrenCount(int i) {
-            return weekDaysArrayList.size();
+//            return weekDaysArrayList.size();
+            return weekDaysList.size();
         }
 
         @Override
@@ -1031,7 +1032,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             LayoutInflater layoutInflater = getLayoutInflater();
             view = layoutInflater.inflate(R.layout.listview_select_day_row_group,viewGroup,false);
             TextView lblListHeader = view.findViewById(R.id.lblListHeader);
-            lblListHeader.setText(arrayListTimesheetSelectDayModelsWeekDay.get(i).getWeekDate());
+            lblListHeader.setText(listTimesheetSelectDayModelsWeekDay.get(i).getWeekDate());
             return view;
         }
 
@@ -1041,7 +1042,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             view = layoutInflater.inflate(R.layout.listview_select_day_row,viewGroup,false);
             TextView tv_dayname = (TextView)view.findViewById(R.id.tv_dayname);
             tv_dayname = (TextView)view.findViewById(R.id.tv_dayname);
-            tv_dayname.setText(weekDaysArrayList.get(i1).getDayName());
+            tv_dayname.setText(weekDaysList.get(i1).getDayName());
            /* for(i=0;i<arrayListTimesheetSelectDayModelsWeekDay.size();i++){
                tv_dayname = (TextView)view.findViewById(R.id.tv_dayname);
                tv_dayname.setText(weekDaysArrayList.get(i1).getDayDate());

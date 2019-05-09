@@ -102,10 +102,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         //---------following is the code to get the first word from the string, code starts--------
 //        String input = weekDaysList.get(i).get(i1);
         String input = childText;
-        int z = input.indexOf(' ');
+       /* int z = input.indexOf(' ');
         String word = input.substring(0, z);
-        String rest = input.substring(i);
-        tv_dayname.setText(word);
+        String rest = input.substring(i);*/
+        tv_dayname.setText(input);
         //---------code to get the first word from the string ends-----------
         return view;
     }
