@@ -984,7 +984,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     }
     //=========== added on 6th may, volley code to get DayWiseTimeSheet using volley code ends============
 
-    //===========added on 8th may starts==========
+    //===========added on 8th may starts(not in use)==========
     public class ExampleAdapter extends BaseExpandableListAdapter {
 
         private Context context;
@@ -1035,7 +1035,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
             LayoutInflater layoutInflater = getLayoutInflater();
             view = layoutInflater.inflate(R.layout.listview_select_day_row_group,viewGroup,false);
-            TextView lblListHeader = view.findViewById(R.id.lblListHeader);
+            TextView lblListHeader = view.findViewById(R.id.tv_selected_date);
             lblListHeader.setText(listTimesheetSelectDayModelsWeekDay.get(i).getWeekDate());
             return view;
         }

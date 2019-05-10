@@ -81,9 +81,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             view = infalInflater.inflate(R.layout.listview_select_day_row_group, null);
         }
 
-        TextView lblListHeader = (TextView)view.findViewById(R.id.lblListHeader);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(listTimesheetSelectDayModelsWeekDay.get(i));
+        TextView tv_selected_date = (TextView)view.findViewById(R.id.tv_selected_date);
+        tv_selected_date.setTypeface(null, Typeface.BOLD);
+        tv_selected_date.setText(listTimesheetSelectDayModelsWeekDay.get(i));
         return view;
     }
 
