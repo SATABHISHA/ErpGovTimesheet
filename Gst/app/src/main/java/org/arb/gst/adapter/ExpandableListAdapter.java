@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.arb.gst.Model.TimesheetSelectDayModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.Model.WeekDays;
 import org.arb.gst.R;
@@ -25,36 +26,37 @@ import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     Context context;
-    List<String> listTimesheetSelectDayModelsWeekDay;
+//    List<String> listTimesheetSelectDayModelsWeekDay;
+    ArrayList<TimesheetSelectDayModel> arraylistTimesheetSelectDayModelsWeekDay;
 //    private HashMap<String, List<String>> weekDaysList;
-    private HashMap<String, ArrayList<WeekDays>> weekDaysArrayList;
+    private HashMap<TimesheetSelectDayModel, ArrayList<WeekDays>> weekDaysArrayList;
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
 
-    public ExpandableListAdapter(TimesheetSelectDay context, List<String> listTimesheetSelectDayModelsWeekDay,
-                                 HashMap<String, ArrayList<WeekDays>> weekDaysArrayList) {
+    public ExpandableListAdapter(TimesheetSelectDay context, ArrayList<TimesheetSelectDayModel> arraylistTimesheetSelectDayModelsWeekDay,
+                                 HashMap<TimesheetSelectDayModel, ArrayList<WeekDays>> weekDaysArrayList) {
         this.context = (Context) context;
-        this.listTimesheetSelectDayModelsWeekDay = listTimesheetSelectDayModelsWeekDay;
+        this.arraylistTimesheetSelectDayModelsWeekDay = arraylistTimesheetSelectDayModelsWeekDay;
         this.weekDaysArrayList = weekDaysArrayList;
     }
 
 
     public int getGroupCount() {
-        return listTimesheetSelectDayModelsWeekDay.size();
+        return arraylistTimesheetSelectDayModelsWeekDay.size();
     }
 
     @Override
     public int getChildrenCount(int i) {
-        return this.weekDaysArrayList.get(this.listTimesheetSelectDayModelsWeekDay.get(i)).size();
+        return this.weekDaysArrayList.get(this.arraylistTimesheetSelectDayModelsWeekDay.get(i)).size();
     }
 
     @Override
     public Object getGroup(int i) {
-        return this.listTimesheetSelectDayModelsWeekDay.get(i);
+        return this.arraylistTimesheetSelectDayModelsWeekDay.get(i);
     }
 
     @Override
     public Object getChild(int i, int i1) {
-        return this.weekDaysArrayList.get(this.listTimesheetSelectDayModelsWeekDay.get(i)).get(i1);
+        return this.weekDaysArrayList.get(this.arraylistTimesheetSelectDayModelsWeekDay.get(i)).get(i1);
     }
 
     @Override
@@ -75,6 +77,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
 //        String headerTitle = (String) getGroup(i);
+        final TimesheetSelectDayModel timesheetSelectDayModel = (TimesheetSelectDayModel)getGroup(i);
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -83,7 +86,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView tv_selected_date = (TextView)view.findViewById(R.id.tv_selected_date);
         tv_selected_date.setTypeface(null, Typeface.BOLD);
-        tv_selected_date.setText(listTimesheetSelectDayModelsWeekDay.get(i));
+        tv_selected_date.setText(timesheetSelectDayModel.getWeekDate());
         return view;
     }
 
@@ -153,6 +156,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 userSingletonModel.setDayDate(weekDays.getDayDate());
+//                Toast.makeText(context,weekDays.getDayDate(),Toast.LENGTH_LONG).show();
                 context.startActivity(new Intent(context, TimesheetWorkUpdateHrs.class));
             }
         });
@@ -160,6 +164,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 userSingletonModel.setDayDate(weekDays.getDayDate());
+//                Toast.makeText(context,weekDays.getDayDate(),Toast.LENGTH_LONG).show();
                 context.startActivity(new Intent(context,TimesheetWorkUpdateHrs.class));
             }
         });
@@ -167,6 +172,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 userSingletonModel.setDayDate(weekDays.getDayDate());
+//                Toast.makeText(context,weekDays.getDayDate(),Toast.LENGTH_LONG).show();
                 context.startActivity(new Intent(context,TimesheetWorkUpdateHrs.class));
             }
         });

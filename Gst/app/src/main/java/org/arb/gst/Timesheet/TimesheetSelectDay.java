@@ -61,9 +61,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     ArrayList<TimesheetSelectDayModel> arrayListTimesheetSelectDayModelsWeekDay = new ArrayList<>();
     List<TimesheetSelectDayModel> listTimesheetSelectDayModelsWeekDay = new ArrayList<>();
-    HashMap<String, ArrayList<WeekDays>> listDataChild = new HashMap<String, ArrayList<WeekDays>>();
-    List<String> header = new ArrayList<String>();
-    List<String> child = new ArrayList<>() ;
+    HashMap<TimesheetSelectDayModel, ArrayList<WeekDays>> listDataChild = new HashMap<TimesheetSelectDayModel, ArrayList<WeekDays>>();
     List<WeekDays> weekDaysList = new ArrayList<>();
     ArrayList<WeekDays> weekDaysArrayList = new ArrayList<>();
     public static ArrayList<String> datePeriod = new ArrayList<>();
@@ -790,8 +788,6 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                             //----added on 6th may=======
                             if(!listTimesheetSelectDayModelsWeekDay.isEmpty()){
                                 listTimesheetSelectDayModelsWeekDay.clear();
-                            } if(!child.isEmpty()){
-                                child.clear();
                             }
                             if(!listDataChild.isEmpty()){
                                 listDataChild.clear();
@@ -831,9 +827,6 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 tv_totalhrs.setText(timesheetSelectDayModel.getTotalHours());
                                                 arrayListTimesheetSelectDayModelsWeekDay.add(timesheetSelectDayModel);
                                                 listTimesheetSelectDayModelsWeekDay.add(timesheetSelectDayModel);
-                                                String header_title = days.getString("WeekDate");
-                                                header.add(header_title);
-
 
                                                 //--------newly added 4th dec and modified on 8th dec--------
                                                 //=============Following is the code to check whether empNote is empty or not(the empnote will be present in the dialog box and stored via SingletonModel class)==========
@@ -880,7 +873,6 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
 
                                                 JSONArray day = days.getJSONArray("DayHrs");
-                                                child = new ArrayList<>();
                                                 weekDaysArrayList = new ArrayList<>();
                                                 for (int d = 0; d < day.length(); d++) {
 
@@ -900,17 +892,10 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                         weekDays1.setColorCode(colorcode);
                                                         weekDaysList.add(weekDays1);
                                                         weekDaysArrayList.add(weekDays1);
-                                                        child.add(dayHrs.getString("DayDate"));
-                                                        listDataChild.put(header.get(j),weekDaysArrayList);
+                                                        listDataChild.put(arrayListTimesheetSelectDayModelsWeekDay.get(j),weekDaysArrayList);
                                                     }
 
                                                 }
-                                                /*ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
-                                                explistviewData.setAdapter(new ExampleAdapter());*/  //===commented 9th may
-
-
-                                                int k=j;
-//                                                listDataChild.put(listTimesheetSelectDayModelsWeekDay.get(k),weekDaysList);
                                                 datePeriod.clear();
                                                 for(int z=0;z<weekDaysList.size();z++){
 //                                                    userSingletonModel.setPeriodStartDate(weekDaysList.get(0).getDayDate()); //--commented on 6th may 2019
@@ -919,26 +904,18 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 }
 
                                                 tv_period_date.setText("("+userSingletonModel.getPeriodStartDate()+" - "+userSingletonModel.getPeriodEndDate()+")");
-//                                                mRecyclerView.setAdapter(new CustomSelectDayAdapter(TimesheetSelectDay.this,weekDaysArrayList));
-
                                                 ListView listView = (ListView)findViewById(R.id.lv_color);
                                                 listView.setAdapter(new displayStatusAdapter());
                                                 listView.setDivider(null);
                                                 //---temporary commenting 9th may
                                                 ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
                                                 ExpandableListAdapter explistAdapter;
-                                                explistAdapter = new ExpandableListAdapter(TimesheetSelectDay.this, header,listDataChild);
+                                                explistAdapter = new ExpandableListAdapter(TimesheetSelectDay.this, arrayListTimesheetSelectDayModelsWeekDay,listDataChild);
                                                 explistviewData.setAdapter(explistAdapter);
                                             }
 
 
                                         }
-                                           /* ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
-//                                         explistviewData.setAdapter(new ExampleAdapter());
-                                            ExpandableListAdapter explistAdapter;
-                                            explistAdapter = new ExpandableListAdapter(this, listTimesheetSelectDayModelsWeekDay,listDataChild);
-                                            explistviewData.setAdapter(explistAdapter);*/
-
                                         loading.dismiss();
                                     }else{
                                         Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
