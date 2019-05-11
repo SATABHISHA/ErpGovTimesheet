@@ -913,6 +913,12 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 ExpandableListAdapter explistAdapter;
                                                 explistAdapter = new ExpandableListAdapter(TimesheetSelectDay.this, arrayListTimesheetSelectDayModelsWeekDay,listDataChild);
                                                 explistviewData.setAdapter(explistAdapter);
+                                                //-----code to open child list starts----------
+                                                for (int k = 0; k < explistviewData.getExpandableListAdapter().getGroupCount(); k++) {
+                                                    //Expand group
+                                                    explistviewData.expandGroup(k);
+                                                }
+                                                //-----code to open child list ends----------
                                             }
 
 
