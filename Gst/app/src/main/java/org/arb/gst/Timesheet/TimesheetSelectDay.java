@@ -440,6 +440,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                     Iterator<?> keys = resobj.keys();
                     loading.dismiss();
 //                    loadDataOfDayWiseTimeSheet(); //----commented on 6th may//---to load the fresh data after submitting the data
+                    loadDataOfDayWiseTimeSheetNew();
                             while(keys.hasNext() ) {
                                 String key = (String) keys.next();
                                 if (resobj.get(key) instanceof JSONObject) {
@@ -1088,6 +1089,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 //            message = "Connected to Internet";
 //            color = Color.WHITE;
 //            loadDataOfDayWiseTimeSheet();  //-----commented on 6th may
+              loadDataOfDayWiseTimeSheetNew();
         } else {
             message = "Sorry! Not connected to internet";
             color = Color.parseColor("#FF4242");
@@ -1108,6 +1110,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         // register connection status listener
         MyApplication.getInstance().setConnectivityListener(this);
 //        loadDataOfDayWiseTimeSheet();  //---commented on 6th may
+        loadDataOfDayWiseTimeSheetNew();
     }
 
     /**
