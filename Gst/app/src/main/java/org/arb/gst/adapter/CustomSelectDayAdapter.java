@@ -53,14 +53,14 @@ public class CustomSelectDayAdapter extends RecyclerView.Adapter<CustomSelectDay
         holder.tv_dayname.setText(word);
         //---------code to get the first word from the string ends-----------
 
-        //----following code newly added on 8th dec to make the text color faded if hours value is 0-------
+        //----following code newly added on 8th dec to make the text color faded if hours value is 0, starts...-------
         if(weekDaysArrayList.get(position).getHours().contentEquals("0.0")){
             holder.tv_hr.setText(weekDaysArrayList.get(position).getHours());
             holder.tv_hr.setAlpha(0.6f);
         }else {
             holder.tv_hr.setText(weekDaysArrayList.get(position).getHours());
         }
-        //----following code newly added on 8th dec to make the text color faded if hours value is 0-------
+        //----above code newly added on 8th dec to make the text color faded if hours value is 0, ends...-------
 
         holder.tv_date.setText(weekDaysArrayList.get(position).getDayDate());
         holder.relativeLayout.setBackgroundColor(Color.parseColor(weekDaysArrayList.get(position).getColorCode()));

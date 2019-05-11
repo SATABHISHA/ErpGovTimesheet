@@ -26,9 +26,7 @@ import java.util.List;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     Context context;
-//    List<String> listTimesheetSelectDayModelsWeekDay;
     ArrayList<TimesheetSelectDayModel> arraylistTimesheetSelectDayModelsWeekDay;
-//    private HashMap<String, List<String>> weekDaysList;
     private HashMap<TimesheetSelectDayModel, ArrayList<WeekDays>> weekDaysArrayList;
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
 
@@ -78,15 +76,21 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
 //        String headerTitle = (String) getGroup(i);
         final TimesheetSelectDayModel timesheetSelectDayModel = (TimesheetSelectDayModel)getGroup(i);
-        if (view == null) {
+       /* if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.listview_select_day_row_group, null);
-        }
+        }*/
+
+        LayoutInflater infalInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = infalInflater.inflate(R.layout.listview_select_day_row_group, null);
 
         TextView tv_selected_date = (TextView)view.findViewById(R.id.tv_selected_date);
+        TextView tv_totalhrs = (TextView)view.findViewById(R.id.tv_totalhrs);
         tv_selected_date.setTypeface(null, Typeface.BOLD);
         tv_selected_date.setText(timesheetSelectDayModel.getWeekDate());
+        tv_totalhrs.setText(timesheetSelectDayModel.getTotalHours());
         return view;
     }
 
@@ -95,10 +99,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 //        final String childText = (String) getChild(i, i1);
         final WeekDays weekDays = (WeekDays)getChild(i,i1);
 
-        if (view == null) {
+        /*if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.listview_select_day_row, null);
-        }
+        }*/
+
+        LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = infalInflater.inflate(R.layout.listview_select_day_row, null);
 
         TextView tv_dayname, tv_hr, tv_date;
         ImageButton imgbtn_add,imgbtn_view;
@@ -120,8 +127,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         String rest = input.substring(i);
         tv_dayname.setText(word);
         tv_date.setText(weekDays.getDayDate());
-        tv_hr.setText(weekDays.getHours());
+//        tv_hr.setText(weekDays.getHours());
         //---------code to get the first word from the string ends-----------
+
+        //----following code newly added on 8th dec to make the text color faded if hours value is 0, starts...-------
+        if(weekDays.getHours().contentEquals("0.0")){
+            tv_hr.setText(weekDays.getHours());
+            tv_hr.setAlpha(0.6f);
+        }else if(!weekDays.getHours().contentEquals("0.0")){
+//            tv_hr.setTextColor(Color.parseColor("#000000"));
+            tv_hr.setText(weekDays.getHours());
+            tv_hr.setTextSize(17);
+        }
+        //----above code newly added on 8th dec to make the text color faded if hours value is 0, ends...-------
         relativeLayout.setBackgroundColor(Color.parseColor(weekDays.getColorCode()));
         userSingletonModel.setColorcode(weekDays.getColorCode());
 
