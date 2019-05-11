@@ -137,7 +137,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }else if(!weekDays.getHours().contentEquals("0.0")){
 //            tv_hr.setTextColor(Color.parseColor("#000000"));
             tv_hr.setText(weekDays.getHours());
-            tv_hr.setTextSize(17);
+            tv_hr.setTextSize(19);
         }
         //----above code newly added on 8th dec to make the text color faded if hours value is 0, ends...-------
         relativeLayout.setBackgroundColor(Color.parseColor(weekDays.getColorCode()));

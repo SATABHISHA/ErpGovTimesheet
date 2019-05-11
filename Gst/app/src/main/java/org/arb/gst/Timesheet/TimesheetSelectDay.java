@@ -129,7 +129,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         tv_totalhrs = (TextView)findViewById(R.id.tv_totalhrs);
         tv_addOrView_employee_note = (LinearLayout) findViewById(R.id.tv_addOrView_employee_note);
         tv_addOrView_supervisor_note = (LinearLayout) findViewById(R.id.tv_addOrView_supervisor_note);
-        tv_selected_date.setText(TimesheetHome.dateOnSelectedCalender);
+//        tv_selected_date.setText(TimesheetHome.dateOnSelectedCalender);
 //        tv_period_date.setText("Date: "+TimesheetHome.dateOnSelectedCalender);
         tv_addOrView_employee_note.setOnClickListener(this);
         tv_addOrView_supervisor_note.setOnClickListener(this);
@@ -824,7 +824,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 timesheetSelectDayModel.setColorCode(days.getString("ColorCode"));
                                                 colorcode = days.getString("ColorCode");
                                                 timesheetSelectDayModel.setStatusDescription(days.getString("StatusDescription"));
-                                                tv_totalhrs.setText(timesheetSelectDayModel.getTotalHours());
+//                                                tv_totalhrs.setText(timesheetSelectDayModel.getTotalHours());
                                                 arrayListTimesheetSelectDayModelsWeekDay.add(timesheetSelectDayModel);
                                                 listTimesheetSelectDayModelsWeekDay.add(timesheetSelectDayModel);
 
