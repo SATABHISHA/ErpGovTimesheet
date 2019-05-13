@@ -512,7 +512,8 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
             }
             DocumentElementobj.put("CorpID",userSingletonModel.getCorpID());
             DocumentElementobj.put("UserID",Double.parseDouble(userSingletonModel.getUserID()));
-            DocumentElementobj.put("WeekDate",TimesheetHome.dateOnSelectedCalender);
+//            DocumentElementobj.put("WeekDate",TimesheetHome.dateOnSelectedCalender);
+            DocumentElementobj.put("WeekDate",userSingletonModel.getTimesheetSelectDate_WeekDate());
             DocumentElementobj.put("WeekStartDate", userSingletonModel.getPeriodStartDate());
             DocumentElementobj.put("TimeSheetDate",userSingletonModel.getDayDate());
             DocumentElementobj.put( "Detail", req );
@@ -816,7 +817,8 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
 
                 params.put("CorpId", userSingletonModel.getCorpID());
                 params.put("UserID",userSingletonModel.getUserID());
-                params.put("WeekDate", TimesheetHome.dateOnSelectedCalender);
+//                params.put("WeekDate", TimesheetHome.dateOnSelectedCalender);
+                params.put("WeekDate", userSingletonModel.getTimesheetSelectDate_WeekDate());
                 params.put("Selecteddate",userSingletonModel.getDayDate());
                 params.put("deviceType","1");
                 return params;

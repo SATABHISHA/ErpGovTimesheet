@@ -886,6 +886,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                     //--------above condition is newly added on 6th May 2019, ends...--------------
 
                                                     if(dayHrs.getString("ActiveYN").contentEquals("true")) { //---condition added on 1st may 2019
+
                                                         weekDays1.setDayName(dayHrs.getString("DayName"));
                                                         weekDays1.setHours(dayHrs.getString("Hours"));
                                                         weekDays1.setActiveYN(dayHrs.getString("ActiveYN"));

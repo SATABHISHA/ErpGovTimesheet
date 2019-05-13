@@ -3,7 +3,7 @@ package org.arb.gst.Model;
 public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
-            imagePath="";
+            imagePath="",timesheetSelectDate_WeekDate;
 
 
     /*
@@ -25,6 +25,7 @@ public class UserSingletonModel {
         return instance;
 
     }
+
 
     //===============================Getter method starts=====================
 
@@ -132,6 +133,9 @@ public class UserSingletonModel {
         return imagePath;
     }
 
+    public String getTimesheetSelectDate_WeekDate() {
+        return timesheetSelectDate_WeekDate;
+    }
     //===============================Getter method ends=====================
 
 
@@ -240,6 +244,10 @@ public class UserSingletonModel {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public void setTimesheetSelectDate_WeekDate(String timesheetSelectDate_WeekDate) {
+        this.timesheetSelectDate_WeekDate = timesheetSelectDate_WeekDate;
     }
 
     //===============================Setter method ends====================

@@ -99,6 +99,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
 //        final String childText = (String) getChild(i, i1);
         final WeekDays weekDays = (WeekDays)getChild(i,i1);
+        final TimesheetSelectDayModel timesheetSelectDayModel = (TimesheetSelectDayModel)getGroup(i);
 
         /*if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -175,7 +176,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 userSingletonModel.setDayDate(weekDays.getDayDate());
-//                Toast.makeText(context,weekDays.getDayDate(),Toast.LENGTH_LONG).show();
+                userSingletonModel.setTimesheetSelectDate_WeekDate(timesheetSelectDayModel.getWeekDate());
+//                Toast.makeText(context,userSingletonModel.getTimesheetSelectDate_WeekDate(),Toast.LENGTH_LONG).show();
                 context.startActivity(new Intent(context, TimesheetWorkUpdateHrs.class));
             }
         });
@@ -183,7 +185,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 userSingletonModel.setDayDate(weekDays.getDayDate());
-//                Toast.makeText(context,weekDays.getDayDate(),Toast.LENGTH_LONG).show();
+                userSingletonModel.setTimesheetSelectDate_WeekDate(timesheetSelectDayModel.getWeekDate());
+//                Toast.makeText(context,userSingletonModel.getTimesheetSelectDate_WeekDate(),Toast.LENGTH_LONG).show();
                 context.startActivity(new Intent(context,TimesheetWorkUpdateHrs.class));
             }
         });
@@ -191,7 +194,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View view) {
                 userSingletonModel.setDayDate(weekDays.getDayDate());
-//                Toast.makeText(context,weekDays.getDayDate(),Toast.LENGTH_LONG).show();
+                userSingletonModel.setTimesheetSelectDate_WeekDate(timesheetSelectDayModel.getWeekDate());
+//                Toast.makeText(context,userSingletonModel.getTimesheetSelectDate_WeekDate(),Toast.LENGTH_LONG).show();
                 context.startActivity(new Intent(context,TimesheetWorkUpdateHrs.class));
             }
         });
