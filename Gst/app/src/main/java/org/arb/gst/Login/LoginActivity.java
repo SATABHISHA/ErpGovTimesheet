@@ -92,9 +92,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userSingletonModel.setUserRole(sharedPreferences.getString("UserRole",""));
             userSingletonModel.setAdminYN(sharedPreferences.getString("AdminYN",""));
             userSingletonModel.setPayableClerkYN(sharedPreferences.getString("PayableClerkYN",""));
-            userSingletonModel.setSupervisorYN(sharedPreferences.getString("SupervisorYN",""));
+            userSingletonModel.setSupervisorYN(sharedPreferences.getString("SupervisorYN","")); //---req for calender page
             userSingletonModel.setPurchaseYN(sharedPreferences.getString("PurchaseYN",""));
-            userSingletonModel.setPayrollClerkYN(sharedPreferences.getString("PayrollClerkYN",""));
+            userSingletonModel.setPayrollClerkYN(sharedPreferences.getString("PayrollClerkYN","")); //---req for calender page
             userSingletonModel.setEmpName(sharedPreferences.getString("EmpName",""));
             userSingletonModel.setUserType(sharedPreferences.getString("UserType",""));
             userSingletonModel.setEmailId(sharedPreferences.getString("EmailId",""));

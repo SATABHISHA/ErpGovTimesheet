@@ -111,6 +111,8 @@ public class HomeActivity extends AppCompatActivity
 
         checkConnection();  //----function calling to check the internet connection
 
+        Log.d("checkSupPayr",userSingletonModel.getSupervisorYN()+"and"+userSingletonModel.getPayrollClerkYN());
+
         // Checking availability of the camera
         if (!CameraUtils.isDeviceSupportCamera(getApplicationContext())) {
             Toast.makeText(getApplicationContext(),
