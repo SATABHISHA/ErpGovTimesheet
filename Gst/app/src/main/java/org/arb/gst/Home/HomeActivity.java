@@ -545,7 +545,36 @@ public class HomeActivity extends AppCompatActivity
             case R.id.activity_main_btn_timesheet_entry:
 //                Intent intent = new Intent(HomeActivity.this, TimesheetHome.class);
 //                startActivity(intent);
-                startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+//                startActivity(new Intent(HomeActivity.this, TimesheetHome.class)); //---commented on 14th may
+                //--------adding custom dialog on 14th may starts------
+                LayoutInflater li2 = LayoutInflater.from(this);
+                View dialog = li2.inflate(R.layout.dialog_choose_timesheet, null);
+                Button btn_ownsheet = (Button) dialog.findViewById(R.id.btn_ownsheet);
+                Button btn_subordinatesheet = (Button) dialog.findViewById(R.id.btn_subordinatesheet);
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setView(dialog);
+//                        alert.setCancelable(false);
+                //Creating an alert dialog
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.show();
+
+                btn_ownsheet.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                        startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                        alertDialog.dismiss();
+                    }
+                });
+                btn_subordinatesheet.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                        Toast.makeText(HomeActivity.this,"Working On",Toast.LENGTH_LONG).show();
+                        alertDialog.dismiss();
+                    }
+                });
+                //--------adding custom dialog on 14th may ends------
                 break;
             case R.id.activity_main_btn_vacation_request:
                 //=============code for "coming soon animation, as it would blink on clicking the button...starts...========
