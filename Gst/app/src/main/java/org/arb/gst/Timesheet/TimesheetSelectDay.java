@@ -810,6 +810,10 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                         JSONArray jsonArray = jsonObject.getJSONArray("DayWiseTimeSheet");
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             JSONObject jobject = jsonArray.getJSONObject(i);
+                                            //-----following snippet added on 14th may-------------
+                                            userSingletonModel.setPeriodStartDate(jobject.getString("PeriodStartDate"));
+                                            userSingletonModel.setPeriodEndDate(jobject.getString("PeriodEndDate"));
+                                            //------above snippet added on 14th may-----------
                                             JSONArray weekDays = jobject.getJSONArray("WeekDays");
                                             for (int j = 0; j < weekDays.length(); j++) {
                                                 JSONObject days = weekDays.getJSONObject(j);
@@ -880,9 +884,9 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                     JSONObject dayHrs = day.getJSONObject(d);
                                                     WeekDays weekDays1 = new WeekDays();
                                                     //--------following condition is newly added on 6th May 2019, starts...--------------
-                                                    if(d==0){
+                                                    /*if(d==0){
                                                         userSingletonModel.setPeriodStartDate(dayHrs.getString("DayDate"));
-                                                    }
+                                                    }*/
                                                     //--------above condition is newly added on 6th May 2019, ends...--------------
 
                                                     if(dayHrs.getString("ActiveYN").contentEquals("true")) { //---condition added on 1st may 2019
@@ -901,7 +905,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 datePeriod.clear();
                                                 for(int z=0;z<weekDaysList.size();z++){
 //                                                    userSingletonModel.setPeriodStartDate(weekDaysList.get(0).getDayDate()); //--commented on 6th may 2019
-                                                    userSingletonModel.setPeriodEndDate(weekDaysList.get(weekDaysList.size()-1).getDayDate());
+//                                                    userSingletonModel.setPeriodEndDate(weekDaysList.get(weekDaysList.size()-1).getDayDate()); //---commented on 14th may
                                                     datePeriod.add(weekDaysList.get(z).getDayDate());
                                                 }
 
