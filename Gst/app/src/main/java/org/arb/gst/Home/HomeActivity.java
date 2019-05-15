@@ -4,26 +4,20 @@ import android.Manifest;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
-import android.app.Application;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -36,12 +30,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,7 +42,6 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.squareup.picasso.Picasso;
 
 import org.arb.gst.Login.LoginActivity;
 import org.arb.gst.Model.UserSingletonModel;
@@ -60,12 +49,9 @@ import org.arb.gst.R;
 import org.arb.gst.Timesheet.TimesheetHome;
 import org.arb.gst.config.CameraUtils;
 import org.arb.gst.config.ConnectivityReceiver;
-import org.arb.gst.config.ImageFilePath;
 import org.arb.gst.config.MyApplication;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
@@ -549,8 +535,10 @@ public class HomeActivity extends AppCompatActivity
                 //--------adding custom dialog on 14th may starts------
                 LayoutInflater li2 = LayoutInflater.from(this);
                 View dialog = li2.inflate(R.layout.dialog_choose_timesheet, null);
-                Button btn_ownsheet = (Button) dialog.findViewById(R.id.btn_ownsheet);
-                Button btn_subordinatesheet = (Button) dialog.findViewById(R.id.btn_subordinatesheet);
+                Button btn_employee = (Button) dialog.findViewById(R.id.btn_employee);
+                Button btn_supervisor = (Button) dialog.findViewById(R.id.btn_supervisor);
+                Button btn_payroll_clerk = (Button) dialog.findViewById(R.id.btn_payroll_clerk);
+                Button btn_payable_clerk = (Button) dialog.findViewById(R.id.btn_payable_clerk);
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setView(dialog);
 //                        alert.setCancelable(false);
@@ -558,19 +546,29 @@ public class HomeActivity extends AppCompatActivity
                 final AlertDialog alertDialog = alert.create();
                 alertDialog.show();
 
-                btn_ownsheet.setOnClickListener(new View.OnClickListener() {
+                btn_employee.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         alertDialog.dismiss();
                         startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                    }
+                });
+                btn_supervisor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(HomeActivity.this,"Working On",Toast.LENGTH_LONG).show();
                         alertDialog.dismiss();
                     }
                 });
-                btn_subordinatesheet.setOnClickListener(new View.OnClickListener() {
+                btn_payroll_clerk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         alertDialog.dismiss();
-                        Toast.makeText(HomeActivity.this,"Working On",Toast.LENGTH_LONG).show();
+                    }
+                });
+                btn_payable_clerk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                         alertDialog.dismiss();
                     }
                 });

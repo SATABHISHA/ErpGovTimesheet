@@ -7,21 +7,35 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <Button
-        android:id="@+id/btn_ownsheet"
+        android:id="@+id/btn_employee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F0EEEE"
-        android:text="Own Timesheet"/>
+        android:text="Employee"/>
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="1dp"
        android:background="#ECECEC"/>
     <Button
-        android:id="@+id/btn_subordinatesheet"
+        android:id="@+id/btn_supervisor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="#ffffff"
-        android:text="Subordinate Timesheet"/>
+        android:text="Supervisor"/>
+    <Button
+        android:id="@+id/btn_payroll_clerk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="#F0EEEE"
+        android:text="Employee"/>
+    <Button
+        android:id="@+id/btn_payable_clerk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="#ffffff"
+        android:text="Supervisor"/>
 </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
