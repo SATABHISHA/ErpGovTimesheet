@@ -97,7 +97,7 @@ public class HomeActivity extends AppCompatActivity
 
         checkConnection();  //----function calling to check the internet connection
 
-        Log.d("checkSupPayr",userSingletonModel.getSupervisorYN()+"and"+userSingletonModel.getPayrollClerkYN());
+        Log.d("checkSupPayr","Supervisor"+userSingletonModel.getSupervisorYN()+"PayrollClerk"+userSingletonModel.getPayrollClerkYN()+"PayableClerk:"+userSingletonModel.getPayableClerkYN());
 
         // Checking availability of the camera
         if (!CameraUtils.isDeviceSupportCamera(getApplicationContext())) {
@@ -532,47 +532,92 @@ public class HomeActivity extends AppCompatActivity
 //                Intent intent = new Intent(HomeActivity.this, TimesheetHome.class);
 //                startActivity(intent);
 //                startActivity(new Intent(HomeActivity.this, TimesheetHome.class)); //---commented on 14th may
-                //--------adding custom dialog on 14th may starts------
-                LayoutInflater li2 = LayoutInflater.from(this);
-                View dialog = li2.inflate(R.layout.dialog_choose_timesheet, null);
-                Button btn_employee = (Button) dialog.findViewById(R.id.btn_employee);
-                Button btn_supervisor = (Button) dialog.findViewById(R.id.btn_supervisor);
-                Button btn_payroll_clerk = (Button) dialog.findViewById(R.id.btn_payroll_clerk);
-                Button btn_payable_clerk = (Button) dialog.findViewById(R.id.btn_payable_clerk);
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setView(dialog);
+                if(userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0")){
+                    startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                }else {
+                    //--------adding custom dialog on 14th may starts------
+                    LayoutInflater li2 = LayoutInflater.from(this);
+                    View dialog = li2.inflate(R.layout.dialog_choose_timesheet, null);
+                    Button btn_employee = (Button) dialog.findViewById(R.id.btn_employee);
+                    Button btn_supervisor = (Button) dialog.findViewById(R.id.btn_supervisor);
+                    Button btn_payroll_clerk = (Button) dialog.findViewById(R.id.btn_payroll_clerk);
+                    Button btn_payable_clerk = (Button) dialog.findViewById(R.id.btn_payable_clerk);
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.setView(dialog);
 //                        alert.setCancelable(false);
-                //Creating an alert dialog
-                final AlertDialog alertDialog = alert.create();
-                alertDialog.show();
+                    //Creating an alert dialog
+                    final AlertDialog alertDialog = alert.create();
+                    alertDialog.show();
 
-                btn_employee.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                        startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                    if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("1")) {
+                        btn_employee.setVisibility(View.VISIBLE);
+                        btn_supervisor.setVisibility(View.VISIBLE);
+                        btn_payroll_clerk.setVisibility(View.VISIBLE);
+                        btn_payable_clerk.setVisibility(View.VISIBLE);
+                    } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("1")) {
+                        btn_employee.setVisibility(View.VISIBLE);
+                        btn_supervisor.setVisibility(View.INVISIBLE);
+                        btn_payroll_clerk.setVisibility(View.VISIBLE);
+                        btn_payable_clerk.setVisibility(View.VISIBLE);
+                    } else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1")) {
+                        btn_employee.setVisibility(View.VISIBLE);
+                        btn_supervisor.setVisibility(View.VISIBLE);
+                        btn_payroll_clerk.setVisibility(View.INVISIBLE);
+                        btn_payable_clerk.setVisibility(View.VISIBLE);
+                    } else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0")) {
+                        btn_employee.setVisibility(View.VISIBLE);
+                        btn_supervisor.setVisibility(View.VISIBLE);
+                        btn_payroll_clerk.setVisibility(View.VISIBLE);
+                        btn_payable_clerk.setVisibility(View.INVISIBLE);
+                    }/*else if(userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0")){
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.INVISIBLE);
+                    btn_payroll_clerk.setVisibility(View.INVISIBLE);
+                    btn_payable_clerk.setVisibility(View.INVISIBLE);
+                }*/ else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0")) {
+                        btn_employee.setVisibility(View.VISIBLE);
+                        btn_supervisor.setVisibility(View.VISIBLE);
+                        btn_payroll_clerk.setVisibility(View.INVISIBLE);
+                        btn_payable_clerk.setVisibility(View.INVISIBLE);
+                    } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0")) {
+                        btn_employee.setVisibility(View.VISIBLE);
+                        btn_supervisor.setVisibility(View.INVISIBLE);
+                        btn_payroll_clerk.setVisibility(View.VISIBLE);
+                        btn_payable_clerk.setVisibility(View.INVISIBLE);
+                    } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1")) {
+                        btn_employee.setVisibility(View.VISIBLE);
+                        btn_supervisor.setVisibility(View.INVISIBLE);
+                        btn_payroll_clerk.setVisibility(View.INVISIBLE);
+                        btn_payable_clerk.setVisibility(View.VISIBLE);
                     }
-                });
-                btn_supervisor.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(HomeActivity.this,"Working On",Toast.LENGTH_LONG).show();
-                        alertDialog.dismiss();
-                    }
-                });
-                btn_payroll_clerk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                btn_payable_clerk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                //--------adding custom dialog on 14th may ends------
+                    btn_employee.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                            startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                        }
+                    });
+                    btn_supervisor.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(HomeActivity.this, "Working On", Toast.LENGTH_LONG).show();
+                            alertDialog.dismiss();
+                        }
+                    });
+                    btn_payroll_clerk.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    btn_payable_clerk.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    //--------adding custom dialog on 14th may ends------
+                }
                 break;
             case R.id.activity_main_btn_vacation_request:
                 //=============code for "coming soon animation, as it would blink on clicking the button...starts...========

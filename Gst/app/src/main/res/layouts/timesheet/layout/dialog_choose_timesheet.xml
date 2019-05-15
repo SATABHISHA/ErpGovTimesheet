@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="#ffffff"
+        android:visibility="gone"
         android:text="Supervisor"/>
     <Button
         android:id="@+id/btn_payroll_clerk"
@@ -29,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="#F0EEEE"
+        android:visibility="gone"
         android:text="Employee"/>
     <Button
         android:id="@+id/btn_payable_clerk"
@@ -36,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:background="#ffffff"
+        android:visibility="gone"
         android:text="Supervisor"/>
 </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
