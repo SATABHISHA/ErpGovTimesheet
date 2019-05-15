@@ -31,7 +31,7 @@
         android:layout_marginTop="1dp"
         android:background="#F0EEEE"
         android:visibility="gone"
-        android:text="Employee"/>
+        android:text="Payroll Clerk"/>
     <Button
         android:id="@+id/btn_payable_clerk"
         android:layout_width="match_parent"
@@ -39,6 +39,6 @@
         android:layout_marginTop="1dp"
         android:background="#ffffff"
         android:visibility="gone"
-        android:text="Supervisor"/>
+        android:text="Payable Clerk"/>
 </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -556,19 +556,19 @@ public class HomeActivity extends AppCompatActivity
                         btn_payable_clerk.setVisibility(View.VISIBLE);
                     } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("1")) {
                         btn_employee.setVisibility(View.VISIBLE);
-                        btn_supervisor.setVisibility(View.INVISIBLE);
+                        btn_supervisor.setVisibility(View.GONE);
                         btn_payroll_clerk.setVisibility(View.VISIBLE);
                         btn_payable_clerk.setVisibility(View.VISIBLE);
                     } else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1")) {
                         btn_employee.setVisibility(View.VISIBLE);
                         btn_supervisor.setVisibility(View.VISIBLE);
-                        btn_payroll_clerk.setVisibility(View.INVISIBLE);
+                        btn_payroll_clerk.setVisibility(View.GONE);
                         btn_payable_clerk.setVisibility(View.VISIBLE);
                     } else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0")) {
                         btn_employee.setVisibility(View.VISIBLE);
                         btn_supervisor.setVisibility(View.VISIBLE);
                         btn_payroll_clerk.setVisibility(View.VISIBLE);
-                        btn_payable_clerk.setVisibility(View.INVISIBLE);
+                        btn_payable_clerk.setVisibility(View.GONE);
                     }/*else if(userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0")){
                     btn_employee.setVisibility(View.VISIBLE);
                     btn_supervisor.setVisibility(View.INVISIBLE);
@@ -577,17 +577,17 @@ public class HomeActivity extends AppCompatActivity
                 }*/ else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0")) {
                         btn_employee.setVisibility(View.VISIBLE);
                         btn_supervisor.setVisibility(View.VISIBLE);
-                        btn_payroll_clerk.setVisibility(View.INVISIBLE);
-                        btn_payable_clerk.setVisibility(View.INVISIBLE);
+                        btn_payroll_clerk.setVisibility(View.GONE);
+                        btn_payable_clerk.setVisibility(View.GONE);
                     } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0")) {
                         btn_employee.setVisibility(View.VISIBLE);
-                        btn_supervisor.setVisibility(View.INVISIBLE);
+                        btn_supervisor.setVisibility(View.GONE);
                         btn_payroll_clerk.setVisibility(View.VISIBLE);
-                        btn_payable_clerk.setVisibility(View.INVISIBLE);
+                        btn_payable_clerk.setVisibility(View.GONE);
                     } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1")) {
                         btn_employee.setVisibility(View.VISIBLE);
-                        btn_supervisor.setVisibility(View.INVISIBLE);
-                        btn_payroll_clerk.setVisibility(View.INVISIBLE);
+                        btn_supervisor.setVisibility(View.GONE);
+                        btn_payroll_clerk.setVisibility(View.GONE);
                         btn_payable_clerk.setVisibility(View.VISIBLE);
                     }
                     btn_employee.setOnClickListener(new View.OnClickListener() {
