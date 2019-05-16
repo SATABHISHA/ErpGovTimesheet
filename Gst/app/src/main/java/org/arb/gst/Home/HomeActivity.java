@@ -46,6 +46,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import org.arb.gst.Login.LoginActivity;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
+import org.arb.gst.Timesheet.Subordinate;
 import org.arb.gst.Timesheet.TimesheetHome;
 import org.arb.gst.config.CameraUtils;
 import org.arb.gst.config.ConnectivityReceiver;
@@ -601,6 +602,7 @@ public class HomeActivity extends AppCompatActivity
                         @Override
                         public void onClick(View view) {
                             Toast.makeText(HomeActivity.this, "Working On", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(HomeActivity.this, Subordinate.class));
                             alertDialog.dismiss();
                         }
                     });
