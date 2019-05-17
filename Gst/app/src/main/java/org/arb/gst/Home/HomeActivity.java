@@ -535,6 +535,7 @@ public class HomeActivity extends AppCompatActivity
 //                startActivity(new Intent(HomeActivity.this, TimesheetHome.class)); //---commented on 14th may
                 if(userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayableClerkYN().contentEquals("0")){
                     startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                    userSingletonModel.setEmployeeYN("1");
                 }else {
                     //--------adding custom dialog on 14th may starts------
                     LayoutInflater li2 = LayoutInflater.from(this);
@@ -596,25 +597,30 @@ public class HomeActivity extends AppCompatActivity
                         public void onClick(View view) {
                             alertDialog.dismiss();
                             startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                            userSingletonModel.setEmployeeYN("1");
                         }
                     });
                     btn_supervisor.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Toast.makeText(HomeActivity.this, "Working On", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(HomeActivity.this, Subordinate.class));
+//                            startActivity(new Intent(HomeActivity.this, Subordinate.class));
+                            startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                            userSingletonModel.setEmployeeYN("0");
                             alertDialog.dismiss();
                         }
                     });
                     btn_payroll_clerk.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            userSingletonModel.setEmployeeYN("0");
                             alertDialog.dismiss();
                         }
                     });
                     btn_payable_clerk.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            userSingletonModel.setEmployeeYN("0");
                             alertDialog.dismiss();
                         }
                     });

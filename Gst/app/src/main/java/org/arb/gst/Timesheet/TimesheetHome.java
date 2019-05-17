@@ -211,9 +211,11 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
              //===========Code to check, whether selected date is available in the arraylist or not...starts======
                 for (int i = 0; i<selectedDates.size(); i++)
                 {
-                    if(date.toString().contains(selectedDates.get(i).toString())){
+                    if(date.toString().contains(selectedDates.get(i).toString()) && userSingletonModel.getEmployeeYN().contentEquals("1")){
                         Log.d("Hey dates",date.toString());
                         startActivity(new Intent(TimesheetHome.this,TimesheetSelectDay.class));
+                    }else if(date.toString().contains(selectedDates.get(i).toString()) && userSingletonModel.getEmployeeYN().contentEquals("0")){
+                        startActivity(new Intent(TimesheetHome.this,Subordinate.class));
                     }
                 }
                 //===========Code to check, whether selected date is available in the arraylist or not...ends======
@@ -310,7 +312,13 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
 
                                             selectDate = (Date) myFormat.parse(dateString);
                                             ColorDrawable color = new ColorDrawable(Color.parseColor(cl));
-                                            caldroidFragment.setBackgroundDrawableForDate(color, selectDate);
+                                            if(userSingletonModel.getEmployeeYN().contentEquals("1")) {
+                                                caldroidFragment.setBackgroundDrawableForDate(color, selectDate);
+                                            }else{
+                                                String c2 = "#c2c2c2";
+                                                ColorDrawable color1 = new ColorDrawable(Color.parseColor(c2));
+                                                caldroidFragment.setBackgroundDrawableForDate(color1, selectDate);
+                                            }
 //                                            selectedDates.add(today); //----Commented by Satabhisha on 24th Oct
                                             selectedDates.add(selectDate);
                                             disableDates.removeAll(selectedDates);

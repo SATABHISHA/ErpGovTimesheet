@@ -54,7 +54,8 @@
         <activity android:name=".Timesheet.TimesheetWorkUpdateHrs"
             android:screenOrientation="portrait"/>
         <activity android:name=".Timesheet.Subordinate"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance"/>
 
         <receiver
             android:name=".config.ConnectivityReceiver"
