@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 
 import org.arb.gst.R;
 
-public class SubordinateEmployeeListFragment extends Fragment {
+public class SubcontractorEmployeeListFragment extends Fragment {
     View rootView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
-        rootView =  inflater.inflate(R.layout.fragment_subordinate_employee_list, null);
+        rootView =  inflater.inflate(R.layout.fragment_subcontractor_employee_list, null);
         return rootView;
     }
 }

@@ -3,7 +3,6 @@ package org.arb.gst.Timesheet;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.arb.gst.R;
-import org.arb.gst.fragment.SubordinateEmployeeListFragment;
+import org.arb.gst.fragment.SubcontractorEmployeeListFragment;
 import org.arb.gst.fragment.SubordinateListFragment;
 
 public class Subordinate extends AppCompatActivity {
@@ -44,8 +43,8 @@ public class Subordinate extends AppCompatActivity {
 
         //-------------ViewPager and tablayout code starts here inside onCreate()--------------
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Subordinate List"));
-        tabLayout.addTab(tabLayout.newTab().setText("Subcontractor Employee List"));
+        tabLayout.addTab(tabLayout.newTab().setText("Subordinate(s) List"));
+        tabLayout.addTab(tabLayout.newTab().setText("Subcontractor Employee(s)"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -95,8 +94,8 @@ public class Subordinate extends AppCompatActivity {
                     SubordinateListFragment subordinateListFragment = new SubordinateListFragment();
                     return subordinateListFragment;
                 case 1:
-                    SubordinateEmployeeListFragment subordinateEmployeeListFragment = new SubordinateEmployeeListFragment();
-                    return subordinateEmployeeListFragment;
+                    SubcontractorEmployeeListFragment subcontractorEmployeeListFragment = new SubcontractorEmployeeListFragment();
+                    return subcontractorEmployeeListFragment;
                 default:
                     return null;
             }
