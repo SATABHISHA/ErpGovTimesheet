@@ -95,6 +95,7 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
     TextView txtSick, txtEarn, txtComp,txtUpto;
     public static Bundle savedInstanceState;
     ImageView imageView;
+    public static String period_end_date;;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -215,7 +216,12 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
                         Log.d("Hey dates",date.toString());
                         startActivity(new Intent(TimesheetHome.this,TimesheetSelectDay.class));
                     }else if(date.toString().contains(selectedDates.get(i).toString()) && userSingletonModel.getEmployeeYN().contentEquals("0")){
-                        startActivity(new Intent(TimesheetHome.this,Subordinate.class));
+                        getPeriodDate(); //---to get period_end_date
+                        /*if(!period_end_date.isEmpty()) {
+                            startActivity(new Intent(TimesheetHome.this, Subordinate.class));
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Please try again",Toast.LENGTH_SHORT).show();
+                        }*/
                     }
                 }
                 //===========Code to check, whether selected date is available in the arraylist or not...ends======
@@ -369,6 +375,66 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
 
     }
     //================to get the menu of dates using volley code ends===========
+
+
+    //=================function to get period_dates(includes start_date, end_date) starts==========
+    public void getPeriodDate(){
+        String url = Config.BaseUrl+"TimeSheetPeriodDetail";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObj = null;
+                        try{
+                            jsonObj = XML.toJSONObject(response);
+                            String responseData = jsonObj.toString();
+                            String val = "";
+                            JSONObject resobj = new JSONObject(responseData);
+                            Log.d("getPeriodDate",responseData.toString());
+
+                            Iterator<?> keys = resobj.keys();
+                            while(keys.hasNext() ) {
+                                String key = (String) keys.next();
+                                if (resobj.get(key) instanceof JSONObject) {
+                                    JSONObject xx = new JSONObject(resobj.get(key).toString());
+                                    val = xx.getString("content");
+//                                    Toast.makeText(getApplicationContext(),xx.getString("content"),Toast.LENGTH_LONG).show();
+                                    Log.d("getPeriodDate1", xx.getString("content"));
+                                    JSONObject jsonObject = new JSONObject(val);
+                                    period_end_date = jsonObject.getString("period_end_date");
+                                    startActivity(new Intent(TimesheetHome.this, Subordinate.class));
+
+                                }
+                            }
+                        }catch (JSONException e){
+
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("CorpId", userSingletonModel.getCorpID());
+                params.put("UserId", userSingletonModel.getUserID());
+                params.put("UserType",userSingletonModel.getUserType());
+                params.put("PeriodDate",dateOnSelectedCalender);
+                return params;
+            }
+        };
+
+       /* stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));*/
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+    //=================function to get period_dates(includes start_date, end_date) ends==========
+
 
     //=========Navigation drawer onBackPressed code starts=====
     @Override
