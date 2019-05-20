@@ -1,6 +1,6 @@
 package org.arb.gst.Model;
 
-public class SubordinateListModel {
+public class SupervisorListModel {
     String id_person="", employee_name="", department="";
 
     //===================Getter method starts===============

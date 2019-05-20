@@ -1,8 +1,6 @@
 package org.arb.gst.fragment;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,9 +23,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.arb.gst.Model.SubordinateListModel;
+import org.arb.gst.Model.SupervisorListModel;
 import org.arb.gst.Model.UserSingletonModel;
-import org.arb.gst.Model.WeekDay;
 import org.arb.gst.R;
 import org.arb.gst.Timesheet.TimesheetHome;
 import org.arb.gst.config.Config;
@@ -46,7 +42,7 @@ public class SubordinateListFragment extends Fragment {
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     View rootView;
     ListView lv_subordinatelist;
-    ArrayList<SubordinateListModel> arrayList = new ArrayList<>();
+    ArrayList<SupervisorListModel> arrayList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -90,17 +86,17 @@ public class SubordinateListFragment extends Fragment {
                                     JSONArray jsonArray = jsonObject1.getJSONArray("employees_main");
                                     for(int i=0;i<jsonArray.length();i++){
                                         JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                                        SubordinateListModel subordinateListModel = new SubordinateListModel();
-                                        subordinateListModel.setId_person(jsonObject2.getString("id_person"));
-                                        subordinateListModel.setEmployee_name(jsonObject2.getString("employee_name"));
-//                                        subordinateListModel.setDepartment(jsonObj.getString("department"));
-                                        arrayList.add(subordinateListModel);
+                                        SupervisorListModel supervisorListModel = new SupervisorListModel();
+                                        supervisorListModel.setId_person(jsonObject2.getString("id_person"));
+                                        supervisorListModel.setEmployee_name(jsonObject2.getString("employee_name"));
+//                                        supervisorListModel.setSupervisor_department(jsonObj.getString("department"));
+                                        arrayList.add(supervisorListModel);
                                     }
                                     lv_subordinatelist.setAdapter(new displaySubordinateList());
                                     lv_subordinatelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                            userSingletonModel.setId_person(arrayList.get(i).getId_person());
+                                            userSingletonModel.setSupervisor_id_person(arrayList.get(i).getId_person());
                                             userSingletonModel.setSupervisor_employee_name(arrayList.get(i).getEmployee_name());
                                             Toast.makeText(getContext(),arrayList.get(i).getId_person()+"/"+arrayList.get(i).getEmployee_name(),Toast.LENGTH_SHORT).show();
                                         }

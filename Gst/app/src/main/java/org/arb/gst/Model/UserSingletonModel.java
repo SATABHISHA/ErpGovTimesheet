@@ -3,7 +3,7 @@ package org.arb.gst.Model;
 public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
-            imagePath="",timesheetSelectDate_WeekDate, employeeYN, id_person, supervisor_employee_name, department;
+            imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department;
 
 
     /*
@@ -141,16 +141,16 @@ public class UserSingletonModel {
         return employeeYN;
     }
 
-    public String getId_person() {
-        return id_person;
+    public String getSupervisor_id_person() {
+        return supervisor_id_person;
     }
 
     public String getSupervisor_employee_name() {
         return supervisor_employee_name;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getSupervisor_department() {
+        return supervisor_department;
     }
 
     //===============================Getter method ends=====================
@@ -271,16 +271,16 @@ public class UserSingletonModel {
         this.employeeYN = employeeYN;
     }
 
-    public void setId_person(String id_person) {
-        this.id_person = id_person;
+    public void setSupervisor_id_person(String supervisor_id_person) {
+        this.supervisor_id_person = supervisor_id_person;
     }
 
     public void setSupervisor_employee_name(String supervisor_employee_name) {
         this.supervisor_employee_name = supervisor_employee_name;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setSupervisor_department(String supervisor_department) {
+        this.supervisor_department = supervisor_department;
     }
     //===============================Setter method ends====================
 

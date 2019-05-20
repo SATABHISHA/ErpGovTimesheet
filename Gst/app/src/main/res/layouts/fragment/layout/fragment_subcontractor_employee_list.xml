@@ -2,5 +2,15 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/lv_subcontractor_employeelist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>
