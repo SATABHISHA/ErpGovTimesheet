@@ -3,7 +3,7 @@ package org.arb.gst.Model;
 public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
-            imagePath="",timesheetSelectDate_WeekDate, employeeYN;
+            imagePath="",timesheetSelectDate_WeekDate, employeeYN, id_person, supervisor_employee_name, department;
 
 
     /*
@@ -140,6 +140,19 @@ public class UserSingletonModel {
     public String getEmployeeYN() {
         return employeeYN;
     }
+
+    public String getId_person() {
+        return id_person;
+    }
+
+    public String getSupervisor_employee_name() {
+        return supervisor_employee_name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
     //===============================Getter method ends=====================
 
 
@@ -257,7 +270,19 @@ public class UserSingletonModel {
     public void setEmployeeYN(String employeeYN) {
         this.employeeYN = employeeYN;
     }
-//===============================Setter method ends====================
+
+    public void setId_person(String id_person) {
+        this.id_person = id_person;
+    }
+
+    public void setSupervisor_employee_name(String supervisor_employee_name) {
+        this.supervisor_employee_name = supervisor_employee_name;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+    //===============================Setter method ends====================
 
 
 }
