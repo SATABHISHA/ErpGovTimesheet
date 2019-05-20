@@ -18,4 +18,5 @@ public class SubordinateListFragment extends Fragment {
         rootView =  inflater.inflate(R.layout.fragment_subordinate_list, null);
         return rootView;
     }
+
 }
