@@ -25,7 +25,7 @@ public class Subordinate extends AppCompatActivity {
 
         //--------Toolbar code starts--------
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("Select Date");
+        mToolbar.setTitle("Select Employee");
         setSupportActionBar(mToolbar);
 
 
@@ -43,8 +43,8 @@ public class Subordinate extends AppCompatActivity {
 
         //-------------ViewPager and tablayout code starts here inside onCreate()--------------
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Subordinate(s) List"));
-        tabLayout.addTab(tabLayout.newTab().setText("Subcontractor Employee(s)"));
+        tabLayout.addTab(tabLayout.newTab().setText("Subordinate List"));
+        tabLayout.addTab(tabLayout.newTab().setText("Sub-Contractor Employees"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
