@@ -8,22 +8,42 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.arb.gst.R;
+import org.arb.gst.fragment.DrawerSupervisorFragment;
 import org.arb.gst.fragment.SubcontractorEmployeeListFragment;
 import org.arb.gst.fragment.SubordinateListFragment;
 
 public class Subordinate extends AppCompatActivity {
     ViewPager viewPager;
     TextView tv_subordinate_period_date;
+    ImageButton imgbtn_filter;
+    DrawerLayout drawer_layout;
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    DrawerSupervisorFragment drawerSupervisorFragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subordinate);
+        imgbtn_filter = (ImageButton)findViewById(R.id.imgbtn_filter);
+        drawer_layout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerSupervisorFragment = (DrawerSupervisorFragment)fragmentManager.findFragmentById(R.id.fragmentitem);
+
+        //----------onClick to open the drawer code starts---------
+        imgbtn_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer_layout.openDrawer(Gravity.RIGHT);
+            }
+        });
+        //----------onClick to open the drawer code ends---------
 
         //--------Toolbar code starts--------
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
