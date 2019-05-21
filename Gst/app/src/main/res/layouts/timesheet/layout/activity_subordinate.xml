@@ -33,7 +33,25 @@
               <RelativeLayout
                   android:layout_width="match_parent"
                   android:layout_height="70dp"
-                  android:background="#386888"></RelativeLayout>
+                  android:background="#386888">
+                  <TextView
+                      android:id="@+id/tv_wkdate"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Week Date"
+                      android:textSize="17dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginLeft="10dp"
+                      android:textColor="#ffffff"/>
+                  <TextView
+                      android:id="@+id/tv_subordinate_period_date"
+                      android:layout_below="@+id/tv_wkdate"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:layout_marginLeft="10dp"
+                      android:text="(05-15-2019 - 07-30-2019)"/>
+              </RelativeLayout>
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"

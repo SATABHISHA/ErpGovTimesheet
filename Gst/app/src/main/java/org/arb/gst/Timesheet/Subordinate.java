@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import org.arb.gst.R;
 import org.arb.gst.fragment.SubcontractorEmployeeListFragment;
@@ -18,6 +19,7 @@ import org.arb.gst.fragment.SubordinateListFragment;
 
 public class Subordinate extends AppCompatActivity {
     ViewPager viewPager;
+    TextView tv_subordinate_period_date;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,8 @@ public class Subordinate extends AppCompatActivity {
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("Select Employee");
         setSupportActionBar(mToolbar);
+        tv_subordinate_period_date = (TextView)findViewById(R.id.tv_subordinate_period_date);
+        tv_subordinate_period_date.setText("( "+TimesheetHome.period_start_date+" - "+TimesheetHome.period_end_date+" )");
 
 
         if (getSupportActionBar() != null) {
