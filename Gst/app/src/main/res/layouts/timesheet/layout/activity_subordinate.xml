@@ -34,8 +34,9 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabMode="fixed"
+            app:tabTextAppearance="@style/MyCustomTabText"
+            app:tabMode="scrollable"
+            app:tabTextColor="#B8B8B8"
             app:tabGravity="fill"/>
 
     </android.support.design.widget.AppBarLayout>
