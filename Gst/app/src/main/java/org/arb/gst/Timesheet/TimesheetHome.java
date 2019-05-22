@@ -95,7 +95,7 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
     TextView txtSick, txtEarn, txtComp,txtUpto;
     public static Bundle savedInstanceState;
     ImageView imageView;
-    public static String period_start_date, period_end_date;
+    public static String period_start_date, period_end_date, period_date;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -401,6 +401,7 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
 //                                    Toast.makeText(getApplicationContext(),xx.getString("content"),Toast.LENGTH_LONG).show();
                                     Log.d("getPeriodDate1", xx.getString("content"));
                                     JSONObject jsonObject = new JSONObject(val);
+                                    period_date = jsonObject.getString("period_date");
                                     period_start_date = jsonObject.getString("period_start_date");
                                     period_end_date = jsonObject.getString("period_end_date");
                                     if(HomeActivity.supervisor_yn_temp.contentEquals("1")) {

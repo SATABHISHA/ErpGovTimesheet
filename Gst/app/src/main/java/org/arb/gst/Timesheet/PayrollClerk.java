@@ -1,32 +1,68 @@
 package org.arb.gst.Timesheet;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.arb.gst.Model.PayrollModel;
+import org.arb.gst.Model.SupervisorListModel;
+import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
-import org.arb.gst.fragment.DrawerSupervisorFragment;
+import org.arb.gst.config.Config;
+import org.arb.gst.fragment.DrawerPayrollClerkFragment;
+import org.arb.gst.fragment.SubordinateListFragment;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class PayrollClerk extends AppCompatActivity {
     TextView tv_payrollclerk_period_date;
     ImageButton imgbtn_filter;
     DrawerLayout drawer_layout;
     FragmentManager fragmentManager = getSupportFragmentManager();
-    DrawerSupervisorFragment drawerSupervisorFragment;
+    DrawerPayrollClerkFragment drawerPayrollClerkFragment;
+    ArrayList<PayrollModel> arrayList = new ArrayList<>();
+    UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
+    ListView lv_payrollclerk;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payrollclerk);
         imgbtn_filter = (ImageButton)findViewById(R.id.imgbtn_filter);
         drawer_layout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerSupervisorFragment = (DrawerSupervisorFragment)fragmentManager.findFragmentById(R.id.fragmentitem);
+        lv_payrollclerk = (ListView)findViewById(R.id.lv_payrollclerk);
+        drawerPayrollClerkFragment = (DrawerPayrollClerkFragment)fragmentManager.findFragmentById(R.id.fragmentitem);
 
         //----------onClick to open the drawer code starts---------
         imgbtn_filter.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +92,125 @@ public class PayrollClerk extends AppCompatActivity {
         });
 
         //--------Toolbar code ends--------
+
+        loadData();
     }
+
+    //----------load data using volley code starts----------
+    public void loadData(){
+        String url = Config.BaseUrl+"PayrollPayableOperatorEmployeeList";
+//        final ProgressDialog loading = ProgressDialog.show(getApplicationContext(), "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObj = null;
+                        try{
+                            jsonObj = XML.toJSONObject(response);
+                            String responseData = jsonObj.toString();
+                            String val = "";
+                            JSONObject resobj = new JSONObject(responseData);
+//                            String status=jsonObject.getString("status");
+
+//                            Toast.makeText(getApplicationContext(),jsonObject.getString("status"),Toast.LENGTH_LONG).show();
+                            Log.d("getEmpData",responseData.toString());
+
+                            Iterator<?> keys = resobj.keys();
+                            while(keys.hasNext() ) {
+                                String key = (String) keys.next();
+                                if (resobj.get(key) instanceof JSONObject) {
+                                    JSONObject xx = new JSONObject(resobj.get(key).toString());
+                                    val = xx.getString("content");
+                                    JSONArray jsonArray = new JSONArray(val);
+                                    for(int i=0;i<jsonArray.length();i++){
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        PayrollModel payrollModel = new PayrollModel();
+                                        payrollModel.setId_person(jsonObject.getString("id_person"));
+                                        payrollModel.setEmployee_code(jsonObject.getString("employee_code"));
+                                        payrollModel.setEmployee_name(jsonObject.getString("employee_name"));
+                                        payrollModel.setEmp_type(jsonObject.getString("emp_type"));
+                                        payrollModel.setSupervisor_name(jsonObject.getString("supervisor_name"));
+                                        payrollModel.setTotal_hours(jsonObject.getString("total_hours"));
+                                        payrollModel.setTimesheet_status_id(jsonObject.getString("timesheet_status_id"));
+                                        payrollModel.setTimesheet_status_desc(jsonObject.getString("timesheet_status_desc"));
+                                        payrollModel.setEmail_id(jsonObject.getString("email_id"));
+                                        payrollModel.setEmail_notice(jsonObject.getString("email_notice"));
+                                        payrollModel.setItem_type(jsonObject.getString("item_type"));
+                                        arrayList.add(payrollModel);
+                                    }
+//
+                                    lv_payrollclerk.setAdapter(new displayPayrollClerk());
+                                    lv_payrollclerk.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            Toast.makeText(getApplicationContext(),arrayList.get(i).getId_person(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                }
+                            }
+                        }catch (JSONException e){
+//                            loading.dismiss();
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                loading.dismiss();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("strCorpID", userSingletonModel.getCorpID());
+                params.put("strClarkType", "PAYROLL");
+                params.put("strActiveFlag", "Active");
+                params.put("strTimesheetStatusList", PayrollModel.strTimesheetStatusList);
+                params.put("strWeekDate", TimesheetHome.period_date);
+                params.put("strWeekStartDate", TimesheetHome.period_start_date);
+                params.put("strWeekEndDate", TimesheetHome.period_end_date);
+                params.put("DeviceType","1");
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
+    //----------load data using volley code ends----------
+
+    //==============BaseAdapter code for listview starts===========
+
+    public class displayPayrollClerk extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return arrayList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return true;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            TextView tv_payrollclerk;
+            LayoutInflater layoutInflater = getLayoutInflater();
+            view = layoutInflater.inflate(R.layout.listview_payrollclerk_row,viewGroup,false);
+            tv_payrollclerk = (TextView) view.findViewById(R.id.tv_payrollclerk);
+            tv_payrollclerk.setText(arrayList.get(i).getEmployee_name());
+            return view;
+        }
+    }
+    //==============BaseAdapter code for listview ends===========
 
     public void onBackPressed() {
         super.onBackPressed();

@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Payroll Clerk"
+                android:text="Employees"
                 android:textColor="#ffffff"
                 android:textSize="20dp"
                 android:layout_centerInParent="true"/>
@@ -84,7 +84,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+       android:layout_marginTop="190dp"
         android:background="#e4e4e4">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -98,9 +98,9 @@
 </android.support.design.widget.CoordinatorLayout>
     <fragment
         android:id="@+id/fragmentitem"
-        android:name="org.arb.gst.fragment.DrawerSupervisorFragment"
+        android:name="org.arb.gst.fragment.DrawerPayrollClerkFragment"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        tools:layout="@layout/fragment_supervisor_drawer" />
+        tools:layout="@layout/fragment_payrollclerk_drawer" />
 </android.support.v4.widget.DrawerLayout>
