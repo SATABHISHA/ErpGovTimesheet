@@ -56,6 +56,9 @@
         <activity android:name=".Timesheet.Subordinate"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"/>
+        <activity android:name=".Timesheet.PayrollClerk"
+            android:screenOrientation="portrait"
+            android:launchMode="singleInstance"/>
 
         <receiver
             android:name=".config.ConnectivityReceiver"

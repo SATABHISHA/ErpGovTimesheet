@@ -403,7 +403,11 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
                                     JSONObject jsonObject = new JSONObject(val);
                                     period_start_date = jsonObject.getString("period_start_date");
                                     period_end_date = jsonObject.getString("period_end_date");
-                                    startActivity(new Intent(TimesheetHome.this, Subordinate.class));
+                                    if(HomeActivity.supervisor_yn_temp.contentEquals("1")) {
+                                        startActivity(new Intent(TimesheetHome.this, Subordinate.class));
+                                    }else if(HomeActivity.payrollclerk_yn_temp.contentEquals("1")){
+                                        startActivity(new Intent(TimesheetHome.this,PayrollClerk.class));
+                                    }
 
                                 }
                             }

@@ -61,6 +61,7 @@ public class HomeActivity extends AppCompatActivity
     Button btnUpcomingEvents, btnAnnouncements, btnPendingItems, btnHolidayList, btnTimeshetEntry, btnVacationRequest;
     TextView tv_upcomingevents_comingsoon, tv_announcements_comingsoon, tv_pendingitems_comingsoon, tv_holidaylist_comingsoon, tv_vacationrequest_comingsoon;
     CoordinatorLayout coordinatorLayout;
+    public static String supervisor_yn_temp, payrollclerk_yn_temp, payableclerk_yn_temp;
 
     SharedPreferences sharedPreferences;
 
@@ -607,20 +608,31 @@ public class HomeActivity extends AppCompatActivity
 //                            startActivity(new Intent(HomeActivity.this, Subordinate.class));
                             startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                             userSingletonModel.setEmployeeYN("0");
+                            supervisor_yn_temp = "1";
+                            payrollclerk_yn_temp = "0";
+                            payableclerk_yn_temp = "0";
                             alertDialog.dismiss();
                         }
                     });
                     btn_payroll_clerk.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                             userSingletonModel.setEmployeeYN("0");
+                            supervisor_yn_temp = "0";
+                            payrollclerk_yn_temp = "1";
+                            payableclerk_yn_temp = "0";
                             alertDialog.dismiss();
                         }
                     });
                     btn_payable_clerk.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                             userSingletonModel.setEmployeeYN("0");
+                            supervisor_yn_temp = "0";
+                            payrollclerk_yn_temp = "0";
+                            payableclerk_yn_temp = "1";
                             alertDialog.dismiss();
                         }
                     });
