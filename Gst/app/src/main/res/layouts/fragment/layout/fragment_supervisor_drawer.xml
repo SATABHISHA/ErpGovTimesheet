@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,44 +26,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="Not Started"
-            android:onClick="onCheckboxClicked"/>
+            android:text="Not Started"/>
         <CheckBox android:id="@+id/checkbox_saved"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Saved"
-            android:onClick="onCheckboxClicked"/>
+            android:text="Saved"/>
         <CheckBox android:id="@+id/checkbox_correctionrequired"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Correction Required"
-            android:onClick="onCheckboxClicked"/>
+            android:text="Correction Required"/>
         <CheckBox android:id="@+id/checkbox_posted"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Posted"
-            android:onClick="onCheckboxClicked"/>
+            android:text="Posted"/>
         <CheckBox android:id="@+id/checkbox_submitted"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submitted"
-            android:onClick="onCheckboxClicked"/>
+            android:text="Submitted"/>
         <CheckBox android:id="@+id/checkbox_partiallyreturn"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Partially Return"
-            android:onClick="onCheckboxClicked"/>
+            android:text="Partially Return"/>
         <CheckBox android:id="@+id/checkbox_approved"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Approved"
-            android:onClick="onCheckboxClicked"/>
+            android:text="Approved"/>
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
