@@ -2,12 +2,12 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:orientation="vertical">
+        android:background="#FFFFFF">
         <RelativeLayout
+            android:id="@+id/relativeLayout1"
             android:background="#2e5772"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -21,9 +21,14 @@
                 android:textSize="27dp"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
-
+<LinearLayout
+    android:id="@+id/relativeLayout2"
+    android:layout_below="@id/relativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="30dp">
         <CheckBox android:id="@+id/checkbox_not_started"
-            android:layout_marginTop="30dp"
             android:textSize="19dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +83,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Partially Approved"/>
-
-    </LinearLayout>
+</LinearLayout>
+        <Button
+            android:id="@+id/btn_apply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="19dp"
+            android:layout_alignParentBottom="true"
+            android:text="Apply"
+            />
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
