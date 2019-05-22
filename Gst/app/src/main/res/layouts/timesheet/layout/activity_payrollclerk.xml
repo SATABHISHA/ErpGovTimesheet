@@ -84,7 +84,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       android:layout_marginTop="190dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:background="#e4e4e4">
         <RelativeLayout
             android:layout_width="match_parent"
