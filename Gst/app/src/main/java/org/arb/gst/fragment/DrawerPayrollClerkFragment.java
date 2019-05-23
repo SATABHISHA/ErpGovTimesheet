@@ -68,7 +68,9 @@ public class DrawerPayrollClerkFragment extends Fragment implements View.OnClick
            result.append("&lt;id&gt;7&lt;/id&gt;");
         }
        String timesheet_status = status1+result.toString()+status2;
-        Toast.makeText(getActivity(),timesheet_status,Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(getActivity(),PayrollClerk.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        getActivity().finish();
     }
 }
