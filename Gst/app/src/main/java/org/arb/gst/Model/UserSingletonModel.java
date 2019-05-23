@@ -3,7 +3,8 @@ package org.arb.gst.Model;
 public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
-            imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_strTimesheetStatusList;
+            imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_strTimesheetStatusList, payroll_notstarted, payroll_saved,
+            payroll_submitted, payroll_returned, payroll_approve, payroll_posted, payroll_partialreturn, payroll_partialapprove;
 
 
     /*
@@ -156,6 +157,38 @@ public class UserSingletonModel {
     public String getPayroll_strTimesheetStatusList() {
         return payroll_strTimesheetStatusList;
     }
+
+    public String getPayroll_notstarted() {
+        return payroll_notstarted;
+    }
+
+    public String getPayroll_saved() {
+        return payroll_saved;
+    }
+
+    public String getPayroll_submitted() {
+        return payroll_submitted;
+    }
+
+    public String getPayroll_returned() {
+        return payroll_returned;
+    }
+
+    public String getPayroll_approve() {
+        return payroll_approve;
+    }
+
+    public String getPayroll_posted() {
+        return payroll_posted;
+    }
+
+    public String getPayroll_partialreturn() {
+        return payroll_partialreturn;
+    }
+
+    public String getPayroll_partialapprove() {
+        return payroll_partialapprove;
+    }
     //===============================Getter method ends=====================
 
 
@@ -288,6 +321,38 @@ public class UserSingletonModel {
 
     public void setPayroll_strTimesheetStatusList(String payroll_strTimesheetStatusList) {
         this.payroll_strTimesheetStatusList = payroll_strTimesheetStatusList;
+    }
+
+    public void setPayroll_notstarted(String payroll_notstarted) {
+        this.payroll_notstarted = payroll_notstarted;
+    }
+
+    public void setPayroll_saved(String payroll_saved) {
+        this.payroll_saved = payroll_saved;
+    }
+
+    public void setPayroll_submitted(String payroll_submitted) {
+        this.payroll_submitted = payroll_submitted;
+    }
+
+    public void setPayroll_returned(String payroll_returned) {
+        this.payroll_returned = payroll_returned;
+    }
+
+    public void setPayroll_approve(String payroll_approve) {
+        this.payroll_approve = payroll_approve;
+    }
+
+    public void setPayroll_posted(String payroll_posted) {
+        this.payroll_posted = payroll_posted;
+    }
+
+    public void setPayroll_partialreturn(String payroll_partialreturn) {
+        this.payroll_partialreturn = payroll_partialreturn;
+    }
+
+    public void setPayroll_partialapprove(String payroll_partialapprove) {
+        this.payroll_partialapprove = payroll_partialapprove;
     }
     //===============================Setter method ends====================
 
