@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
 import org.arb.gst.R;
 
@@ -21,7 +20,7 @@ public class DrawerSupervisorFragment extends Fragment {
         rootView =  inflater.inflate(R.layout.fragment_supervisor_drawer, null);
         checkbox_not_started = rootView.findViewById(R.id.checkbox_not_started);
         checkbox_saved = rootView.findViewById(R.id.checkbox_saved);
-        checkbox_correctionrequired = rootView.findViewById(R.id.checkbox_correctionrequired);
+        checkbox_correctionrequired = rootView.findViewById(R.id.checkbox_returned);
         checkbox_posted = rootView.findViewById(R.id.checkbox_posted);
         checkbox_submitted = rootView.findViewById(R.id.checkbox_submitted);
         checkbox_partiallyreturn = rootView.findViewById(R.id.checkbox_partiallyreturn);
@@ -50,7 +49,7 @@ public class DrawerSupervisorFragment extends Fragment {
             else
                 // I'm lactose intolerant
                 break;
-            case R.id.checkbox_correctionrequired:
+            case R.id.checkbox_returned:
                 if (checked){
 
                 }

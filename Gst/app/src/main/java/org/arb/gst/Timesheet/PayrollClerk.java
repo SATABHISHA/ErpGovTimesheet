@@ -169,7 +169,8 @@ public class PayrollClerk extends AppCompatActivity {
                 params.put("strCorpID", userSingletonModel.getCorpID());
                 params.put("strClarkType", "PAYROLL");
                 params.put("strActiveFlag", "Active");
-                params.put("strTimesheetStatusList", PayrollModel.strTimesheetStatusList);
+//                params.put("strTimesheetStatusList", PayrollModel.strTimesheetStatusList);
+                params.put("strTimesheetStatusList", userSingletonModel.getPayroll_strTimesheetStatusList());
                 params.put("strWeekDate", TimesheetHome.period_date);
                 params.put("strWeekStartDate", TimesheetHome.period_start_date);
                 params.put("strWeekEndDate", TimesheetHome.period_end_date);

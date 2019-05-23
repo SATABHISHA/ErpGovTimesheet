@@ -3,7 +3,7 @@ package org.arb.gst.Model;
 public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
-            imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department;
+            imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_strTimesheetStatusList;
 
 
     /*
@@ -153,6 +153,9 @@ public class UserSingletonModel {
         return supervisor_department;
     }
 
+    public String getPayroll_strTimesheetStatusList() {
+        return payroll_strTimesheetStatusList;
+    }
     //===============================Getter method ends=====================
 
 
@@ -281,6 +284,10 @@ public class UserSingletonModel {
 
     public void setSupervisor_department(String supervisor_department) {
         this.supervisor_department = supervisor_department;
+    }
+
+    public void setPayroll_strTimesheetStatusList(String payroll_strTimesheetStatusList) {
+        this.payroll_strTimesheetStatusList = payroll_strTimesheetStatusList;
     }
     //===============================Setter method ends====================
 

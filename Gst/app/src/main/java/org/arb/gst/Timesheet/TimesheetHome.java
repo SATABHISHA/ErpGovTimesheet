@@ -407,6 +407,7 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
                                     if(HomeActivity.supervisor_yn_temp.contentEquals("1")) {
                                         startActivity(new Intent(TimesheetHome.this, Subordinate.class));
                                     }else if(HomeActivity.payrollclerk_yn_temp.contentEquals("1")){
+                                        userSingletonModel.setPayroll_strTimesheetStatusList("&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;");
                                         startActivity(new Intent(TimesheetHome.this,PayrollClerk.class));
                                     }
 
