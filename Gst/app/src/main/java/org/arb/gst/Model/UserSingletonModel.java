@@ -3,8 +3,8 @@ package org.arb.gst.Model;
 public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
-            imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_strTimesheetStatusList, payroll_notstarted, payroll_saved,
-            payroll_submitted, payroll_returned, payroll_approve, payroll_posted, payroll_partialreturn, payroll_partialapprove, payroll_payable_type;
+            imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_payable_strTimesheetStatusList, payroll_payable_notstarted, payroll_payable_saved,
+            payroll_payable_submitted, payroll_payable_returned, payroll_payable_approve, payroll_payable_posted, payroll_payable_partialreturn, payroll_payable_partialapprove, payroll_payable_type;
 
 
     /*
@@ -154,40 +154,40 @@ public class UserSingletonModel {
         return supervisor_department;
     }
 
-    public String getPayroll_strTimesheetStatusList() {
-        return payroll_strTimesheetStatusList;
+    public String getPayroll_payable_strTimesheetStatusList() {
+        return payroll_payable_strTimesheetStatusList;
     }
 
-    public String getPayroll_notstarted() {
-        return payroll_notstarted;
+    public String getPayroll_payable_notstarted() {
+        return payroll_payable_notstarted;
     }
 
-    public String getPayroll_saved() {
-        return payroll_saved;
+    public String getPayroll_payable_saved() {
+        return payroll_payable_saved;
     }
 
-    public String getPayroll_submitted() {
-        return payroll_submitted;
+    public String getPayroll_payable_submitted() {
+        return payroll_payable_submitted;
     }
 
-    public String getPayroll_returned() {
-        return payroll_returned;
+    public String getPayroll_payable_returned() {
+        return payroll_payable_returned;
     }
 
-    public String getPayroll_approve() {
-        return payroll_approve;
+    public String getPayroll_payable_approve() {
+        return payroll_payable_approve;
     }
 
-    public String getPayroll_posted() {
-        return payroll_posted;
+    public String getPayroll_payable_posted() {
+        return payroll_payable_posted;
     }
 
-    public String getPayroll_partialreturn() {
-        return payroll_partialreturn;
+    public String getPayroll_payable_partialreturn() {
+        return payroll_payable_partialreturn;
     }
 
-    public String getPayroll_partialapprove() {
-        return payroll_partialapprove;
+    public String getPayroll_payable_partialapprove() {
+        return payroll_payable_partialapprove;
     }
 
     public String getPayroll_payable_type() {
@@ -323,40 +323,40 @@ public class UserSingletonModel {
         this.supervisor_department = supervisor_department;
     }
 
-    public void setPayroll_strTimesheetStatusList(String payroll_strTimesheetStatusList) {
-        this.payroll_strTimesheetStatusList = payroll_strTimesheetStatusList;
+    public void setPayroll_payable_strTimesheetStatusList(String payroll_payable_strTimesheetStatusList) {
+        this.payroll_payable_strTimesheetStatusList = payroll_payable_strTimesheetStatusList;
     }
 
-    public void setPayroll_notstarted(String payroll_notstarted) {
-        this.payroll_notstarted = payroll_notstarted;
+    public void setPayroll_payable_notstarted(String payroll_payable_notstarted) {
+        this.payroll_payable_notstarted = payroll_payable_notstarted;
     }
 
-    public void setPayroll_saved(String payroll_saved) {
-        this.payroll_saved = payroll_saved;
+    public void setPayroll_payable_saved(String payroll_payable_saved) {
+        this.payroll_payable_saved = payroll_payable_saved;
     }
 
-    public void setPayroll_submitted(String payroll_submitted) {
-        this.payroll_submitted = payroll_submitted;
+    public void setPayroll_payable_submitted(String payroll_payable_submitted) {
+        this.payroll_payable_submitted = payroll_payable_submitted;
     }
 
-    public void setPayroll_returned(String payroll_returned) {
-        this.payroll_returned = payroll_returned;
+    public void setPayroll_payable_returned(String payroll_payable_returned) {
+        this.payroll_payable_returned = payroll_payable_returned;
     }
 
-    public void setPayroll_approve(String payroll_approve) {
-        this.payroll_approve = payroll_approve;
+    public void setPayroll_payable_approve(String payroll_payable_approve) {
+        this.payroll_payable_approve = payroll_payable_approve;
     }
 
-    public void setPayroll_posted(String payroll_posted) {
-        this.payroll_posted = payroll_posted;
+    public void setPayroll_payable_posted(String payroll_payable_posted) {
+        this.payroll_payable_posted = payroll_payable_posted;
     }
 
-    public void setPayroll_partialreturn(String payroll_partialreturn) {
-        this.payroll_partialreturn = payroll_partialreturn;
+    public void setPayroll_payable_partialreturn(String payroll_payable_partialreturn) {
+        this.payroll_payable_partialreturn = payroll_payable_partialreturn;
     }
 
-    public void setPayroll_partialapprove(String payroll_partialapprove) {
-        this.payroll_partialapprove = payroll_partialapprove;
+    public void setPayroll_payable_partialapprove(String payroll_payable_partialapprove) {
+        this.payroll_payable_partialapprove = payroll_payable_partialapprove;
     }
 
     public void setPayroll_payable_type(String payroll_payable_type) {

@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity
 
         checkConnection();  //----function calling to check the internet connection
 
-        Log.d("checkSupPayr","Supervisor"+userSingletonModel.getSupervisorYN()+"PayrollClerk"+userSingletonModel.getPayrollClerkYN()+"PayableClerk:"+userSingletonModel.getPayableClerkYN());
+        Log.d("checkSupPayr","Supervisor"+userSingletonModel.getSupervisorYN()+"PayrollPayableClerk"+userSingletonModel.getPayrollClerkYN()+"PayableClerk:"+userSingletonModel.getPayableClerkYN());
 
         // Checking availability of the camera
         if (!CameraUtils.isDeviceSupportCamera(getApplicationContext())) {

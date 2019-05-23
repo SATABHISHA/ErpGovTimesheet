@@ -1,6 +1,5 @@
 package org.arb.gst.Timesheet;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,13 +26,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.arb.gst.Model.PayrollModel;
-import org.arb.gst.Model.SupervisorListModel;
+import org.arb.gst.Model.PayrollPayableModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
 import org.arb.gst.config.Config;
-import org.arb.gst.fragment.DrawerPayrollClerkFragment;
-import org.arb.gst.fragment.SubordinateListFragment;
+import org.arb.gst.fragment.DrawerPayrollPayableClerkFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,13 +41,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class PayrollClerk extends AppCompatActivity {
+public class PayrollPayableClerk extends AppCompatActivity {
     TextView tv_payrollclerk_period_date;
     ImageButton imgbtn_filter;
     DrawerLayout drawer_layout;
     FragmentManager fragmentManager = getSupportFragmentManager();
-    DrawerPayrollClerkFragment drawerPayrollClerkFragment;
-    ArrayList<PayrollModel> arrayList = new ArrayList<>();
+    DrawerPayrollPayableClerkFragment drawerPayrollPayableClerkFragment;
+    ArrayList<PayrollPayableModel> arrayList = new ArrayList<>();
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     ListView lv_payrollclerk;
 
@@ -60,11 +55,11 @@ public class PayrollClerk extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payrollclerk);
+        setContentView(R.layout.activity_payroll_payable_clerk);
         imgbtn_filter = (ImageButton)findViewById(R.id.imgbtn_filter);
         drawer_layout = (DrawerLayout)findViewById(R.id.drawer_layout);
         lv_payrollclerk = (ListView)findViewById(R.id.lv_payrollclerk);
-        drawerPayrollClerkFragment = (DrawerPayrollClerkFragment)fragmentManager.findFragmentById(R.id.fragmentitem);
+        drawerPayrollPayableClerkFragment = (DrawerPayrollPayableClerkFragment)fragmentManager.findFragmentById(R.id.fragmentitem);
 
         //----------onClick to open the drawer code starts---------
         imgbtn_filter.setOnClickListener(new View.OnClickListener() {
@@ -127,19 +122,19 @@ public class PayrollClerk extends AppCompatActivity {
                                     JSONArray jsonArray = new JSONArray(val);
                                     for(int i=0;i<jsonArray.length();i++){
                                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                        PayrollModel payrollModel = new PayrollModel();
-                                        payrollModel.setId_person(jsonObject.getString("id_person"));
-                                        payrollModel.setEmployee_code(jsonObject.getString("employee_code"));
-                                        payrollModel.setEmployee_name(jsonObject.getString("employee_name"));
-                                        payrollModel.setEmp_type(jsonObject.getString("emp_type"));
-                                        payrollModel.setSupervisor_name(jsonObject.getString("supervisor_name"));
-                                        payrollModel.setTotal_hours(jsonObject.getString("total_hours"));
-                                        payrollModel.setTimesheet_status_id(jsonObject.getString("timesheet_status_id"));
-                                        payrollModel.setTimesheet_status_desc(jsonObject.getString("timesheet_status_desc"));
-                                        payrollModel.setEmail_id(jsonObject.getString("email_id"));
-                                        payrollModel.setEmail_notice(jsonObject.getString("email_notice"));
-                                        payrollModel.setItem_type(jsonObject.getString("item_type"));
-                                        arrayList.add(payrollModel);
+                                        PayrollPayableModel payrollPayableModel = new PayrollPayableModel();
+                                        payrollPayableModel.setId_person(jsonObject.getString("id_person"));
+                                        payrollPayableModel.setEmployee_code(jsonObject.getString("employee_code"));
+                                        payrollPayableModel.setEmployee_name(jsonObject.getString("employee_name"));
+                                        payrollPayableModel.setEmp_type(jsonObject.getString("emp_type"));
+                                        payrollPayableModel.setSupervisor_name(jsonObject.getString("supervisor_name"));
+                                        payrollPayableModel.setTotal_hours(jsonObject.getString("total_hours"));
+                                        payrollPayableModel.setTimesheet_status_id(jsonObject.getString("timesheet_status_id"));
+                                        payrollPayableModel.setTimesheet_status_desc(jsonObject.getString("timesheet_status_desc"));
+                                        payrollPayableModel.setEmail_id(jsonObject.getString("email_id"));
+                                        payrollPayableModel.setEmail_notice(jsonObject.getString("email_notice"));
+                                        payrollPayableModel.setItem_type(jsonObject.getString("item_type"));
+                                        arrayList.add(payrollPayableModel);
                                     }
 //
                                     lv_payrollclerk.setAdapter(new displayPayrollClerk());
@@ -170,8 +165,8 @@ public class PayrollClerk extends AppCompatActivity {
 //                params.put("strClarkType", "PAYROLL");
                 params.put("strClarkType", userSingletonModel.getPayroll_payable_type());
                 params.put("strActiveFlag", "Active");
-//                params.put("strTimesheetStatusList", PayrollModel.strTimesheetStatusList);
-                params.put("strTimesheetStatusList", userSingletonModel.getPayroll_strTimesheetStatusList());
+//                params.put("strTimesheetStatusList", PayrollPayableModel.strTimesheetStatusList);
+                params.put("strTimesheetStatusList", userSingletonModel.getPayroll_payable_strTimesheetStatusList());
                 params.put("strWeekDate", TimesheetHome.period_date);
                 params.put("strWeekStartDate", TimesheetHome.period_start_date);
                 params.put("strWeekEndDate", TimesheetHome.period_end_date);

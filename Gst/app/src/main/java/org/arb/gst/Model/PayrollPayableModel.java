@@ -1,6 +1,6 @@
 package org.arb.gst.Model;
 
-public class PayrollModel {
+public class PayrollPayableModel {
     String email_id, email_notice, employee_code, employee_name,emp_type, id_person, item_type, supervisor_name, timesheet_status_desc, timesheet_status_id, total_hours;
     public static String strTimesheetStatusList = "&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;";
 

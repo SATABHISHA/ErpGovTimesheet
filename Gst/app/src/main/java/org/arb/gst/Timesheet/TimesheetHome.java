@@ -8,9 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -23,11 +21,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,8 +62,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static org.arb.gst.Home.HomeActivity.BITMAP_SAMPLE_SIZE;
 
@@ -408,28 +401,28 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
                                         startActivity(new Intent(TimesheetHome.this, Subordinate.class));
                                     }else if(HomeActivity.payrollclerk_yn_temp.contentEquals("1")){
                                         userSingletonModel.setPayroll_payable_type("PAYROLL");
-                                        userSingletonModel.setPayroll_notstarted("1");
-                                        userSingletonModel.setPayroll_saved("1");
-                                        userSingletonModel.setPayroll_submitted("1");
-                                        userSingletonModel.setPayroll_returned("1");
-                                        userSingletonModel.setPayroll_approve("1");
-                                        userSingletonModel.setPayroll_posted("1");
-                                        userSingletonModel.setPayroll_partialreturn("1");
-                                        userSingletonModel.setPayroll_partialapprove("1");
-                                        userSingletonModel.setPayroll_strTimesheetStatusList("&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;");
-                                        startActivity(new Intent(TimesheetHome.this,PayrollClerk.class));
+                                        userSingletonModel.setPayroll_payable_notstarted("1");
+                                        userSingletonModel.setPayroll_payable_saved("1");
+                                        userSingletonModel.setPayroll_payable_submitted("1");
+                                        userSingletonModel.setPayroll_payable_returned("1");
+                                        userSingletonModel.setPayroll_payable_approve("1");
+                                        userSingletonModel.setPayroll_payable_posted("1");
+                                        userSingletonModel.setPayroll_payable_partialreturn("1");
+                                        userSingletonModel.setPayroll_payable_partialapprove("1");
+                                        userSingletonModel.setPayroll_payable_strTimesheetStatusList("&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;");
+                                        startActivity(new Intent(TimesheetHome.this, PayrollPayableClerk.class));
                                     }else if(HomeActivity.payableclerk_yn_temp.contentEquals("1")){
                                         userSingletonModel.setPayroll_payable_type("PAYABLE");
-                                        userSingletonModel.setPayroll_notstarted("1");
-                                        userSingletonModel.setPayroll_saved("1");
-                                        userSingletonModel.setPayroll_submitted("1");
-                                        userSingletonModel.setPayroll_returned("1");
-                                        userSingletonModel.setPayroll_approve("1");
-                                        userSingletonModel.setPayroll_posted("1");
-                                        userSingletonModel.setPayroll_partialreturn("1");
-                                        userSingletonModel.setPayroll_partialapprove("1");
-                                        userSingletonModel.setPayroll_strTimesheetStatusList("&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;");
-                                        startActivity(new Intent(TimesheetHome.this,PayrollClerk.class));
+                                        userSingletonModel.setPayroll_payable_notstarted("1");
+                                        userSingletonModel.setPayroll_payable_saved("1");
+                                        userSingletonModel.setPayroll_payable_submitted("1");
+                                        userSingletonModel.setPayroll_payable_returned("1");
+                                        userSingletonModel.setPayroll_payable_approve("1");
+                                        userSingletonModel.setPayroll_payable_posted("1");
+                                        userSingletonModel.setPayroll_payable_partialreturn("1");
+                                        userSingletonModel.setPayroll_payable_partialapprove("1");
+                                        userSingletonModel.setPayroll_payable_strTimesheetStatusList("&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;");
+                                        startActivity(new Intent(TimesheetHome.this, PayrollPayableClerk.class));
                                     }
 
                                 }

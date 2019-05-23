@@ -98,9 +98,9 @@
 </android.support.design.widget.CoordinatorLayout>
     <fragment
         android:id="@+id/fragmentitem"
-        android:name="org.arb.gst.fragment.DrawerPayrollClerkFragment"
+        android:name="org.arb.gst.fragment.DrawerPayrollPayableClerkFragment"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        tools:layout="@layout/fragment_payrollclerk_drawer" />
+        tools:layout="@layout/fragment_payroll_payable_clerk_drawer" />
 </android.support.v4.widget.DrawerLayout>
