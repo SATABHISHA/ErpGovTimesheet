@@ -93,6 +93,28 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-thin"
             android:text="Partially Approved"/>
+    <RadioGroup
+        android:layout_marginTop="50dp"
+        android:id="@+id/groupradio"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radia_id1"
+        android:text="Active"
+        android:textSize="20dp"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/radia_id2"
+        android:text="ALL"
+        android:textSize="20dp"/>
+    </RadioGroup>
 </LinearLayout>
         <Button
             android:id="@+id/btn_apply"

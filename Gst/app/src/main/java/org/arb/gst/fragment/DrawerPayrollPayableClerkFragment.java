@@ -9,16 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
 import org.arb.gst.Timesheet.PayrollPayableClerk;
 
-public class DrawerPayrollPayableClerkFragment extends Fragment implements View.OnClickListener {
+public class DrawerPayrollPayableClerkFragment extends Fragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
     View rootView;
     CheckBox checkbox_not_started,checkbox_saved, checkbox_returned,checkbox_posted,checkbox_submitted, checkbox_partiallyreturn,checkbox_approved, checkbox_partially_approved;
     Button btn_apply;
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
+    RadioGroup radioGroup;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
@@ -31,6 +34,8 @@ public class DrawerPayrollPayableClerkFragment extends Fragment implements View.
         checkbox_partiallyreturn = rootView.findViewById(R.id.checkbox_partiallyreturn);
         checkbox_approved = rootView.findViewById(R.id.checkbox_approved);
         checkbox_partially_approved = rootView.findViewById(R.id.checkbox_partially_approved);
+        radioGroup = rootView.findViewById(R.id.groupradio);
+        radioGroup.setOnCheckedChangeListener(this);
 
         checkbox_select(); //---function to select checkbox
         btn_apply = rootView.findViewById(R.id.btn_apply);
@@ -85,7 +90,7 @@ public class DrawerPayrollPayableClerkFragment extends Fragment implements View.
         getActivity().finish();
     }
 
-//----------code to select checkbox starts------
+    //----------code to select checkbox starts------
     public void checkbox_select(){
         if(userSingletonModel.getPayroll_payable_notstarted().contentEquals("1")){
             checkbox_not_started.setChecked(true);
@@ -129,4 +134,15 @@ public class DrawerPayrollPayableClerkFragment extends Fragment implements View.
         }
     }
     //----------code to select checkbox ends------
+
+    //---------code for radiobutton starts--------
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        RadioButton radioButton = (RadioButton)radioGroup.findViewById(i);
+    }
+
+    public void getradiobuttonText(){
+
+    }
+    //--------code for radiobutton ends-----------
 }
