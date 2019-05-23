@@ -32,6 +32,7 @@
             android:textSize="19dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
             android:layout_marginLeft="10dp"
             android:text="Not Started"/>
         <CheckBox android:id="@+id/checkbox_saved"
@@ -40,6 +41,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
             android:text="Saved"/>
     <CheckBox android:id="@+id/checkbox_submitted"
         android:layout_marginTop="5dp"
@@ -47,6 +49,7 @@
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
         android:text="Submitted"/>
         <CheckBox android:id="@+id/checkbox_returned"
             android:layout_marginTop="5dp"
@@ -54,6 +57,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
             android:text="Returned"/>
     <CheckBox android:id="@+id/checkbox_approved"
         android:layout_marginTop="5dp"
@@ -61,6 +65,7 @@
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
         android:text="Approved"/>
         <CheckBox android:id="@+id/checkbox_posted"
             android:layout_marginTop="5dp"
@@ -68,6 +73,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
             android:text="Posted"/>
 
         <CheckBox android:id="@+id/checkbox_partiallyreturn"
@@ -76,6 +82,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
             android:text="Partially Returned"/>
 
         <CheckBox android:id="@+id/checkbox_partially_approved"
@@ -84,6 +91,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
             android:text="Partially Approved"/>
 </LinearLayout>
         <Button
