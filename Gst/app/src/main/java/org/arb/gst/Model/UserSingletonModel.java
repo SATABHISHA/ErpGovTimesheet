@@ -4,7 +4,7 @@ public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
             imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_payable_strTimesheetStatusList, payroll_payable_notstarted, payroll_payable_saved,
-            payroll_payable_submitted, payroll_payable_returned, payroll_payable_approve, payroll_payable_posted, payroll_payable_partialreturn, payroll_payable_partialapprove, payroll_payable_type;
+            payroll_payable_submitted, payroll_payable_returned, payroll_payable_approve, payroll_payable_posted, payroll_payable_partialreturn, payroll_payable_partialapprove, payroll_payable_type, payroll_payable_strActiveFlag;
 
 
     /*
@@ -193,6 +193,10 @@ public class UserSingletonModel {
     public String getPayroll_payable_type() {
         return payroll_payable_type;
     }
+
+    public String getPayroll_payable_strActiveFlag() {
+        return payroll_payable_strActiveFlag;
+    }
     //===============================Getter method ends=====================
 
 
@@ -361,6 +365,10 @@ public class UserSingletonModel {
 
     public void setPayroll_payable_type(String payroll_payable_type) {
         this.payroll_payable_type = payroll_payable_type;
+    }
+
+    public void setPayroll_payable_strActiveFlag(String payroll_payable_strActiveFlag) {
+        this.payroll_payable_strActiveFlag = payroll_payable_strActiveFlag;
     }
     //===============================Setter method ends====================
 

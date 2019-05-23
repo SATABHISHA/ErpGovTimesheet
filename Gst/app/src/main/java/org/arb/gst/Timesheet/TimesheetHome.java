@@ -409,6 +409,7 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
                                         userSingletonModel.setPayroll_payable_posted("1");
                                         userSingletonModel.setPayroll_payable_partialreturn("1");
                                         userSingletonModel.setPayroll_payable_partialapprove("1");
+                                        userSingletonModel.setPayroll_payable_strActiveFlag("Active");
                                         userSingletonModel.setPayroll_payable_strTimesheetStatusList("&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;");
                                         startActivity(new Intent(TimesheetHome.this, PayrollPayableClerk.class));
                                     }else if(HomeActivity.payableclerk_yn_temp.contentEquals("1")){
@@ -421,6 +422,7 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
                                         userSingletonModel.setPayroll_payable_posted("1");
                                         userSingletonModel.setPayroll_payable_partialreturn("1");
                                         userSingletonModel.setPayroll_payable_partialapprove("1");
+                                        userSingletonModel.setPayroll_payable_strActiveFlag("Active");
                                         userSingletonModel.setPayroll_payable_strTimesheetStatusList("&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;");
                                         startActivity(new Intent(TimesheetHome.this, PayrollPayableClerk.class));
                                     }

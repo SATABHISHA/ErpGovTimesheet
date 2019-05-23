@@ -164,7 +164,8 @@ public class PayrollPayableClerk extends AppCompatActivity {
                 params.put("strCorpID", userSingletonModel.getCorpID());
 //                params.put("strClarkType", "PAYROLL");
                 params.put("strClarkType", userSingletonModel.getPayroll_payable_type());
-                params.put("strActiveFlag", "Active");
+//                params.put("strActiveFlag", "Active");
+                params.put("strActiveFlag", userSingletonModel.getPayroll_payable_strActiveFlag());
 //                params.put("strTimesheetStatusList", PayrollPayableModel.strTimesheetStatusList);
                 params.put("strTimesheetStatusList", userSingletonModel.getPayroll_payable_strTimesheetStatusList());
                 params.put("strWeekDate", TimesheetHome.period_date);

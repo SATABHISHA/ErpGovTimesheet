@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
@@ -22,6 +23,7 @@ public class DrawerPayrollPayableClerkFragment extends Fragment implements View.
     Button btn_apply;
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     RadioGroup radioGroup;
+    RadioButton radia_id1, radia_id2;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
@@ -35,6 +37,15 @@ public class DrawerPayrollPayableClerkFragment extends Fragment implements View.
         checkbox_approved = rootView.findViewById(R.id.checkbox_approved);
         checkbox_partially_approved = rootView.findViewById(R.id.checkbox_partially_approved);
         radioGroup = rootView.findViewById(R.id.groupradio);
+        radia_id1 = rootView.findViewById(R.id.radia_id1);
+        radia_id2 = rootView.findViewById(R.id.radia_id2);
+        //--------code to check/uncheck radiobutton starts-------
+        if(userSingletonModel.getPayroll_payable_strActiveFlag().contentEquals("Active")) {
+            radia_id1.setChecked(true);
+        }else if(userSingletonModel.getPayroll_payable_strActiveFlag().contentEquals("ALL")){
+            radia_id2.setChecked(true);
+        }
+        //--------code to check/uncheck radiobutton ends-------
         radioGroup.setOnCheckedChangeListener(this);
 
         checkbox_select(); //---function to select checkbox
@@ -84,6 +95,7 @@ public class DrawerPayrollPayableClerkFragment extends Fragment implements View.
         }
        String timesheet_status = status1+result.toString()+status2;
        userSingletonModel.setPayroll_payable_strTimesheetStatusList(timesheet_status);
+       getradiobuttonText(); //---function to get the radiobutton value
         Intent intent = new Intent(getActivity(), PayrollPayableClerk.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -142,6 +154,11 @@ public class DrawerPayrollPayableClerkFragment extends Fragment implements View.
     }
 
     public void getradiobuttonText(){
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        if(selectedId!=-1) {
+            RadioButton radioButton = (RadioButton) radioGroup.findViewById(selectedId);
+            userSingletonModel.setPayroll_payable_strActiveFlag(radioButton.getText().toString());
+        }
 
     }
     //--------code for radiobutton ends-----------
