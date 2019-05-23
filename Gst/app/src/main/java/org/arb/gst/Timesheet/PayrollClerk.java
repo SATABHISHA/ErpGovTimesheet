@@ -167,7 +167,8 @@ public class PayrollClerk extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("strCorpID", userSingletonModel.getCorpID());
-                params.put("strClarkType", "PAYROLL");
+//                params.put("strClarkType", "PAYROLL");
+                params.put("strClarkType", userSingletonModel.getPayroll_payable_type());
                 params.put("strActiveFlag", "Active");
 //                params.put("strTimesheetStatusList", PayrollModel.strTimesheetStatusList);
                 params.put("strTimesheetStatusList", userSingletonModel.getPayroll_strTimesheetStatusList());

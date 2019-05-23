@@ -4,7 +4,7 @@ public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
             imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_strTimesheetStatusList, payroll_notstarted, payroll_saved,
-            payroll_submitted, payroll_returned, payroll_approve, payroll_posted, payroll_partialreturn, payroll_partialapprove;
+            payroll_submitted, payroll_returned, payroll_approve, payroll_posted, payroll_partialreturn, payroll_partialapprove, payroll_payable_type;
 
 
     /*
@@ -189,6 +189,10 @@ public class UserSingletonModel {
     public String getPayroll_partialapprove() {
         return payroll_partialapprove;
     }
+
+    public String getPayroll_payable_type() {
+        return payroll_payable_type;
+    }
     //===============================Getter method ends=====================
 
 
@@ -353,6 +357,10 @@ public class UserSingletonModel {
 
     public void setPayroll_partialapprove(String payroll_partialapprove) {
         this.payroll_partialapprove = payroll_partialapprove;
+    }
+
+    public void setPayroll_payable_type(String payroll_payable_type) {
+        this.payroll_payable_type = payroll_payable_type;
     }
     //===============================Setter method ends====================
 
