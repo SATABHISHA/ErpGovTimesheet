@@ -15,9 +15,9 @@
     <application
         android:name=".config.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/launchericon"
         android:label="@string/launcher_name"
-        android:roundIcon="@drawable/icon"
+        android:roundIcon="@drawable/launchericon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -41,7 +41,7 @@
         </activity> -->
         <activity android:name=".Home.HomeActivity"
             android:screenOrientation="portrait"
-            android:label="@string/app_name"
+            android:label="WRKPLAN Timesheet"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Timesheet.TimesheetHome"
             android:screenOrientation="portrait"
