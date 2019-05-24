@@ -27,10 +27,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:text="ERPGov Timesheet"
+            android:text="WRKPLAN \nTimesheet"
             android:textColor="#ffffff"
-            android:textSize="17dp"
-            android:textStyle="bold" />
+            android:textSize="20dp"
+            android:textStyle="normal" />
     </RelativeLayout>
    <!-- <TextView
         android:layout_width="match_parent"

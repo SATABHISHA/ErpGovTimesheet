@@ -3,24 +3,36 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="#FFFFFF"
-        android:scaleType="centerCrop"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:src="@drawable/sp_logo"
+            android:id="@+id/img_wrkpln"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:src="@drawable/workplan"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:textColor="#8B8B8B"
+                android:layout_centerHorizontal="true"
+                android:text="                  T  i  m  e  s  h  e  e  t"
+                android:textSize="13dp"/>
+        </RelativeLayout>
 
 
 
@@ -215,9 +227,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Copyright \u00A9 2019 All Rights Reserved.\nGlobal System Technologies Inc."
-            android:textColor="#FF2e5772"
-            android:textSize="15dp"
+            android:text="Copyright \u00A9 2019 ARB Investments"
+            android:textColor="#505050"
+            android:textSize="13dp"
             android:gravity="center"
             android:layout_marginBottom="15dp"/>
     </LinearLayout>

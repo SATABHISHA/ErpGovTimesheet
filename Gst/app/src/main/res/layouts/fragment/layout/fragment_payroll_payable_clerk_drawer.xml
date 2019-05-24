@@ -10,7 +10,7 @@
             android:id="@+id/relativeLayout1"
             android:background="#2e5772"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
                 android:text="Filter Employee"
                 android:textColor="#ffffff"
                 android:layout_marginLeft="20dp"
-                android:textSize="27dp"
+                android:textSize="20dp"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
 <LinearLayout
@@ -27,7 +27,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginTop="30dp">
+    android:layout_marginTop="10dp">
         <CheckBox android:id="@+id/checkbox_not_started"
             android:textSize="19dp"
             android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:layout_below="@id/relativeLayout2"
-            android:textSize="19dp"
+            android:textSize="17dp"
             android:text="Apply"
             />
     </RelativeLayout>
