@@ -5,7 +5,7 @@ public class UserSingletonModel {
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
             imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_payable_strTimesheetStatusList, payroll_payable_notstarted, payroll_payable_saved,
             payroll_payable_submitted, payroll_payable_returned, payroll_payable_approve, payroll_payable_posted, payroll_payable_partialreturn, payroll_payable_partialapprove, payroll_payable_type, payroll_payable_strActiveFlag, timesheet_personId_yn,
-            payable_payroll_supervisor_person_id;
+            payable_payroll_supervisor_person_id, not_started_color, saved_color, submitted_color, returned_color, approved_color, posted_color, partially_returned_color, partially_approved_color;
 
 
     /*
@@ -206,6 +206,38 @@ public class UserSingletonModel {
     public String getPayable_payroll_supervisor_person_id() {
         return payable_payroll_supervisor_person_id;
     }
+
+    public String getNot_started_color() {
+        return not_started_color;
+    }
+
+    public String getSaved_color() {
+        return saved_color;
+    }
+
+    public String getSubmitted_color() {
+        return submitted_color;
+    }
+
+    public String getReturned_color() {
+        return returned_color;
+    }
+
+    public String getApproved_color() {
+        return approved_color;
+    }
+
+    public String getPosted_color() {
+        return posted_color;
+    }
+
+    public String getPartially_returned_color() {
+        return partially_returned_color;
+    }
+
+    public String getPartially_approved_color() {
+        return partially_approved_color;
+    }
     //===============================Getter method ends=====================
 
 
@@ -386,6 +418,38 @@ public class UserSingletonModel {
 
     public void setPayable_payroll_supervisor_person_id(String payable_payroll_supervisor_person_id) {
         this.payable_payroll_supervisor_person_id = payable_payroll_supervisor_person_id;
+    }
+
+    public void setNot_started_color(String not_started_color) {
+        this.not_started_color = not_started_color;
+    }
+
+    public void setSaved_color(String saved_color) {
+        this.saved_color = saved_color;
+    }
+
+    public void setSubmitted_color(String submitted_color) {
+        this.submitted_color = submitted_color;
+    }
+
+    public void setReturned_color(String returned_color) {
+        this.returned_color = returned_color;
+    }
+
+    public void setApproved_color(String approved_color) {
+        this.approved_color = approved_color;
+    }
+
+    public void setPosted_color(String posted_color) {
+        this.posted_color = posted_color;
+    }
+
+    public void setPartially_returned_color(String partially_returned_color) {
+        this.partially_returned_color = partially_returned_color;
+    }
+
+    public void setPartially_approved_color(String partially_approved_color) {
+        this.partially_approved_color = partially_approved_color;
     }
     //===============================Setter method ends====================
 

@@ -726,6 +726,31 @@ public class HomeActivity extends AppCompatActivity
                     JSONArray jsonArray = new JSONArray(val);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if(jsonObject.getString("name").contentEquals("Not Started")){
+                            userSingletonModel.setNot_started_color(jsonObj.getString("color_code"));
+                        }
+                        if(jsonObject.getString("name").contentEquals("Saved")){
+                            userSingletonModel.setSaved_color(jsonObj.getString("color_code"));
+                        }
+                        if(jsonObject.getString("name").contentEquals("Submitted")){
+                            userSingletonModel.setSubmitted_color(jsonObj.getString("color_code"));
+                        }
+                        if(jsonObject.getString("name").contentEquals("Returned")){
+                            userSingletonModel.setReturned_color(jsonObj.getString("color_code"));
+                        }
+                        if(jsonObject.getString("name").contentEquals("Approved")){
+                            userSingletonModel.setApproved_color(jsonObj.getString("color_code"));
+                        }
+                        if(jsonObject.getString("name").contentEquals("Posted")){
+                            userSingletonModel.setPosted_color(jsonObj.getString("color_code"));
+                        }
+                        if(jsonObject.getString("name").contentEquals("Partially Returned")){
+                            userSingletonModel.setPartially_returned_color(jsonObj.getString("color_code"));
+                        }
+                        if(jsonObject.getString("name").contentEquals("Partially Approved")){
+                            userSingletonModel.setPartially_approved_color(jsonObj.getString("color_code"));
+                        }
+
                     }
                 }
                 }
