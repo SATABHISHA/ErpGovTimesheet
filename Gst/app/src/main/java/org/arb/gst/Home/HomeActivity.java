@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,6 +38,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -49,10 +57,16 @@ import org.arb.gst.R;
 import org.arb.gst.Timesheet.Subordinate;
 import org.arb.gst.Timesheet.TimesheetHome;
 import org.arb.gst.config.CameraUtils;
+import org.arb.gst.config.Config;
 import org.arb.gst.config.ConnectivityReceiver;
 import org.arb.gst.config.MyApplication;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.XML;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
@@ -267,6 +281,8 @@ public class HomeActivity extends AppCompatActivity
         btnTimeshetEntry.setOnClickListener(this);
         btnVacationRequest.setOnClickListener(this);
         //================setOnclickListner() for button code ends(created by Satabhisha)=============
+
+        loadColorData(); //----code to load color, added on 24th may
     }
 
     //=========Navigation drawer onBackPressed code starts=====
@@ -669,6 +685,55 @@ public class HomeActivity extends AppCompatActivity
     }
     //========Button onClick() using switch case code ends=======
 
+    //=============function for status color from api, starts.....==========
+    public void loadColorData(){
+        String url = Config.BaseUrl+"SubordinateListTimeSheetStatus";
+        final ProgressDialog loading = ProgressDialog.show(HomeActivity.this, "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new
+                Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        getColorData(response);
+                        loading.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                error.printStackTrace();
+            }
+        });
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+    }
+
+    public void getColorData(String request){
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = XML.toJSONObject(request);
+            String responseData = jsonObj.toString();
+            String val = "";
+            JSONObject resobj = new JSONObject(responseData);
+            Log.d("getColor",responseData.toString());
+            Iterator<?> keys = resobj.keys();
+            while(keys.hasNext() ) {
+                String key = (String) keys.next();
+                if (resobj.get(key) instanceof JSONObject) {
+                    JSONObject xx = new JSONObject(resobj.get(key).toString());
+                    val = xx.getString("content");
+                    JSONArray jsonArray = new JSONArray(val);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    }
+                }
+                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    //=============function for status color from api, ends.....==========
 
     //===============code to clear sharedPref data starts=========
      public void removeSharedPref(){
