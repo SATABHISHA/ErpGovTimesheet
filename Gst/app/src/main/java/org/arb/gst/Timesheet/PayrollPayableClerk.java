@@ -1,5 +1,6 @@
 package org.arb.gst.Timesheet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -141,6 +142,9 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                     lv_payrollclerk.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            userSingletonModel.setTimesheet_personId_yn("1");
+                                            userSingletonModel.setPayable_payroll_supervisor_person_id(arrayList.get(i).getId_person());
+                                            startActivity(new Intent(PayrollPayableClerk.this,TimesheetSelectDay.class));
                                             Toast.makeText(getApplicationContext(),arrayList.get(i).getId_person(),Toast.LENGTH_SHORT).show();
                                         }
                                     });

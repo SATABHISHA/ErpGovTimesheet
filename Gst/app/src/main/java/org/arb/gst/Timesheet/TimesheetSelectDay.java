@@ -952,7 +952,11 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("CorpId", userSingletonModel.getCorpID());
-                params.put("UserId", userSingletonModel.getUserID());
+                if(userSingletonModel.getTimesheet_personId_yn().contentEquals("0")) {
+                    params.put("UserId", userSingletonModel.getUserID());
+                }else if(userSingletonModel.getTimesheet_personId_yn().contentEquals("1")){
+                    params.put("UserId", userSingletonModel.getPayable_payroll_supervisor_person_id());
+                }
                 params.put("UserType",userSingletonModel.getUserType());
                 params.put("StartDate",TimesheetHome.dateOnSelectedCalender);
                 Log.d("StartDate",TimesheetHome.dateOnSelectedCalender);

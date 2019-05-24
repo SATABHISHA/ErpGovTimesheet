@@ -1,6 +1,7 @@
 package org.arb.gst.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import org.arb.gst.Model.SupervisorListModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
 import org.arb.gst.Timesheet.TimesheetHome;
+import org.arb.gst.Timesheet.TimesheetSelectDay;
 import org.arb.gst.config.Config;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -95,9 +97,13 @@ public class SubcontractorEmployeeListFragment extends Fragment {
                                     lv_subcontractor_employeelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                            userSingletonModel.setSupervisor_id_person(arrayList.get(i).getId_person());
+                                            userSingletonModel.setSupervisor_id_person(arrayList.get(i).getId_person()); //---not in use
                                             userSingletonModel.setSupervisor_employee_name(arrayList.get(i).getEmployee_name());
-                                            Toast.makeText(getContext(),arrayList.get(i).getId_person()+"/"+arrayList.get(i).getEmployee_name(),Toast.LENGTH_SHORT).show();
+
+                                            userSingletonModel.setTimesheet_personId_yn("1");
+                                            userSingletonModel.setPayable_payroll_supervisor_person_id(arrayList.get(i).getId_person());
+                                            startActivity(new Intent(getActivity(), TimesheetSelectDay.class));
+//                                            Toast.makeText(getContext(),arrayList.get(i).getId_person()+"/"+arrayList.get(i).getEmployee_name(),Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }

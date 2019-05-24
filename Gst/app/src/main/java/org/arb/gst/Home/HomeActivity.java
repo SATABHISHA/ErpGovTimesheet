@@ -96,6 +96,7 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        userSingletonModel.setTimesheet_personId_yn("0");
 
         checkConnection();  //----function calling to check the internet connection
 

@@ -4,7 +4,8 @@ public class UserSingletonModel {
     String UserID, UserName, CompID, CorpID, CompanyName, SupervisorId, UserRole, AdminYN, PayableClerkYN, SupervisorYN, PurchaseYN,
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
             imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_payable_strTimesheetStatusList, payroll_payable_notstarted, payroll_payable_saved,
-            payroll_payable_submitted, payroll_payable_returned, payroll_payable_approve, payroll_payable_posted, payroll_payable_partialreturn, payroll_payable_partialapprove, payroll_payable_type, payroll_payable_strActiveFlag;
+            payroll_payable_submitted, payroll_payable_returned, payroll_payable_approve, payroll_payable_posted, payroll_payable_partialreturn, payroll_payable_partialapprove, payroll_payable_type, payroll_payable_strActiveFlag, timesheet_personId_yn,
+            payable_payroll_supervisor_person_id;
 
 
     /*
@@ -197,6 +198,14 @@ public class UserSingletonModel {
     public String getPayroll_payable_strActiveFlag() {
         return payroll_payable_strActiveFlag;
     }
+
+    public String getTimesheet_personId_yn() {
+        return timesheet_personId_yn;
+    }
+
+    public String getPayable_payroll_supervisor_person_id() {
+        return payable_payroll_supervisor_person_id;
+    }
     //===============================Getter method ends=====================
 
 
@@ -369,6 +378,14 @@ public class UserSingletonModel {
 
     public void setPayroll_payable_strActiveFlag(String payroll_payable_strActiveFlag) {
         this.payroll_payable_strActiveFlag = payroll_payable_strActiveFlag;
+    }
+
+    public void setTimesheet_personId_yn(String timesheet_personId_yn) {
+        this.timesheet_personId_yn = timesheet_personId_yn;
+    }
+
+    public void setPayable_payroll_supervisor_person_id(String payable_payroll_supervisor_person_id) {
+        this.payable_payroll_supervisor_person_id = payable_payroll_supervisor_person_id;
     }
     //===============================Setter method ends====================
 
