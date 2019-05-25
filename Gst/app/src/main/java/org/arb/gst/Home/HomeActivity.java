@@ -284,10 +284,6 @@ public class HomeActivity extends AppCompatActivity
 
         loadColorData(); //----code to load color, added on 24th may
 
-        //----demo test starts-----
-        String a = userSingletonModel.getNot_started_color()+"2"+userSingletonModel.getSaved_color();
-        Log.d("colortest",a);
-        //---demo test ends----
     }
 
     //=========Navigation drawer onBackPressed code starts=====
@@ -398,9 +394,110 @@ public class HomeActivity extends AppCompatActivity
             alert.show();
 
         }else if (id == R.id.nav_calender) {
-            Intent intent = new Intent(HomeActivity.this,TimesheetHome.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            if(userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayableClerkYN().contentEquals("0")){
+                startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                userSingletonModel.setEmployeeYN("1");
+            }else {
+                //--------adding custom dialog on 14th may starts------
+                LayoutInflater li2 = LayoutInflater.from(this);
+                View dialog = li2.inflate(R.layout.dialog_choose_timesheet, null);
+                Button btn_employee = (Button) dialog.findViewById(R.id.btn_employee);
+                Button btn_supervisor = (Button) dialog.findViewById(R.id.btn_supervisor);
+                Button btn_payroll_clerk = (Button) dialog.findViewById(R.id.btn_payroll_clerk);
+                Button btn_payable_clerk = (Button) dialog.findViewById(R.id.btn_payable_clerk);
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setView(dialog);
+//                        alert.setCancelable(false);
+                //Creating an alert dialog
+                final AlertDialog alertDialog = alert.create();
+                alertDialog.show();
+
+                if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayableClerkYN().contentEquals("1")) {
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.VISIBLE);
+                    btn_payroll_clerk.setVisibility(View.VISIBLE);
+                    btn_payable_clerk.setVisibility(View.VISIBLE);
+                } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayableClerkYN().contentEquals("1")) {
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.GONE);
+                    btn_payroll_clerk.setVisibility(View.VISIBLE);
+                    btn_payable_clerk.setVisibility(View.VISIBLE);
+                } else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayableClerkYN().contentEquals("1")) {
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.VISIBLE);
+                    btn_payroll_clerk.setVisibility(View.GONE);
+                    btn_payable_clerk.setVisibility(View.VISIBLE);
+                } else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayableClerkYN().contentEquals("0")) {
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.VISIBLE);
+                    btn_payroll_clerk.setVisibility(View.VISIBLE);
+                    btn_payable_clerk.setVisibility(View.GONE);
+                }/*else if(userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0")){
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.INVISIBLE);
+                    btn_payroll_clerk.setVisibility(View.INVISIBLE);
+                    btn_payable_clerk.setVisibility(View.INVISIBLE);
+                }*/ else if (userSingletonModel.getSupervisorYN().contentEquals("1") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayableClerkYN().contentEquals("0")) {
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.VISIBLE);
+                    btn_payroll_clerk.setVisibility(View.GONE);
+                    btn_payable_clerk.setVisibility(View.GONE);
+                } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("1") && userSingletonModel.getPayableClerkYN().contentEquals("0")) {
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.GONE);
+                    btn_payroll_clerk.setVisibility(View.VISIBLE);
+                    btn_payable_clerk.setVisibility(View.GONE);
+                } else if (userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayableClerkYN().contentEquals("1")) {
+                    btn_employee.setVisibility(View.VISIBLE);
+                    btn_supervisor.setVisibility(View.GONE);
+                    btn_payroll_clerk.setVisibility(View.GONE);
+                    btn_payable_clerk.setVisibility(View.VISIBLE);
+                }
+                btn_employee.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                        startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                        userSingletonModel.setEmployeeYN("1");
+                    }
+                });
+                btn_supervisor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(HomeActivity.this, "Working On", Toast.LENGTH_LONG).show();
+//                            startActivity(new Intent(HomeActivity.this, Subordinate.class));
+                        startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                        userSingletonModel.setEmployeeYN("0");
+                        supervisor_yn_temp = "1";
+                        payrollclerk_yn_temp = "0";
+                        payableclerk_yn_temp = "0";
+                        alertDialog.dismiss();
+                    }
+                });
+                btn_payroll_clerk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                        userSingletonModel.setEmployeeYN("0");
+                        supervisor_yn_temp = "0";
+                        payrollclerk_yn_temp = "1";
+                        payableclerk_yn_temp = "0";
+                        alertDialog.dismiss();
+                    }
+                });
+                btn_payable_clerk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
+                        userSingletonModel.setEmployeeYN("0");
+                        supervisor_yn_temp = "0";
+                        payrollclerk_yn_temp = "0";
+                        payableclerk_yn_temp = "1";
+                        alertDialog.dismiss();
+                    }
+                });
+                //--------adding custom dialog on 14th may ends------
+            }
 
         }else if (id == R.id.nav_vacation_request){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
