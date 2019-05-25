@@ -1,6 +1,7 @@
 package org.arb.gst.Timesheet;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class PayrollPayableClerk extends AppCompatActivity {
     ArrayList<PayrollPayableModel> arrayList = new ArrayList<>();
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     ListView lv_payrollclerk;
+    RelativeLayout relative_layout;
 
 
     @Override
@@ -130,7 +133,25 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                         payrollPayableModel.setEmp_type(jsonObject.getString("emp_type"));
                                         payrollPayableModel.setSupervisor_name(jsonObject.getString("supervisor_name"));
                                         payrollPayableModel.setTotal_hours(jsonObject.getString("total_hours"));
-                                        payrollPayableModel.setTimesheet_status_id(jsonObject.getString("timesheet_status_id"));
+//                                        payrollPayableModel.setTimesheet_status_id(jsonObject.getString("timesheet_status_id")); //---since it is in integer format
+                                        if(jsonObject.getInt("timesheet_status_id")==0){
+                                            payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getNot_started_color());
+                                        }else if(jsonObject.getInt("timesheet_status_id")==1){
+                                            payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getSaved_color());
+                                        }else if(jsonObject.getInt("timesheet_status_id")==2){
+                                            payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getSubmitted_color());
+                                        }else if(jsonObject.getInt("timesheet_status_id")==3){
+                                            payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getReturned_color());
+                                        }else if(jsonObject.getInt("timesheet_status_id")==4){
+                                            payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getApproved_color());
+                                        }else if(jsonObject.getInt("timesheet_status_id")==5){
+                                            payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getPosted_color());
+                                        }else if(jsonObject.getInt("timesheet_status_id")== 6 ){
+                                            payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getPartially_returned_color());
+                                        }else if(jsonObject.getInt("timesheet_status_id")==7){
+                                            payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getPartially_approved_color());
+                                        }
+
                                         payrollPayableModel.setTimesheet_status_desc(jsonObject.getString("timesheet_status_desc"));
                                         payrollPayableModel.setEmail_id(jsonObject.getString("email_id"));
                                         payrollPayableModel.setEmail_notice(jsonObject.getString("email_notice"));
@@ -211,7 +232,10 @@ public class PayrollPayableClerk extends AppCompatActivity {
             LayoutInflater layoutInflater = getLayoutInflater();
             view = layoutInflater.inflate(R.layout.listview_payrollclerk_row,viewGroup,false);
             tv_payrollclerk = (TextView) view.findViewById(R.id.tv_payrollclerk);
+            relative_layout = view.findViewById(R.id.relative_layout);
             tv_payrollclerk.setText(arrayList.get(i).getEmployee_name());
+            relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getPayaroll_payableclerk_colorcode()));
+//            Log.d("colorcode",arrayList.get(i).getPayaroll_payableclerk_colorcode().toString());
             return view;
         }
     }

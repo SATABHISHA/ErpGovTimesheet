@@ -1,7 +1,7 @@
 package org.arb.gst.Model;
 
 public class PayrollPayableModel {
-    String email_id, email_notice, employee_code, employee_name,emp_type, id_person, item_type, supervisor_name, timesheet_status_desc, timesheet_status_id, total_hours;
+    String email_id, email_notice, employee_code, employee_name,emp_type, id_person, item_type, supervisor_name, timesheet_status_desc, timesheet_status_id, total_hours, payaroll_payableclerk_colorcode;
     public static String strTimesheetStatusList = "&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;";
 
     //----------------------Getter method starts-----------------
@@ -50,6 +50,9 @@ public class PayrollPayableModel {
         return total_hours;
     }
 
+    public String getPayaroll_payableclerk_colorcode() {
+        return payaroll_payableclerk_colorcode;
+    }
     //----------------------Getter method ends-----------------
 
     //----------------------Setter method starts-----------------
@@ -98,5 +101,8 @@ public class PayrollPayableModel {
         this.total_hours = total_hours;
     }
 
+    public void setPayaroll_payableclerk_colorcode(String payaroll_payableclerk_colorcode) {
+        this.payaroll_payableclerk_colorcode = payaroll_payableclerk_colorcode;
+    }
     //----------------------Setter method ends-----------------
 }

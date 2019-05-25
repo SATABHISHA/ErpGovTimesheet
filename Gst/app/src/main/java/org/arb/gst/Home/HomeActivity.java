@@ -283,6 +283,11 @@ public class HomeActivity extends AppCompatActivity
         //================setOnclickListner() for button code ends(created by Satabhisha)=============
 
         loadColorData(); //----code to load color, added on 24th may
+
+        //----demo test starts-----
+        String a = userSingletonModel.getNot_started_color()+"2"+userSingletonModel.getSaved_color();
+        Log.d("colortest",a);
+        //---demo test ends----
     }
 
     //=========Navigation drawer onBackPressed code starts=====
@@ -724,31 +729,32 @@ public class HomeActivity extends AppCompatActivity
                     JSONObject xx = new JSONObject(resobj.get(key).toString());
                     val = xx.getString("content");
                     JSONArray jsonArray = new JSONArray(val);
+                    Log.d("value",jsonArray.toString());
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         if(jsonObject.getString("name").contentEquals("Not Started")){
-                            userSingletonModel.setNot_started_color(jsonObj.getString("color_code"));
+                            userSingletonModel.setNot_started_color(jsonObject.getString("color_code"));
                         }
                         if(jsonObject.getString("name").contentEquals("Saved")){
-                            userSingletonModel.setSaved_color(jsonObj.getString("color_code"));
+                            userSingletonModel.setSaved_color(jsonObject.getString("color_code"));
                         }
                         if(jsonObject.getString("name").contentEquals("Submitted")){
-                            userSingletonModel.setSubmitted_color(jsonObj.getString("color_code"));
+                            userSingletonModel.setSubmitted_color(jsonObject.getString("color_code"));
                         }
                         if(jsonObject.getString("name").contentEquals("Returned")){
-                            userSingletonModel.setReturned_color(jsonObj.getString("color_code"));
+                            userSingletonModel.setReturned_color(jsonObject.getString("color_code"));
                         }
                         if(jsonObject.getString("name").contentEquals("Approved")){
-                            userSingletonModel.setApproved_color(jsonObj.getString("color_code"));
+                            userSingletonModel.setApproved_color(jsonObject.getString("color_code"));
                         }
                         if(jsonObject.getString("name").contentEquals("Posted")){
-                            userSingletonModel.setPosted_color(jsonObj.getString("color_code"));
+                            userSingletonModel.setPosted_color(jsonObject.getString("color_code"));
                         }
                         if(jsonObject.getString("name").contentEquals("Partially Returned")){
-                            userSingletonModel.setPartially_returned_color(jsonObj.getString("color_code"));
+                            userSingletonModel.setPartially_returned_color(jsonObject.getString("color_code"));
                         }
                         if(jsonObject.getString("name").contentEquals("Partially Approved")){
-                            userSingletonModel.setPartially_approved_color(jsonObj.getString("color_code"));
+                            userSingletonModel.setPartially_approved_color(jsonObject.getString("color_code"));
                         }
 
                     }
