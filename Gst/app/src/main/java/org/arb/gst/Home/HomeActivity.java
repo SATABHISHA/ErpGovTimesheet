@@ -5,6 +5,8 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,8 +15,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -65,9 +70,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+
+import static android.provider.DocumentsContract.isDocumentUri;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ConnectivityReceiver.ConnectivityReceiverListener, View.OnClickListener {
@@ -1088,19 +1099,248 @@ public class HomeActivity extends AppCompatActivity
                 Uri selectedImageUri = data.getData();
                 if (selectedImageUri != null) {
                     // Get the path from the Uri
-//                    String path = getPathFromURI(selectedImageUri); //---commented on 20th dec
-                    String path = getRealPathFromURI_API19(selectedImageUri); //---added on 20th dec
-                    imageStoragePath = path;
-                    Log.d("pathImage==>", "Image Path : " + path);
-                    // Set the image in ImageView
-//                    img_profile_pic.setBackground(Drawable.createFromPath(imageStoragePath));
+
+                    //==========newly adaing starts======
+                    if( isAboveKitKat() )
+                    {
+                        // Android OS above sdk version 19.
+                        imageStoragePath = getUriRealPathAboveKitkat(getApplicationContext(), selectedImageUri);
+                    }else
+                    {
+                        // Android OS below sdk version 19
+                        imageStoragePath = getImageRealPath(getContentResolver(), selectedImageUri, null);
+                    }
+                    //==========newly adaing ends======
                     img_profile_pic.setImageURI(selectedImageUri);
                     Log.d("Imageuri",selectedImageUri.toString());
+
                 }
             }
 
         }
     }
+
+    //=====================to convert uri to string demo starts 27th may==============
+    private String getUriRealPathAboveKitkat(Context ctx, Uri uri)
+    {
+        String ret = "";
+
+        if(ctx != null && uri != null) {
+
+            if(isContentUri(uri))
+            {
+                if(isGooglePhotoDoc(uri.getAuthority()))
+                {
+                    ret = uri.getLastPathSegment();
+                }else {
+                    ret = getImageRealPath(getContentResolver(), uri, null);
+                }
+            }else if(isFileUri(uri)) {
+                ret = uri.getPath();
+            }else if(isDocumentUri(ctx, uri)){
+
+                // Get uri related document id.
+                String documentId = DocumentsContract.getDocumentId(uri);
+
+                // Get uri authority.
+                String uriAuthority = uri.getAuthority();
+
+                if(isMediaDoc(uriAuthority))
+                {
+                    String idArr[] = documentId.split(":");
+                    if(idArr.length == 2)
+                    {
+                        // First item is document type.
+                        String docType = idArr[0];
+
+                        // Second item is document real id.
+                        String realDocId = idArr[1];
+
+                        // Get content uri by document type.
+                        Uri mediaContentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                        if("image".equals(docType))
+                        {
+                            mediaContentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                        }else if("video".equals(docType))
+                        {
+                            mediaContentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                        }else if("audio".equals(docType))
+                        {
+                            mediaContentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                        }
+
+                        // Get where clause with real document id.
+                        String whereClause = MediaStore.Images.Media._ID + " = " + realDocId;
+
+                        ret = getImageRealPath(getContentResolver(), mediaContentUri, whereClause);
+                    }
+
+                }else if(isDownloadDoc(uriAuthority))
+                {
+                    // Build download uri.
+                    Uri downloadUri = Uri.parse("content://downloads/public_downloads");
+
+                    // Append download document id at uri end.
+                    Uri downloadUriAppendId = ContentUris.withAppendedId(downloadUri, Long.valueOf(documentId));
+
+                    ret = getImageRealPath(getContentResolver(), downloadUriAppendId, null);
+
+                }else if(isExternalStoreDoc(uriAuthority))
+                {
+                    String idArr[] = documentId.split(":");
+                    if(idArr.length == 2)
+                    {
+                        String type = idArr[0];
+                        String realDocId = idArr[1];
+
+                        if("primary".equalsIgnoreCase(type))
+                        {
+                            ret = Environment.getExternalStorageDirectory() + "/" + realDocId;
+                        }
+                    }
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    /* Check whether current android os version is bigger than kitkat or not. */
+    private boolean isAboveKitKat()
+    {
+        boolean ret = false;
+        ret = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        return ret;
+    }
+
+    /* Check whether this uri represent a document or not. */
+    private boolean isDocumentUri(Context ctx, Uri uri)
+    {
+        boolean ret = false;
+        if(ctx != null && uri != null) {
+            ret = DocumentsContract.isDocumentUri(ctx, uri);
+        }
+        return ret;
+    }
+
+    /* Check whether this uri is a content uri or not.
+     *  content uri like content://media/external/images/media/1302716
+     *  */
+    private boolean isContentUri(Uri uri)
+    {
+        boolean ret = false;
+        if(uri != null) {
+            String uriSchema = uri.getScheme();
+            if("content".equalsIgnoreCase(uriSchema))
+            {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+    /* Check whether this uri is a file uri or not.
+     *  file uri like file:///storage/41B7-12F1/DCIM/Camera/IMG_20180211_095139.jpg
+     * */
+    private boolean isFileUri(Uri uri)
+    {
+        boolean ret = false;
+        if(uri != null) {
+            String uriSchema = uri.getScheme();
+            if("file".equalsIgnoreCase(uriSchema))
+            {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+
+    /* Check whether this document is provided by ExternalStorageProvider. */
+    private boolean isExternalStoreDoc(String uriAuthority)
+    {
+        boolean ret = false;
+
+        if("com.android.externalstorage.documents".equals(uriAuthority))
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+    /* Check whether this document is provided by DownloadsProvider. */
+    private boolean isDownloadDoc(String uriAuthority)
+    {
+        boolean ret = false;
+
+        if("com.android.providers.downloads.documents".equals(uriAuthority))
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+    /* Check whether this document is provided by MediaProvider. */
+    private boolean isMediaDoc(String uriAuthority)
+    {
+        boolean ret = false;
+
+        if("com.android.providers.media.documents".equals(uriAuthority))
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+    /* Check whether this document is provided by google photos. */
+    private boolean isGooglePhotoDoc(String uriAuthority)
+    {
+        boolean ret = false;
+
+        if("com.google.android.apps.photos.content".equals(uriAuthority))
+        {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+    /* Return uri represented document file real local path.*/
+    private String getImageRealPath(ContentResolver contentResolver, Uri uri, String whereClause) {
+        String ret = "";
+
+        // Query the uri with condition.
+        Cursor cursor = contentResolver.query(uri, null, whereClause, null, null);
+
+        if (cursor != null) {
+            boolean moveToFirst = cursor.moveToFirst();
+            if (moveToFirst) {
+
+                // Get columns name by uri type.
+                String columnName = MediaStore.Images.Media.DATA;
+
+                if (uri == MediaStore.Images.Media.EXTERNAL_CONTENT_URI) {
+                    columnName = MediaStore.Images.Media.DATA;
+                } else if (uri == MediaStore.Audio.Media.EXTERNAL_CONTENT_URI) {
+                    columnName = MediaStore.Audio.Media.DATA;
+                } else if (uri == MediaStore.Video.Media.EXTERNAL_CONTENT_URI) {
+                    columnName = MediaStore.Video.Media.DATA;
+                }
+
+                // Get column index.
+                int imageColumnIndex = cursor.getColumnIndex(columnName);
+
+                // Get column value which is the uri related file local path.
+                ret = cursor.getString(imageColumnIndex);
+            }
+        }
+
+        return ret;
+    }
+    //=====================to convert uri to string demo ends 27th may==============
 
     /**
      * Display image from gallery
@@ -1113,7 +1353,6 @@ public class HomeActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
-
 
     /**
      * Alert dialog to navigate to app settings
@@ -1138,58 +1377,10 @@ public class HomeActivity extends AppCompatActivity
     //---newly added on 19th dec, gallery code starts------
     public void choosePhotoFromGallary() {
         Intent intent = new Intent();
-        intent.setType("image/*");
+        intent.setType("*/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY);
     }
-
-    /* Get the real path from the URI */
-    //----getPathFromURI() is not working on the SDK>=19
-    public String getPathFromURI(Uri contentUri) {
-        String res = null;
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);
-        if (cursor.moveToFirst()) {
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            res = cursor.getString(column_index);
-        }
-        cursor.close();
-        return res;
-    }
-
-    //====20th dec, demo testing uri for other versions code starts(following function will work for lollipop and above to get gallery file path)========
-    public String getRealPathFromURI_API19(Uri uri) {
-        String filePath = "";
-        if (uri.getHost().contains("com.android.providers.media")) {
-            // Image pick from recent
-            String wholeID = DocumentsContract.getDocumentId(uri);
-
-            // Split at colon, use second item in the array
-            String id = wholeID.split(":")[1];
-
-            String[] column = {MediaStore.Images.Media.DATA};
-
-            // where id is equal to
-            String sel = MediaStore.Images.Media._ID + "=?";
-
-            Cursor cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    column, sel, new String[]{id}, null);
-
-            int columnIndex = cursor.getColumnIndex(column[0]);
-
-            if (cursor.moveToFirst()) {
-                filePath = cursor.getString(columnIndex);
-            }
-            cursor.close();
-
-        }
-        return filePath;
-
-    }
-    //====demo testing uri for other versions code ends========
-
-    // And to convert the image URI to the direct file system path of the image file
-
     //----newly added on 19th dec, gallery code ends---------
     //===============newly added 13th dec, Camera code ends============
 }
