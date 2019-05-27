@@ -1086,16 +1086,16 @@ public class HomeActivity extends AppCompatActivity
             if (requestCode == GALLERY) {
                 // Get the url from data
                 Uri selectedImageUri = data.getData();
-                if (null != selectedImageUri) {
+                if (selectedImageUri != null) {
                     // Get the path from the Uri
 //                    String path = getPathFromURI(selectedImageUri); //---commented on 20th dec
                     String path = getRealPathFromURI_API19(selectedImageUri); //---added on 20th dec
                     imageStoragePath = path;
-//                    imageStoragePath = selectedImageUri.toString();
                     Log.d("pathImage==>", "Image Path : " + path);
                     // Set the image in ImageView
-                    img_profile_pic.setBackground(Drawable.createFromPath(imageStoragePath));
-//                    img_profile_pic.setImageURI(selectedImageUri);
+//                    img_profile_pic.setBackground(Drawable.createFromPath(imageStoragePath));
+                    img_profile_pic.setImageURI(selectedImageUri);
+                    Log.d("Imageuri",selectedImageUri.toString());
                 }
             }
 
