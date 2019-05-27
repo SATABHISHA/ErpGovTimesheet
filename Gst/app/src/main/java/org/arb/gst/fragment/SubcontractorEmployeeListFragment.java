@@ -2,6 +2,7 @@ package org.arb.gst.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,6 +93,24 @@ public class SubcontractorEmployeeListFragment extends Fragment {
                                         supervisorListModel.setId_person(jsonObject2.getString("id_person"));
                                         supervisorListModel.setEmployee_name(jsonObject2.getString("employee_name"));
 //                                        supervisorListModel.setSupervisor_department(jsonObj.getString("department"));
+                                        supervisorListModel.setTotal_hours(jsonObject2.getString("total_hours"));
+                                        if(jsonObject2.getInt("ts_status_id")==0){
+                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getNot_started_color());
+                                        }else if(jsonObject2.getInt("ts_status_id")==1){
+                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getSaved_color());
+                                        }else if(jsonObject2.getInt("ts_status_id")==2){
+                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getSubmitted_color());
+                                        }else if(jsonObject2.getInt("ts_status_id")==3){
+                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getReturned_color());
+                                        }else if(jsonObject2.getInt("ts_status_id")==4){
+                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getApproved_color());
+                                        }else if(jsonObject2.getInt("ts_status_id")==5){
+                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getPosted_color());
+                                        }else if(jsonObject2.getInt("ts_status_id")== 6 ){
+                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getPartially_returned_color());
+                                        }else if(jsonObject2.getInt("ts_status_id")==7){
+                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getPartially_approved_color());
+                                        }
                                         arrayList.add(supervisorListModel);
                                     }
                                     lv_subcontractor_employeelist.setAdapter(new displaySubcontractorList());
@@ -156,10 +176,13 @@ public class SubcontractorEmployeeListFragment extends Fragment {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             TextView tv_subcontractor_employeelist;
+            RelativeLayout relative_layout;
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             view = layoutInflater.inflate(R.layout.custom_row_subcontractor_employee_list, viewGroup, false);
             tv_subcontractor_employeelist=(TextView)view.findViewById(R.id.tv_subcontractor_employeelist);
             tv_subcontractor_employeelist.setText(arrayList.get(i).getEmployee_name());
+            relative_layout = view.findViewById(R.id.relative_layout);
+            relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getSupervisor_color_code()));
             return view;
         }
     }
