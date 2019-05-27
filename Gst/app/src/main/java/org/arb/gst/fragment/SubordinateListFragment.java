@@ -125,6 +125,8 @@ public class SubordinateListFragment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("CorpId", userSingletonModel.getCorpID());
                 params.put("UserId", userSingletonModel.getUserID());
+                params.put("WeekDate",TimesheetHome.period_date);
+                params.put("WeekStartDate",TimesheetHome.period_start_date);
                 params.put("WeekEndDate",TimesheetHome.period_end_date);
                 params.put("DeviceType","1");
                 return params;
