@@ -186,16 +186,16 @@ public class PayrollPayableClerk extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("strCorpID", userSingletonModel.getCorpID());
+                params.put("CorpID", userSingletonModel.getCorpID());
 //                params.put("strClarkType", "PAYROLL");
-                params.put("strClarkType", userSingletonModel.getPayroll_payable_type());
+                params.put("ClarkType", userSingletonModel.getPayroll_payable_type());
 //                params.put("strActiveFlag", "Active");
-                params.put("strActiveFlag", userSingletonModel.getPayroll_payable_strActiveFlag());
+                params.put("ActiveFlag", userSingletonModel.getPayroll_payable_strActiveFlag());
 //                params.put("strTimesheetStatusList", PayrollPayableModel.strTimesheetStatusList);
-                params.put("strTimesheetStatusList", userSingletonModel.getPayroll_payable_strTimesheetStatusList());
-                params.put("strWeekDate", TimesheetHome.period_date);
-                params.put("strWeekStartDate", TimesheetHome.period_start_date);
-                params.put("strWeekEndDate", TimesheetHome.period_end_date);
+                params.put("TimesheetStatusList", userSingletonModel.getPayroll_payable_strTimesheetStatusList());
+                params.put("WeekDate", TimesheetHome.period_date);
+                params.put("WeekStartDate", TimesheetHome.period_start_date);
+                params.put("WeekEndDate", TimesheetHome.period_end_date);
                 params.put("DeviceType","1");
                 return params;
             }
