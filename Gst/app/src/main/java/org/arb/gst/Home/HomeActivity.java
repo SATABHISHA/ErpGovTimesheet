@@ -934,6 +934,8 @@ public class HomeActivity extends AppCompatActivity
     }
     //=============Internet checking code ends(added 22nd Nov)=============
 
+
+
     //==============newly added 13th dec, Camera code starts============
     /**
      * Restoring store image path from saved instance state
