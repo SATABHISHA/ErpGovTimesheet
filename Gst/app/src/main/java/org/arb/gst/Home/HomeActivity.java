@@ -475,7 +475,6 @@ public class HomeActivity extends AppCompatActivity
                 btn_supervisor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(HomeActivity.this, "Working On", Toast.LENGTH_LONG).show();
 //                            startActivity(new Intent(HomeActivity.this, Subordinate.class));
                         startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                         userSingletonModel.setEmployeeYN("0");
@@ -734,7 +733,6 @@ public class HomeActivity extends AppCompatActivity
                     btn_supervisor.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Toast.makeText(HomeActivity.this, "Working On", Toast.LENGTH_LONG).show();
 //                            startActivity(new Intent(HomeActivity.this, Subordinate.class));
                             startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                             userSingletonModel.setEmployeeYN("0");

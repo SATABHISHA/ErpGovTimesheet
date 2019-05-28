@@ -135,20 +135,28 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                         payrollPayableModel.setTotal_hours(jsonObject.getString("total_hours"));
 //                                        payrollPayableModel.setTimesheet_status_id(jsonObject.getString("timesheet_status_id")); //---since it is in integer format
                                         if(jsonObject.getInt("timesheet_status_id")==0){
+                                            payrollPayableModel.setPayroll_payable_clerk_status("Not Started");
                                             payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getNot_started_color());
                                         }else if(jsonObject.getInt("timesheet_status_id")==1){
+                                            payrollPayableModel.setPayroll_payable_clerk_status("Saved");
                                             payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getSaved_color());
                                         }else if(jsonObject.getInt("timesheet_status_id")==2){
+                                            payrollPayableModel.setPayroll_payable_clerk_status("Submitted");
                                             payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getSubmitted_color());
                                         }else if(jsonObject.getInt("timesheet_status_id")==3){
+                                            payrollPayableModel.setPayroll_payable_clerk_status("Returned");
                                             payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getReturned_color());
                                         }else if(jsonObject.getInt("timesheet_status_id")==4){
+                                            payrollPayableModel.setPayroll_payable_clerk_status("Approved");
                                             payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getApproved_color());
                                         }else if(jsonObject.getInt("timesheet_status_id")==5){
+                                            payrollPayableModel.setPayroll_payable_clerk_status("Posted");
                                             payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getPosted_color());
                                         }else if(jsonObject.getInt("timesheet_status_id")== 6 ){
+                                            payrollPayableModel.setPayroll_payable_clerk_status("Partially Returned");
                                             payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getPartially_returned_color());
                                         }else if(jsonObject.getInt("timesheet_status_id")==7){
+                                            payrollPayableModel.setPayroll_payable_clerk_status("Partially Approved");
                                             payrollPayableModel.setPayaroll_payableclerk_colorcode(userSingletonModel.getPartially_approved_color());
                                         }
 
@@ -228,10 +236,12 @@ public class PayrollPayableClerk extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            TextView tv_payroll_payable_clerk;
+            TextView tv_payroll_payable_clerk, tv_payroll_payable_clerk_hrs,tv_payroll_payable_clerk_status;
             LayoutInflater layoutInflater = getLayoutInflater();
             view = layoutInflater.inflate(R.layout.listview_payroll_payableclerk_row,viewGroup,false);
             tv_payroll_payable_clerk = (TextView) view.findViewById(R.id.tv_payroll_payable_clerk);
+            tv_payroll_payable_clerk_hrs = (TextView) view.findViewById(R.id.tv_payroll_payable_clerk_hrs);
+            tv_payroll_payable_clerk_status = (TextView) view.findViewById(R.id.tv_payroll_payable_clerk_status);
             relative_layout = view.findViewById(R.id.relative_layout);
 //            tv_payroll_payable_clerk.setText(arrayList.get(i).getEmployee_name());
 
@@ -245,6 +255,13 @@ public class PayrollPayableClerk extends AppCompatActivity {
                 tv_payroll_payable_clerk.setText(arrayList.get(i).getEmployee_name());
             }
             //-------------------code to split ends----------------------------------
+
+            Double value = 0.0;
+            value = Double.parseDouble(arrayList.get(i).getTotal_hours()); //----code to make the hours in 0.0 format
+            tv_payroll_payable_clerk_hrs.setText(value.toString());
+
+            tv_payroll_payable_clerk_status.setText(arrayList.get(i).getPayroll_payable_clerk_status());
+
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getPayaroll_payableclerk_colorcode()));
 //            Log.d("colorcode",arrayList.get(i).getPayaroll_payableclerk_colorcode().toString());
             return view;

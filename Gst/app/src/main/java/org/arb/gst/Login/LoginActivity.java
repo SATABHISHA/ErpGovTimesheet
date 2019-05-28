@@ -227,7 +227,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 editor.commit();
                                                 //======================storing the value to shared preference for onetime login code ends=============
                                             }
-                                            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                             startActivity(intent);
                                             loading.dismiss();
@@ -237,7 +236,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                                     }else{
                                         loading.dismiss();
-                                        Toast.makeText(getApplicationContext(),"Invalid Login",Toast.LENGTH_LONG).show();
+
+                                        String message = "Invalid Login";
+                                        int color = Color.parseColor("#FF4242");
+                                        Snackbar snackbar = Snackbar.make(findViewById(R.id.relativeLayout), message, Snackbar.LENGTH_LONG);
+
+                                        View sbView = snackbar.getView();
+                                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                                        textView.setTextColor(color);
+                                        snackbar.show();
                                     }
                                     Log.d("statusTest",status);
 //                                    Toast.makeText(getApplicationContext(),xx.getString("content"),Toast.LENGTH_LONG).show();

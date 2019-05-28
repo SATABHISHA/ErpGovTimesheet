@@ -1,7 +1,7 @@
 package org.arb.gst.Model;
 
 public class PayrollPayableModel {
-    String email_id, email_notice, employee_code, employee_name,emp_type, id_person, item_type, supervisor_name, timesheet_status_desc, timesheet_status_id, total_hours, payaroll_payableclerk_colorcode;
+    String email_id, email_notice, employee_code, employee_name,emp_type, id_person, item_type, supervisor_name, timesheet_status_desc, timesheet_status_id, total_hours, payaroll_payableclerk_colorcode, payroll_payable_clerk_status;
     public static String strTimesheetStatusList = "&lt;status&gt;&lt;id&gt;0&lt;/id&gt;&lt;id&gt;1&lt;/id&gt;&lt;id&gt;2&lt;/id&gt;&lt;id&gt;3&lt;/id&gt;&lt;id&gt;4&lt;/id&gt;&lt;id&gt;5&lt;/id&gt;&lt;id&gt;6&lt;/id&gt;&lt;id&gt;7&lt;/id&gt;&lt;/status&gt;";
 
     //----------------------Getter method starts-----------------
@@ -53,6 +53,10 @@ public class PayrollPayableModel {
     public String getPayaroll_payableclerk_colorcode() {
         return payaroll_payableclerk_colorcode;
     }
+
+    public String getPayroll_payable_clerk_status() {
+        return payroll_payable_clerk_status;
+    }
     //----------------------Getter method ends-----------------
 
     //----------------------Setter method starts-----------------
@@ -103,6 +107,10 @@ public class PayrollPayableModel {
 
     public void setPayaroll_payableclerk_colorcode(String payaroll_payableclerk_colorcode) {
         this.payaroll_payableclerk_colorcode = payaroll_payableclerk_colorcode;
+    }
+
+    public void setPayroll_payable_clerk_status(String payroll_payable_clerk_status) {
+        this.payroll_payable_clerk_status = payroll_payable_clerk_status;
     }
     //----------------------Setter method ends-----------------
 }
