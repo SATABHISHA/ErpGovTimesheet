@@ -95,20 +95,28 @@ public class SubcontractorEmployeeListFragment extends Fragment {
 //                                        supervisorListModel.setSupervisor_department(jsonObj.getString("department"));
                                         supervisorListModel.setTotal_hours(jsonObject2.getString("total_hours"));
                                         if(jsonObject2.getInt("ts_status_id")==0){
+                                            supervisorListModel.setSupervisor_status("Not Started");
                                             supervisorListModel.setSupervisor_color_code(userSingletonModel.getNot_started_color());
                                         }else if(jsonObject2.getInt("ts_status_id")==1){
+                                            supervisorListModel.setSupervisor_status("Saved");
                                             supervisorListModel.setSupervisor_color_code(userSingletonModel.getSaved_color());
                                         }else if(jsonObject2.getInt("ts_status_id")==2){
+                                            supervisorListModel.setSupervisor_status("Submitted");
                                             supervisorListModel.setSupervisor_color_code(userSingletonModel.getSubmitted_color());
                                         }else if(jsonObject2.getInt("ts_status_id")==3){
+                                            supervisorListModel.setSupervisor_status("Returned");
                                             supervisorListModel.setSupervisor_color_code(userSingletonModel.getReturned_color());
                                         }else if(jsonObject2.getInt("ts_status_id")==4){
+                                            supervisorListModel.setSupervisor_status("Approved");
                                             supervisorListModel.setSupervisor_color_code(userSingletonModel.getApproved_color());
                                         }else if(jsonObject2.getInt("ts_status_id")==5){
+                                            supervisorListModel.setSupervisor_status("Posted");
                                             supervisorListModel.setSupervisor_color_code(userSingletonModel.getPosted_color());
                                         }else if(jsonObject2.getInt("ts_status_id")== 6 ){
+                                            supervisorListModel.setSupervisor_status("Partially Returned");
                                             supervisorListModel.setSupervisor_color_code(userSingletonModel.getPartially_returned_color());
                                         }else if(jsonObject2.getInt("ts_status_id")==7){
+                                            supervisorListModel.setSupervisor_status("Partially Approved");
                                             supervisorListModel.setSupervisor_color_code(userSingletonModel.getPartially_approved_color());
                                         }
                                         arrayList.add(supervisorListModel);
@@ -175,12 +183,13 @@ public class SubcontractorEmployeeListFragment extends Fragment {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            TextView tv_subcontractor_employeelist, tv_subcontractor_hrs;
+            TextView tv_subcontractor_employeelist, tv_subcontractor_hrs, tv_subcontractor_status;
             RelativeLayout relative_layout;
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             view = layoutInflater.inflate(R.layout.custom_row_subcontractor_employee_list, viewGroup, false);
             tv_subcontractor_employeelist=(TextView)view.findViewById(R.id.tv_subcontractor_employeelist);
             tv_subcontractor_hrs=(TextView)view.findViewById(R.id.tv_subcontractor_hrs);
+            tv_subcontractor_status=(TextView)view.findViewById(R.id.tv_subcontractor_status);
 //            tv_subcontractor_employeelist.setText(arrayList.get(i).getEmployee_name());
             //----------following code is to split----------
             int firstSpace = arrayList.get(i).getEmployee_name().indexOf(" "); // detect the first space character
@@ -196,6 +205,8 @@ public class SubcontractorEmployeeListFragment extends Fragment {
             Double value = 0.0;
             value = Double.parseDouble(arrayList.get(i).getTotal_hours()); //----code to make the hours in 0.0 format
             tv_subcontractor_hrs.setText(value.toString());
+
+            tv_subcontractor_status.setText(arrayList.get(i).getSupervisor_status());
             relative_layout = view.findViewById(R.id.relative_layout);
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getSupervisor_color_code()));
             return view;
