@@ -91,7 +91,7 @@
     <fragment
         android:id="@+id/fragmentitem"
         android:name="org.arb.gst.fragment.DrawerSupervisorFragment"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
         tools:layout="@layout/fragment_supervisor_drawer" />

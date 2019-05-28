@@ -10,7 +10,7 @@
         <RelativeLayout
             android:background="#2e5772"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="115dp"
             android:gravity="center_vertical">
             <TextView
                 android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
                 android:text="Filter Employee"
                 android:textColor="#ffffff"
                 android:layout_marginLeft="20dp"
-                android:textSize="27dp"
+                android:textSize="24dp"
                 android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -27,6 +27,8 @@
             android:textSize="19dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textStyle="normal"
             android:layout_marginLeft="10dp"
             android:text="Not Started"/>
         <CheckBox android:id="@+id/checkbox_saved"
@@ -35,6 +37,8 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textStyle="normal"
             android:text="Saved"/>
         <CheckBox android:id="@+id/checkbox_returned"
             android:layout_marginTop="5dp"
@@ -42,6 +46,8 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textStyle="normal"
             android:text="Correction Required"/>
         <CheckBox android:id="@+id/checkbox_posted"
             android:layout_marginTop="5dp"
@@ -49,6 +55,8 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textStyle="normal"
             android:text="Posted"/>
         <CheckBox android:id="@+id/checkbox_submitted"
             android:layout_marginTop="5dp"
@@ -56,6 +64,8 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textStyle="normal"
             android:text="Submitted"/>
         <CheckBox android:id="@+id/checkbox_partiallyreturn"
             android:layout_marginTop="5dp"
@@ -63,6 +73,8 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textStyle="normal"
             android:text="Partially Return"/>
         <CheckBox android:id="@+id/checkbox_approved"
             android:layout_marginTop="5dp"
@@ -70,6 +82,8 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textStyle="normal"
             android:text="Approved"/>
 
     </LinearLayout>

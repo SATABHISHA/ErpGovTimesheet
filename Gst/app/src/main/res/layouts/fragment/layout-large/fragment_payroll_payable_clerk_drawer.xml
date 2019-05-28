@@ -33,7 +33,8 @@
                 android:textSize="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
+                android:textColor="#808080"
+                android:textStyle="normal"
                 android:layout_marginLeft="10dp"
                 android:text="Not Started"/>
             <CheckBox android:id="@+id/checkbox_saved"
@@ -42,7 +43,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
+                android:textColor="#808080"
+                android:textStyle="normal"
                 android:text="Saved"/>
             <CheckBox android:id="@+id/checkbox_submitted"
                 android:layout_marginTop="10dp"
@@ -50,7 +52,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
+                android:textColor="#808080"
+                android:textStyle="normal"
                 android:text="Submitted"/>
             <CheckBox android:id="@+id/checkbox_returned"
                 android:layout_marginTop="10dp"
@@ -58,7 +61,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
+                android:textColor="#808080"
+                android:textStyle="normal"
                 android:text="Returned"/>
             <CheckBox android:id="@+id/checkbox_approved"
                 android:layout_marginTop="10dp"
@@ -66,7 +70,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
+                android:textColor="#808080"
+                android:textStyle="normal"
                 android:text="Approved"/>
             <CheckBox android:id="@+id/checkbox_posted"
                 android:layout_marginTop="10dp"
@@ -74,7 +79,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
+                android:textColor="#808080"
+                android:textStyle="normal"
                 android:text="Posted"/>
 
             <CheckBox android:id="@+id/checkbox_partiallyreturn"
@@ -83,7 +89,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
+                android:textColor="#808080"
+                android:textStyle="normal"
                 android:text="Partially Return"/>
 
             <CheckBox android:id="@+id/checkbox_partially_approved"
@@ -92,7 +99,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
+                android:textColor="#808080"
+                android:textStyle="normal"
                 android:text="Partially Approved"/>
             <RadioGroup
                 android:layout_marginTop="50dp"
@@ -105,6 +113,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/radia_id1"
+                    android:textColor="#808080"
+                    android:textStyle="normal"
                     android:text="Active"
                     android:textSize="20dp"/>
 
@@ -114,6 +124,8 @@
                     android:layout_marginLeft="20dp"
                     android:id="@+id/radia_id2"
                     android:text="ALL"
+                    android:textColor="#808080"
+                    android:textStyle="normal"
                     android:textSize="20dp"/>
             </RadioGroup>
         </LinearLayout>

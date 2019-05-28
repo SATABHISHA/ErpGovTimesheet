@@ -184,7 +184,11 @@ public class SubordinateListFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             view = layoutInflater.inflate(R.layout.custom_row_subordinatelist, viewGroup, false);
             tv_subordinate_name=(TextView)view.findViewById(R.id.tv_subordinate_name);
-            tv_subordinate_name.setText(arrayList.get(i).getEmployee_name());
+           //----------following code need correction----------
+            String name[] = arrayList.get(i).getEmployee_name().split(" ");
+            String nameEmp = name.length>2?name[0] + "\n" + name[1] + " " + name[2]:name[0] + "\n" + name[1];
+            tv_subordinate_name.setText(nameEmp);
+           //-----------------------------------------------------
             relative_layout = view.findViewById(R.id.relative_layout);
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getSupervisor_color_code()));
             return view;
