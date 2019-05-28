@@ -235,11 +235,16 @@ public class PayrollPayableClerk extends AppCompatActivity {
             relative_layout = view.findViewById(R.id.relative_layout);
 //            tv_payroll_payable_clerk.setText(arrayList.get(i).getEmployee_name());
 
-            //----------following code need correction----------
-            String name[] = arrayList.get(i).getEmployee_name().split(" ");
-            String nameEmp = name.length>2?name[0] + "\n" + name[1] + " " + name[2]:name[0] + "\n" + name[1];
-            tv_payroll_payable_clerk.setText(nameEmp);
-            //-----------------------------------------------------
+            //----------following code is to split----------
+            int firstSpace = arrayList.get(i).getEmployee_name().indexOf(" "); // detect the first space character
+            if(firstSpace>0) {
+                String name_part1 = arrayList.get(i).getEmployee_name().substring(0, firstSpace);  // get everything upto the first space character
+                String name_part2 = arrayList.get(i).getEmployee_name().substring(firstSpace).trim(); // get everything after the first space, trimming the spaces off
+                tv_payroll_payable_clerk.setText(name_part1 + "\n" + name_part2);
+            }else{
+                tv_payroll_payable_clerk.setText(arrayList.get(i).getEmployee_name());
+            }
+            //-------------------code to split ends----------------------------------
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getPayaroll_payableclerk_colorcode()));
 //            Log.d("colorcode",arrayList.get(i).getPayaroll_payableclerk_colorcode().toString());
             return view;

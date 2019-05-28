@@ -184,11 +184,16 @@ public class SubordinateListFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             view = layoutInflater.inflate(R.layout.custom_row_subordinatelist, viewGroup, false);
             tv_subordinate_name=(TextView)view.findViewById(R.id.tv_subordinate_name);
-           //----------following code need correction----------
-            String name[] = arrayList.get(i).getEmployee_name().split(" ");
-            String nameEmp = name.length>2?name[0] + "\n" + name[1] + " " + name[2]:name[0] + "\n" + name[1];
-            tv_subordinate_name.setText(nameEmp);
-           //-----------------------------------------------------
+            //----------following code is to split----------
+            int firstSpace = arrayList.get(i).getEmployee_name().indexOf(" "); // detect the first space character
+            if(firstSpace>0) {
+                String name_part1 = arrayList.get(i).getEmployee_name().substring(0, firstSpace);  // get everything upto the first space character
+                String name_part2 = arrayList.get(i).getEmployee_name().substring(firstSpace).trim(); // get everything after the first space, trimming the spaces off
+                tv_subordinate_name.setText(name_part1 + "\n" + name_part2);
+            }else{
+                tv_subordinate_name.setText(arrayList.get(i).getEmployee_name());
+            }
+            //-------------------code to split ends----------------------------------
             relative_layout = view.findViewById(R.id.relative_layout);
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getSupervisor_color_code()));
             return view;
