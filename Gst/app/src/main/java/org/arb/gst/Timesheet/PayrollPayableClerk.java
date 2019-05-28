@@ -228,12 +228,18 @@ public class PayrollPayableClerk extends AppCompatActivity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            TextView tv_payrollclerk;
+            TextView tv_payroll_payable_clerk;
             LayoutInflater layoutInflater = getLayoutInflater();
-            view = layoutInflater.inflate(R.layout.listview_payrollclerk_row,viewGroup,false);
-            tv_payrollclerk = (TextView) view.findViewById(R.id.tv_payrollclerk);
+            view = layoutInflater.inflate(R.layout.listview_payroll_payableclerk_row,viewGroup,false);
+            tv_payroll_payable_clerk = (TextView) view.findViewById(R.id.tv_payroll_payable_clerk);
             relative_layout = view.findViewById(R.id.relative_layout);
-            tv_payrollclerk.setText(arrayList.get(i).getEmployee_name());
+//            tv_payroll_payable_clerk.setText(arrayList.get(i).getEmployee_name());
+
+            //----------following code need correction----------
+            String name[] = arrayList.get(i).getEmployee_name().split(" ");
+            String nameEmp = name.length>2?name[0] + "\n" + name[1] + " " + name[2]:name[0] + "\n" + name[1];
+            tv_payroll_payable_clerk.setText(nameEmp);
+            //-----------------------------------------------------
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getPayaroll_payableclerk_colorcode()));
 //            Log.d("colorcode",arrayList.get(i).getPayaroll_payableclerk_colorcode().toString());
             return view;

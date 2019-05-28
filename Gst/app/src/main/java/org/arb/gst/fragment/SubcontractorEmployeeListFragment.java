@@ -180,7 +180,13 @@ public class SubcontractorEmployeeListFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             view = layoutInflater.inflate(R.layout.custom_row_subcontractor_employee_list, viewGroup, false);
             tv_subcontractor_employeelist=(TextView)view.findViewById(R.id.tv_subcontractor_employeelist);
-            tv_subcontractor_employeelist.setText(arrayList.get(i).getEmployee_name());
+//            tv_subcontractor_employeelist.setText(arrayList.get(i).getEmployee_name());
+            //----------following code need correction----------
+            String name[] = arrayList.get(i).getEmployee_name().split(" ");
+            String nameEmp = name.length>2?name[0] + "\n" + name[1] + " " + name[2]:name[0] + "\n" + name[1];
+            tv_subcontractor_employeelist.setText(nameEmp);
+            //-----------------------------------------------------
+
             relative_layout = view.findViewById(R.id.relative_layout);
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getSupervisor_color_code()));
             return view;
