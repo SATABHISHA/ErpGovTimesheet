@@ -1,7 +1,7 @@
 package org.arb.gst.Model;
 
 public class SupervisorListModel {
-    String id_person="", employee_name="", department="", ts_status_id, total_hours, supervisor_color_code;
+    String id_person="", employee_name="", department="", ts_status_id, total_hours, supervisor_color_code, supervisor_status;
 
     //===================Getter method starts===============
 
@@ -27,6 +27,10 @@ public class SupervisorListModel {
 
     public String getSupervisor_color_code() {
         return supervisor_color_code;
+    }
+
+    public String getSupervisor_status() {
+        return supervisor_status;
     }
     //===================Getter method ends===============
 
@@ -56,6 +60,10 @@ public class SupervisorListModel {
 
     public void setSupervisor_color_code(String supervisor_color_code) {
         this.supervisor_color_code = supervisor_color_code;
+    }
+
+    public void setSupervisor_status(String supervisor_status) {
+        this.supervisor_status = supervisor_status;
     }
     //===================Setter method ends===============
 }

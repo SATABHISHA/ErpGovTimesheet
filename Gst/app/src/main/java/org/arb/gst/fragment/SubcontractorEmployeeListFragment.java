@@ -175,11 +175,12 @@ public class SubcontractorEmployeeListFragment extends Fragment {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            TextView tv_subcontractor_employeelist;
+            TextView tv_subcontractor_employeelist, tv_subcontractor_hrs;
             RelativeLayout relative_layout;
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             view = layoutInflater.inflate(R.layout.custom_row_subcontractor_employee_list, viewGroup, false);
             tv_subcontractor_employeelist=(TextView)view.findViewById(R.id.tv_subcontractor_employeelist);
+            tv_subcontractor_hrs=(TextView)view.findViewById(R.id.tv_subcontractor_hrs);
 //            tv_subcontractor_employeelist.setText(arrayList.get(i).getEmployee_name());
             //----------following code is to split----------
             int firstSpace = arrayList.get(i).getEmployee_name().indexOf(" "); // detect the first space character
@@ -192,6 +193,9 @@ public class SubcontractorEmployeeListFragment extends Fragment {
             }
             //-------------------code to split ends----------------------------------
 
+            Double value = 0.0;
+            value = Double.parseDouble(arrayList.get(i).getTotal_hours()); //----code to make the hours in 0.0 format
+            tv_subcontractor_hrs.setText(value.toString());
             relative_layout = view.findViewById(R.id.relative_layout);
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getSupervisor_color_code()));
             return view;
