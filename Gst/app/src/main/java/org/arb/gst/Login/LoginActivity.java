@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -78,6 +79,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         chkSignedIn.setOnClickListener(this);
         //===========button onClickListner() code ends=======
 
+        //======defining inputLayout id for form validation code starts===========
+
+        //======defining inputLayout id for form validation code ends===========
+
         //=====================code for one time login starts============
         sharedPreferences = getApplication().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         String id = sharedPreferences.getString("UserID","");
@@ -114,7 +119,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         int id = view.getId();
         switch (id){
             case R.id.activity_login_btn_login:
-                login();
+
+                if(edtCorpId.getText().toString().isEmpty() || edtUsername.getText().toString().isEmpty() || edtPassword.getText().toString().isEmpty()) {
+                    String message = "Filed cannot be left empty";
+                    int color = Color.parseColor("#FF4242");
+                    Snackbar snackbar = Snackbar
+                            .make(findViewById(R.id.relativeLayout), message, Snackbar.LENGTH_LONG);
+
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(color);
+                    snackbar.show();
+                }
+                else{
+                    login();
+                }
                 break;
             case R.id.activity_login_btn_forgot_password:
                 break;

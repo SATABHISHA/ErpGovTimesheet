@@ -44,6 +44,7 @@
             android:layout_marginRight="25dp"
             android:background="@drawable/input_background"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,13 +61,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="15">
+
                 <EditText
                     android:id="@+id/activity_login_edt_corp_ID"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/rouned_broder"
                     android:paddingLeft="10dp"
-                    android:hint="Corp-ID"
+                    android:hint="Corp-Id"
                     android:singleLine="true"
                     android:text="gst-inc-101"
                     android:imeOptions="actionNext"
@@ -74,6 +76,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,6 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="15">
+
                 <EditText
                     android:id="@+id/activity_login_edt_username"
                     android:layout_width="match_parent"
@@ -140,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="15">
+
                 <EditText
                     android:id="@+id/activity_login_edt_password"
                     android:layout_width="match_parent"
