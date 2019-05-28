@@ -237,7 +237,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }else{
                                         loading.dismiss();
 
-                                        String message = "Invalid Login";
+                                        String message = "Invalid Login Credential";
                                         int color = Color.parseColor("#FF4242");
                                         Snackbar snackbar = Snackbar.make(findViewById(R.id.relativeLayout), message, Snackbar.LENGTH_LONG);
 

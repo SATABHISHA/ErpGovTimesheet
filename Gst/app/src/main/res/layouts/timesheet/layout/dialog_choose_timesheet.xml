@@ -9,7 +9,8 @@
     <Button
         android:id="@+id/btn_employee"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:textAppearance="@style/MyCustomTabText"
         android:background="#F0EEEE"
         android:text="Employee"/>
    <LinearLayout
@@ -19,24 +20,27 @@
     <Button
         android:id="@+id/btn_supervisor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="1dp"
+        android:textAppearance="@style/MyCustomTabText"
         android:background="#ffffff"
         android:visibility="gone"
         android:text="Supervisor"/>
     <Button
         android:id="@+id/btn_payroll_clerk"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="1dp"
+        android:textAppearance="@style/MyCustomTabText"
         android:background="#F0EEEE"
         android:visibility="gone"
         android:text="Payroll Clerk"/>
     <Button
         android:id="@+id/btn_payable_clerk"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="1dp"
+        android:textAppearance="@style/MyCustomTabText"
         android:background="#ffffff"
         android:visibility="gone"
         android:text="Payable Clerk"/>

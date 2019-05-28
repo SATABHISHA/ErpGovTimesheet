@@ -207,17 +207,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:gravity="right"
                 android:layout_weight="40">
                 <TextView
                     android:id="@+id/activity_login_btn_forgot_password"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:text="Can't access your account ?"
                     android:singleLine="true"
-                    android:gravity="center"
                     android:textStyle="bold"
-                    android:textColor="#FF2e5772"
+                    android:gravity="center"
+                    android:textColor="#BDBEBE"
                     android:textSize="12dp" />
             </LinearLayout>
 
