@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,12 +49,15 @@ public class SubordinateListFragment extends Fragment {
     View rootView;
     ListView lv_subordinatelist;
     ArrayList<SupervisorListModel> arrayList = new ArrayList<>();
+    CoordinatorLayout coordinator_layout_subordinate;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         rootView =  inflater.inflate(R.layout.fragment_subordinate_list, null);
         lv_subordinatelist = (ListView)rootView.findViewById(R.id.lv_subordinatelist);
+        coordinator_layout_subordinate = (CoordinatorLayout)rootView.findViewById(R.id.coordinator_layout_subordinate);
+
         loadData();
         return rootView;
     }
@@ -131,8 +136,19 @@ public class SubordinateListFragment extends Fragment {
 
                                             userSingletonModel.setTimesheet_personId_yn("1");
                                             userSingletonModel.setPayable_payroll_supervisor_person_id(arrayList.get(i).getId_person());
-                                            startActivity(new Intent(getActivity(), TimesheetSelectDay.class));
+                                            if(arrayList.get(i).getSupervisor_status().contentEquals("Not Started")){
+                                                String message = "Not Started Timesheet cannot be viewed";
+                                                int color = Color.parseColor("#FF4242");
+                                                Snackbar snackbar = Snackbar.make(coordinator_layout_subordinate, message, 4000);
+
+                                                View sbView = snackbar.getView();
+                                                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                                                textView.setTextColor(color);
+                                                snackbar.show();
+                                            }else {
+                                                startActivity(new Intent(getActivity(), TimesheetSelectDay.class));
 //                                            Toast.makeText(getContext(),arrayList.get(i).getId_person()+"/"+arrayList.get(i).getEmployee_name(),Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     });
                                 }
