@@ -176,13 +176,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }else if((HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1"))){
             imgbtn_add.setVisibility(View.INVISIBLE);
             rl_add.setVisibility(View.INVISIBLE);
-            if(userSingletonModel.getStatusDescription().contentEquals("SAVED")){
-                imgbtn_view.setVisibility(View.INVISIBLE);
-                rl_view.setVisibility(View.INVISIBLE);
-            }else{
-                imgbtn_view.setVisibility(View.VISIBLE);
-                rl_view.setVisibility(View.VISIBLE);
-            }
+
+            imgbtn_view.setVisibility(View.VISIBLE);
+            rl_view.setVisibility(View.VISIBLE);
         }
 
         imgbtn_add.setOnClickListener(new View.OnClickListener() {
