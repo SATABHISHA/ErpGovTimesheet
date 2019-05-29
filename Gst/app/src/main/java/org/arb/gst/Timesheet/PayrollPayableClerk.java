@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -173,8 +174,21 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                             userSingletonModel.setTimesheet_personId_yn("1");
                                             userSingletonModel.setPayable_payroll_supervisor_person_id(arrayList.get(i).getId_person());
-                                            startActivity(new Intent(PayrollPayableClerk.this,TimesheetSelectDay.class));
-                                            Toast.makeText(getApplicationContext(),arrayList.get(i).getId_person(),Toast.LENGTH_SHORT).show();
+
+                                            if(arrayList.get(i).getPayroll_payable_clerk_status().contentEquals("Not Started")){
+                                                String message = "Not Started Timesheet cannot be viewed";
+                                                int color = Color.parseColor("#FF4242");
+                                                Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator_layout_payrollpayable), message, 4000);
+
+                                                View sbView = snackbar.getView();
+                                                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                                                textView.setTextColor(color);
+                                                snackbar.show();
+                                            }else {
+                                                startActivity(new Intent(PayrollPayableClerk.this,TimesheetSelectDay.class));
+                                            }
+
+
                                         }
                                     });
 
