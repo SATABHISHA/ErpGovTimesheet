@@ -38,6 +38,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.arb.gst.Home.HomeActivity;
 import org.arb.gst.Model.TimesheetSelectDayModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.Model.WeekDays;
@@ -169,13 +170,19 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
 
                 //------------8th dec newly added code starts---------
-                if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED")  || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
-                   Toast.makeText(getApplicationContext(),"No note is available",Toast.LENGTH_LONG).show();
-                }else if((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED")  || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")){
-                    loadPopupForAddOrViewNote();
+                if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+                    if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                        Toast.makeText(getApplicationContext(), "No note is available", Toast.LENGTH_LONG).show();
+                    } else if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                        loadPopupForAddOrViewNote();
 
-                }else if(!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED")  || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
-                   loadPopupForAddOrViewNote();
+                    } else if (!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED") || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                        loadPopupForAddOrViewNote();
+                    }
+                }else if (HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")) {
+                   if(!userSingletonModel.getStatusDescription().contentEquals("SAVED")){
+                       loadPopupForAddOrViewNote();
+                   }
                 }
                 //------------8th dec newly added code ends---------
 
@@ -835,15 +842,28 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
                                                 //--------newly added 4th dec and modified on 8th dec--------
                                                 //=============Following is the code to check whether empNote is empty or not(the empnote will be present in the dialog box and stored via SingletonModel class)==========
-                                                if ((days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED")  || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                                                if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+                                                    if ((days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                                                        img_empnote_add.setVisibility(View.GONE);
+                                                        img_empnote_view.setVisibility(View.GONE);
+                                                    } else if ((days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                                                        img_empnote_add.setVisibility(View.GONE);
+                                                        img_empnote_view.setVisibility(View.VISIBLE);
+                                                    } else if (!days.getString("StatusDescription").contentEquals("APPROVED") || !days.getString("StatusDescription").contentEquals("SUBMITTED") || !days.getString("StatusDescription").contentEquals("POSTED") || !days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) {
+                                                        img_empnote_add.setVisibility(View.VISIBLE);
+                                                        img_empnote_view.setVisibility(View.GONE);
+                                                    }
+                                                }else if (HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
                                                     img_empnote_add.setVisibility(View.GONE);
-                                                    img_empnote_view.setVisibility(View.GONE);
-                                                }else if((days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED")  || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")){
-                                                    img_empnote_add.setVisibility(View.GONE);
-                                                    img_empnote_view.setVisibility(View.VISIBLE);
-                                                }else if(!days.getString("StatusDescription").contentEquals("APPROVED") || !days.getString("StatusDescription").contentEquals("SUBMITTED") || !days.getString("StatusDescription").contentEquals("POSTED")  || !days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")){
-                                                    img_empnote_add.setVisibility(View.VISIBLE);
-                                                    img_empnote_view.setVisibility(View.GONE);
+                                                    if(userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                                                        img_empnote_view.setVisibility(View.GONE);
+                                                    } else if (!userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                                                        if(days.getString("StatusDescription").contentEquals("SAVED")){
+                                                            img_empnote_view.setVisibility(View.GONE);
+                                                        }else {
+                                                            img_empnote_view.setVisibility(View.VISIBLE);
+                                                        }
+                                                    }
                                                 }
                                                 //==============code to check empNote is empty or not ends===========
 

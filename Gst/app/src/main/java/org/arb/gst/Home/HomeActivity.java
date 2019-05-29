@@ -408,6 +408,9 @@ public class HomeActivity extends AppCompatActivity
             if(userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayableClerkYN().contentEquals("0")){
                 startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                 userSingletonModel.setEmployeeYN("1");
+                supervisor_yn_temp = "0";
+                payrollclerk_yn_temp = "0";
+                payableclerk_yn_temp = "0";
             }else {
                 //--------adding custom dialog on 14th may starts------
                 LayoutInflater li2 = LayoutInflater.from(this);
@@ -470,6 +473,9 @@ public class HomeActivity extends AppCompatActivity
                         alertDialog.dismiss();
                         startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                         userSingletonModel.setEmployeeYN("1");
+                        supervisor_yn_temp = "0";
+                        payrollclerk_yn_temp = "0";
+                        payableclerk_yn_temp = "0";
                     }
                 });
                 btn_supervisor.setOnClickListener(new View.OnClickListener() {
@@ -666,6 +672,9 @@ public class HomeActivity extends AppCompatActivity
                 if(userSingletonModel.getSupervisorYN().contentEquals("0") && userSingletonModel.getPayrollClerkYN().contentEquals("0") && userSingletonModel.getPayableClerkYN().contentEquals("0")){
                     startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                     userSingletonModel.setEmployeeYN("1");
+                    supervisor_yn_temp = "0";
+                    payrollclerk_yn_temp = "0";
+                    payableclerk_yn_temp = "0";
                 }else {
                     //--------adding custom dialog on 14th may starts------
                     LayoutInflater li2 = LayoutInflater.from(this);
@@ -728,6 +737,9 @@ public class HomeActivity extends AppCompatActivity
                             alertDialog.dismiss();
                             startActivity(new Intent(HomeActivity.this, TimesheetHome.class));
                             userSingletonModel.setEmployeeYN("1");
+                            supervisor_yn_temp = "0";
+                            payrollclerk_yn_temp = "0";
+                            payableclerk_yn_temp = "0";
                         }
                     });
                     btn_supervisor.setOnClickListener(new View.OnClickListener() {
