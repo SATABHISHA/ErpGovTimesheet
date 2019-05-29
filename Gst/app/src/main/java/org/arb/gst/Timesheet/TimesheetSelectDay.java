@@ -143,13 +143,14 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         //------added on 3rd dec for making submit button default disable code ends--------
 
         //------added on  3rd dec, making btn approve & return by default disable as it's work is on progress code starts----
-        btn_approve.setAlpha(0.5f);
-        btn_approve.setEnabled(false);
-        btn_approve.setClickable(false);
 
-        btn_return.setAlpha(0.5f);
+        /*btn_approve.setAlpha(0.5f);
+        btn_approve.setEnabled(false);
+        btn_approve.setClickable(false);*/ //---commented on 29th may
+
+       /* btn_return.setAlpha(0.5f);
         btn_return.setEnabled(false);
-        btn_return.setClickable(false);
+        btn_return.setClickable(false);*/  //---commented on 29th may
         //------added on  3rd dec, making btn approve & return by default disable as it's work is on progress code ends----
 
 
@@ -884,14 +885,37 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 //=========newly added on 1st dec, to check conditions for button submit visibility/invisibility code starts ===========
                                                 //        btn_submit
 //                                                if(userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("NOT STARTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
-                                                if(days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED") || days.getString("StatusDescription").contentEquals("NOT STARTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")){
+                                                if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+                                                    if (days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED") || days.getString("StatusDescription").contentEquals("NOT STARTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) {
+                                                        btn_submit.setAlpha(0.5f);
+                                                        btn_submit.setEnabled(false);
+                                                        btn_submit.setClickable(false);
+                                                    } else {
+                                                        btn_submit.setAlpha(1.0f);
+                                                        btn_submit.setEnabled(true);
+                                                        btn_submit.setClickable(true);
+                                                    }
+                                                }else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
                                                     btn_submit.setAlpha(0.5f);
                                                     btn_submit.setEnabled(false);
                                                     btn_submit.setClickable(false);
-                                                }else{
-                                                    btn_submit.setAlpha(1.0f);
-                                                    btn_submit.setEnabled(true);
-                                                    btn_submit.setClickable(true);
+                                                    if(days.getString("StatusDescription").contentEquals("SUBMITTED") || (days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")))
+                                                    {
+                                                        btn_approve.setEnabled(true);
+                                                        btn_approve.setClickable(true);
+
+                                                        btn_return.setEnabled(true);
+                                                        btn_return.setClickable(true);
+                                                    }else{
+                                                        btn_approve.setAlpha(0.5f);
+                                                        btn_approve.setEnabled(false);
+                                                        btn_approve.setClickable(false);
+
+                                                        btn_return.setAlpha(0.5f);
+                                                        btn_return.setEnabled(false);
+                                                        btn_return.setClickable(false);
+                                                    }
+
                                                 }
                                                 Log.d("Employee Status=>",userSingletonModel.getStatusDescription());
                                                 //=========newly added on 1st dec, to check conditions for button submit visibility/invisibility code ends===========
