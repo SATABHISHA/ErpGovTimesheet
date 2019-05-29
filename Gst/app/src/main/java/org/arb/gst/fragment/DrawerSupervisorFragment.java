@@ -13,7 +13,7 @@ import org.arb.gst.R;
 public class DrawerSupervisorFragment extends Fragment {
     @Nullable
     View rootView;
-    CheckBox checkbox_not_started,checkbox_saved,checkbox_correctionrequired,checkbox_posted,checkbox_submitted, checkbox_partiallyreturn,checkbox_approved;
+    CheckBox checkbox_not_started,checkbox_saved,checkbox_correctionrequired,checkbox_posted,checkbox_submitted, checkbox_partiallyreturn,checkbox_approved, checkbox_partially_approved;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
@@ -25,6 +25,7 @@ public class DrawerSupervisorFragment extends Fragment {
         checkbox_submitted = rootView.findViewById(R.id.checkbox_submitted);
         checkbox_partiallyreturn = rootView.findViewById(R.id.checkbox_partiallyreturn);
         checkbox_approved = rootView.findViewById(R.id.checkbox_approved);
+        checkbox_partially_approved = rootView.findViewById(R.id.checkbox_partially_approved);
 
 //        onCheckboxClicked(rootView);
         return rootView;

@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:textColor="#808080"
             android:textStyle="normal"
-            android:text="Correction Required"/>
+            android:text="Returned"/>
         <CheckBox android:id="@+id/checkbox_posted"
             android:layout_marginTop="10dp"
             android:textSize="24dp"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:textColor="#808080"
             android:textStyle="normal"
-            android:text="Partially Return"/>
+            android:text="Partially Returned"/>
         <CheckBox android:id="@+id/checkbox_approved"
             android:layout_marginTop="10dp"
             android:textSize="24dp"
@@ -85,6 +85,14 @@
             android:textColor="#808080"
             android:textStyle="normal"
             android:text="Approved"/>
-
+        <CheckBox android:id="@+id/checkbox_partially_approved"
+            android:layout_marginTop="5dp"
+            android:textSize="24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#808080"
+            android:textStyle="normal"
+            android:text="Partially Approved"/>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
