@@ -269,8 +269,11 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         alert.setCancelable(false);
         //Creating an alert dialog
         final AlertDialog alertDialog = alert.create();
-        alertDialog.show();
-
+        if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+            alertDialog.show();
+        }else if ((HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+            alertDialog.show();
+        }
         //---newly added on 8th dec to add the condition check for editable/non editable mode edittext code starts----
         if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED")  || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")){
             btn_save.setVisibility(View.GONE);
