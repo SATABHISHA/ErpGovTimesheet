@@ -22,7 +22,7 @@
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
         <LinearLayout
-            android:id="@+id/relativeLayout2"
+            android:id="@+id/linearLayout1"
             android:layout_below="@id/relativeLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
-            android:layout_below="@id/relativeLayout2"
+            android:layout_below="@id/linearLayout1"
             android:textSize="19dp"
             android:text="Apply"
             />
