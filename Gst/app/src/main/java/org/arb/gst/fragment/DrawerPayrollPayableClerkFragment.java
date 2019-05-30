@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
@@ -49,7 +48,7 @@ public class DrawerPayrollPayableClerkFragment extends Fragment implements View.
         radioGroup.setOnCheckedChangeListener(this);
 
         checkbox_select(); //---function to select checkbox
-        btn_apply = rootView.findViewById(R.id.btn_apply);
+        btn_apply = rootView.findViewById(R.id.btn_apply_supervisor);
         btn_apply.setOnClickListener(this);
         return rootView;
     }

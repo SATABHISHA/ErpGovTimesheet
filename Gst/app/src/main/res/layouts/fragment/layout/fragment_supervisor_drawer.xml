@@ -97,7 +97,7 @@
             android:textStyle="normal"
             android:text="Partially Approved"/>
         <Button
-            android:id="@+id/btn_apply"
+            android:id="@+id/btn_apply_supervisor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

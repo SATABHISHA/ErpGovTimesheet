@@ -6,14 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 
 import org.arb.gst.R;
 
-public class DrawerSupervisorFragment extends Fragment {
+public class DrawerSupervisorFragment extends Fragment implements View.OnClickListener {
     @Nullable
     View rootView;
     CheckBox checkbox_not_started,checkbox_saved,checkbox_correctionrequired,checkbox_posted,checkbox_submitted, checkbox_partiallyreturn,checkbox_approved, checkbox_partially_approved;
+    Button btn_apply;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
@@ -26,9 +28,15 @@ public class DrawerSupervisorFragment extends Fragment {
         checkbox_partiallyreturn = rootView.findViewById(R.id.checkbox_partiallyreturn);
         checkbox_approved = rootView.findViewById(R.id.checkbox_approved);
         checkbox_partially_approved = rootView.findViewById(R.id.checkbox_partially_approved);
-
+        btn_apply = rootView.findViewById(R.id.btn_apply_supervisor);
+        btn_apply.setOnClickListener(this);
 //        onCheckboxClicked(rootView);
         return rootView;
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
     /*private void onCheckboxClicked(View rootView) {
