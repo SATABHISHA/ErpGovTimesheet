@@ -350,10 +350,14 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                     editText.setClickable(false);
 
                     //--------added on 3rd dec, code to check the condition and make the edit button visible/invisible according to the condition code starts-----
-                    if(userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
+                    if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+                        if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                            imgbtn_edit.setVisibility(View.GONE);
+                        } else {
+                            imgbtn_edit.setVisibility(View.VISIBLE);
+                        }
+                    }else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
                         imgbtn_edit.setVisibility(View.GONE);
-                    }else{
-                        imgbtn_edit.setVisibility(View.VISIBLE);
                     }
                     //--------added on 3rd dec, code to check the condition and make the edit button visible/invisible according to the condition code ends-----
 
