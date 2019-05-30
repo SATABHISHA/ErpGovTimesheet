@@ -121,7 +121,18 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //------initializing some variables of singleton class starts, added on 30th may-------
         userSingletonModel.setTimesheet_personId_yn("0");
+        userSingletonModel.setSupervisor_notstarted_yn("1");
+        userSingletonModel.setSupervisor_saved_yn("1");
+        userSingletonModel.setSupervisor_submitted_yn("1");
+        userSingletonModel.setSupervisor_returned_yn("1");
+        userSingletonModel.setSupervisor_approved_yn("1");
+        userSingletonModel.setSupervisor_posted_yn("1");
+        userSingletonModel.setSupervisor_partially_returned_yn("1");
+        userSingletonModel.setSupervisor_partially_approved_yn("1");
+        //------initializing some variables of singleton class ends-------
 
         checkConnection();  //----function calling to check the internet connection
 

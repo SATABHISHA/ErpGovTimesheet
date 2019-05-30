@@ -5,7 +5,8 @@ public class UserSingletonModel {
             PayrollClerkYN, EmpName, UserType, EmailId, PwdSetterId, FinYearID, Msg, DayDate, periodStartDate, periodEndDate, timesheetSelectDay_empNote = "", timesheetSelectDay_supNote = "", colorcode = "", statusDescription = "",
             imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_payable_strTimesheetStatusList, payroll_payable_notstarted, payroll_payable_saved,
             payroll_payable_submitted, payroll_payable_returned, payroll_payable_approve, payroll_payable_posted, payroll_payable_partialreturn, payroll_payable_partialapprove, payroll_payable_type, payroll_payable_strActiveFlag, timesheet_personId_yn,
-            payable_payroll_supervisor_person_id, not_started_color, saved_color, submitted_color, returned_color, approved_color, posted_color, partially_returned_color, partially_approved_color;
+            payable_payroll_supervisor_person_id, not_started_color, saved_color, submitted_color, returned_color, approved_color, posted_color, partially_returned_color, partially_approved_color, supervisor_notstarted_yn, supervisor_saved_yn,
+            supervisor_submitted_yn,supervisor_returned_yn, supervisor_approved_yn, supervisor_posted_yn, supervisor_partially_returned_yn, supervisor_partially_approved_yn;
 
 
     /*
@@ -238,6 +239,39 @@ public class UserSingletonModel {
     public String getPartially_approved_color() {
         return partially_approved_color;
     }
+
+    public String getSupervisor_notstarted_yn() {
+        return supervisor_notstarted_yn;
+    }
+
+    public String getSupervisor_saved_yn() {
+        return supervisor_saved_yn;
+    }
+
+    public String getSupervisor_submitted_yn() {
+        return supervisor_submitted_yn;
+    }
+
+    public String getSupervisor_returned_yn() {
+        return supervisor_returned_yn;
+    }
+
+    public String getSupervisor_approved_yn() {
+        return supervisor_approved_yn;
+    }
+
+    public String getSupervisor_posted_yn() {
+        return supervisor_posted_yn;
+    }
+
+    public String getSupervisor_partially_returned_yn() {
+        return supervisor_partially_returned_yn;
+    }
+
+    public String getSupervisor_partially_approved_yn() {
+        return supervisor_partially_approved_yn;
+    }
+
     //===============================Getter method ends=====================
 
 
@@ -450,6 +484,38 @@ public class UserSingletonModel {
 
     public void setPartially_approved_color(String partially_approved_color) {
         this.partially_approved_color = partially_approved_color;
+    }
+
+    public void setSupervisor_notstarted_yn(String supervisor_notstarted_yn) {
+        this.supervisor_notstarted_yn = supervisor_notstarted_yn;
+    }
+
+    public void setSupervisor_saved_yn(String supervisor_saved_yn) {
+        this.supervisor_saved_yn = supervisor_saved_yn;
+    }
+
+    public void setSupervisor_submitted_yn(String supervisor_submitted_yn) {
+        this.supervisor_submitted_yn = supervisor_submitted_yn;
+    }
+
+    public void setSupervisor_returned_yn(String supervisor_returned_yn) {
+        this.supervisor_returned_yn = supervisor_returned_yn;
+    }
+
+    public void setSupervisor_approved_yn(String supervisor_approved_yn) {
+        this.supervisor_approved_yn = supervisor_approved_yn;
+    }
+
+    public void setSupervisor_posted_yn(String supervisor_posted_yn) {
+        this.supervisor_posted_yn = supervisor_posted_yn;
+    }
+
+    public void setSupervisor_partially_returned_yn(String supervisor_partially_returned_yn) {
+        this.supervisor_partially_returned_yn = supervisor_partially_returned_yn;
+    }
+
+    public void setSupervisor_partially_approved_yn(String supervisor_partially_approved_yn) {
+        this.supervisor_partially_approved_yn = supervisor_partially_approved_yn;
     }
     //===============================Setter method ends====================
 
