@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.arb.gst.Home.HomeActivity;
 import org.arb.gst.Model.EmployeeTimesheetListModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.Model.UserUpdateHoursModel;
@@ -73,34 +74,50 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
         holder.imgbtn_rcl_ts_wkhsupdte_addnote.setVisibility(View.GONE);
 
         //----newly added 30th nov for making editText eidtable/non editable according to description status code starts-----
-        if(userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
+        if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+            if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                holder.editText.setEnabled(false);
+                holder.editText.setFocusable(false);
+                holder.editText.setCursorVisible(false);
+                holder.editText.setKeyListener(null);
+                holder.editText.setBackgroundColor(Color.TRANSPARENT);
+                holder.editText.setTextColor(Color.parseColor("#626262"));
+                if (!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("")) {
+//                Toast.makeText(context.getApplicationContext(),"Test2==>"+employeeTimesheetListModelArrayList.get(position).getNote(),Toast.LENGTH_LONG).show();
+                    holder.imgbtn_rcl_ts_wkhsupdte_viewnote.setVisibility(View.VISIBLE);
+                    if (!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("")) {
+                        employeeTimesheetListModelArrayList.get(position).setEditTextAddNote(employeeTimesheetListModelArrayList.get(position).getNote());
+                    }
+                }
+            } else {
+                holder.editText.setEnabled(true);
+                //------newly added 30th nov to make the add/view button visible/invisible, code starts-------
+                if (!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("") || !employeeTimesheetListModelArrayList.get(position).getEditTextAddNote().contentEquals("")) {
+//                Toast.makeText(context.getApplicationContext(),"Test1:->"+employeeTimesheetListModelArrayList.get(position).getEditTextAddNote().toString(),Toast.LENGTH_LONG).show();
+                    holder.imgbtn_rcl_ts_wkhsupdte_viewnote.setVisibility(View.VISIBLE);
+                    if (!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("")) {
+                        employeeTimesheetListModelArrayList.get(position).setEditTextAddNote(employeeTimesheetListModelArrayList.get(position).getNote());
+                    }
+                } else if (employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("") || employeeTimesheetListModelArrayList.get(position).getEditTextAddNote().contentEquals("")) {
+                    holder.imgbtn_rcl_ts_wkhsupdte_addnote.setVisibility(View.VISIBLE);
+                }
+                Log.d("noteTest:", employeeTimesheetListModelArrayList.get(position).getNote().toString());
+                //------newly added 30th nov to make the add/view button visible/invisible, code ends-------
+            }
+        }else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
             holder.editText.setEnabled(false);
             holder.editText.setFocusable(false);
             holder.editText.setCursorVisible(false);
             holder.editText.setKeyListener(null);
             holder.editText.setBackgroundColor(Color.TRANSPARENT);
             holder.editText.setTextColor(Color.parseColor("#626262"));
-            if(!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("")){
+            if (!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("")) {
 //                Toast.makeText(context.getApplicationContext(),"Test2==>"+employeeTimesheetListModelArrayList.get(position).getNote(),Toast.LENGTH_LONG).show();
                 holder.imgbtn_rcl_ts_wkhsupdte_viewnote.setVisibility(View.VISIBLE);
-                if(!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("")){
+                if (!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("")) {
                     employeeTimesheetListModelArrayList.get(position).setEditTextAddNote(employeeTimesheetListModelArrayList.get(position).getNote());
                 }
             }
-        }else{
-            holder.editText.setEnabled(true);
-            //------newly added 30th nov to make the add/view button visible/invisible, code starts-------
-            if(!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("") || !employeeTimesheetListModelArrayList.get(position).getEditTextAddNote().contentEquals("")){
-//                Toast.makeText(context.getApplicationContext(),"Test1:->"+employeeTimesheetListModelArrayList.get(position).getEditTextAddNote().toString(),Toast.LENGTH_LONG).show();
-                holder.imgbtn_rcl_ts_wkhsupdte_viewnote.setVisibility(View.VISIBLE);
-                if(!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("")){
-                    employeeTimesheetListModelArrayList.get(position).setEditTextAddNote(employeeTimesheetListModelArrayList.get(position).getNote());
-                }
-            } else if (employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("") || employeeTimesheetListModelArrayList.get(position).getEditTextAddNote().contentEquals("")){
-                holder.imgbtn_rcl_ts_wkhsupdte_addnote.setVisibility(View.VISIBLE);
-            }
-            Log.d("noteTest:",employeeTimesheetListModelArrayList.get(position).getNote().toString());
-            //------newly added 30th nov to make the add/view button visible/invisible, code ends-------
         }
         Log.d("statusdesc",userSingletonModel.getStatusDescription());
         //----newly added 30th nov for making editText eidtable/non editable according to description status code ends-----
