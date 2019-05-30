@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +88,7 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
     String earn, sick, comp,date;
     TextView txtSick, txtEarn, txtComp,txtUpto;
     public static Bundle savedInstanceState;
+    LinearLayout linearlayout_legends;
     ImageView imageView;
     public static String period_start_date, period_end_date, period_date;
     @Override
@@ -96,7 +98,15 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
 
         checkConnection();  //----function calling to check the internet connection
 
-        //============Navigation drawer and toolbar code starts=============
+        linearlayout_legends = (LinearLayout)findViewById(R.id.linearlayout_legends);
+
+        if(userSingletonModel.getEmployeeYN().contentEquals("1")){
+            linearlayout_legends.setVisibility(View.VISIBLE);
+        }else{
+            linearlayout_legends.setVisibility(View.GONE);
+        }
+
+                //============Navigation drawer and toolbar code starts=============
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
