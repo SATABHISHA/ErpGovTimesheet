@@ -94,36 +94,24 @@ public class SubcontractorEmployeeListFragment extends Fragment {
                                     for(int i=0;i<jsonArray.length();i++){
                                         JSONObject jsonObject2 = jsonArray.getJSONObject(i);
                                         SupervisorListModel supervisorListModel = new SupervisorListModel();
-                                        supervisorListModel.setId_person(jsonObject2.getString("id_person"));
-                                        supervisorListModel.setEmployee_name(jsonObject2.getString("employee_name"));
-//                                        supervisorListModel.setSupervisor_department(jsonObj.getString("department"));
-                                        supervisorListModel.setTotal_hours(jsonObject2.getString("total_hours"));
-                                        if(jsonObject2.getInt("ts_status_id")==0){
-                                            supervisorListModel.setSupervisor_status("Not Started");
-                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getNot_started_color());
-                                        }else if(jsonObject2.getInt("ts_status_id")==1){
-                                            supervisorListModel.setSupervisor_status("Saved");
-                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getSaved_color());
-                                        }else if(jsonObject2.getInt("ts_status_id")==2){
-                                            supervisorListModel.setSupervisor_status("Submitted");
-                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getSubmitted_color());
-                                        }else if(jsonObject2.getInt("ts_status_id")==3){
-                                            supervisorListModel.setSupervisor_status("Returned");
-                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getReturned_color());
-                                        }else if(jsonObject2.getInt("ts_status_id")==4){
-                                            supervisorListModel.setSupervisor_status("Approved");
-                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getApproved_color());
-                                        }else if(jsonObject2.getInt("ts_status_id")==5){
-                                            supervisorListModel.setSupervisor_status("Posted");
-                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getPosted_color());
-                                        }else if(jsonObject2.getInt("ts_status_id")== 6 ){
-                                            supervisorListModel.setSupervisor_status("Partially Returned");
-                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getPartially_returned_color());
-                                        }else if(jsonObject2.getInt("ts_status_id")==7){
-                                            supervisorListModel.setSupervisor_status("Partially Approved");
-                                            supervisorListModel.setSupervisor_color_code(userSingletonModel.getPartially_approved_color());
+                                        if(jsonObject2.getInt("ts_status_id")==0 && userSingletonModel.getSupervisor_notstarted_yn().contentEquals("1")) {
+                                            setJsonData(supervisorListModel, jsonObject2);
+                                        }else if(jsonObject2.getInt("ts_status_id")==1 && userSingletonModel.getSupervisor_saved_yn().contentEquals("1")) {
+                                            setJsonData(supervisorListModel, jsonObject2);
+                                        }else if(jsonObject2.getInt("ts_status_id")==2 && userSingletonModel.getSupervisor_submitted_yn().contentEquals("1")) {
+                                            setJsonData(supervisorListModel, jsonObject2);
+                                        }else if(jsonObject2.getInt("ts_status_id")==3 && userSingletonModel.getSupervisor_returned_yn().contentEquals("1")) {
+                                            setJsonData(supervisorListModel, jsonObject2);
+                                        }else if(jsonObject2.getInt("ts_status_id")==4 && userSingletonModel.getSupervisor_approved_yn().contentEquals("1")) {
+                                            setJsonData(supervisorListModel, jsonObject2);
+                                        }else if(jsonObject2.getInt("ts_status_id")==5 && userSingletonModel.getSupervisor_posted_yn().contentEquals("1")) {
+                                            setJsonData(supervisorListModel, jsonObject2);
+                                        }else if(jsonObject2.getInt("ts_status_id")==6 && userSingletonModel.getSupervisor_partially_returned_yn().contentEquals("1")) {
+                                            setJsonData(supervisorListModel, jsonObject2);
+                                        }else if(jsonObject2.getInt("ts_status_id")==7 && userSingletonModel.getSupervisor_partially_approved_yn().contentEquals("1")) {
+                                            setJsonData(supervisorListModel, jsonObject2);
                                         }
-                                        arrayList.add(supervisorListModel);
+//                                        arrayList.add(supervisorListModel);
                                     }
                                     lv_subcontractor_employeelist.setAdapter(new displaySubcontractorList());
                                     lv_subcontractor_employeelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -229,4 +217,44 @@ public class SubcontractorEmployeeListFragment extends Fragment {
             return view;
         }
     }
+
+    //----------created function and have called the the function inside for loop at json parsing for filteration of data, code starts------------
+    public void setJsonData(SupervisorListModel supervisorListModel,JSONObject jsonObject2){
+        try {
+            supervisorListModel.setId_person(jsonObject2.getString("id_person"));
+            supervisorListModel.setEmployee_name(jsonObject2.getString("employee_name"));
+//                                        supervisorListModel.setSupervisor_department(jsonObj.getString("department"));
+            supervisorListModel.setTotal_hours(jsonObject2.getString("total_hours"));
+            if(jsonObject2.getInt("ts_status_id")==0){
+                supervisorListModel.setSupervisor_status("Not Started");
+                supervisorListModel.setSupervisor_color_code(userSingletonModel.getNot_started_color());
+            }else if(jsonObject2.getInt("ts_status_id")==1){
+                supervisorListModel.setSupervisor_status("Saved");
+                supervisorListModel.setSupervisor_color_code(userSingletonModel.getSaved_color());
+            }else if(jsonObject2.getInt("ts_status_id")==2){
+                supervisorListModel.setSupervisor_status("Submitted");
+                supervisorListModel.setSupervisor_color_code(userSingletonModel.getSubmitted_color());
+            }else if(jsonObject2.getInt("ts_status_id")==3){
+                supervisorListModel.setSupervisor_status("Returned");
+                supervisorListModel.setSupervisor_color_code(userSingletonModel.getReturned_color());
+            }else if(jsonObject2.getInt("ts_status_id")==4){
+                supervisorListModel.setSupervisor_status("Approved");
+                supervisorListModel.setSupervisor_color_code(userSingletonModel.getApproved_color());
+            }else if(jsonObject2.getInt("ts_status_id")==5){
+                supervisorListModel.setSupervisor_status("Posted");
+                supervisorListModel.setSupervisor_color_code(userSingletonModel.getPosted_color());
+            }else if(jsonObject2.getInt("ts_status_id")== 6 ){
+                supervisorListModel.setSupervisor_status("Partially Returned");
+                supervisorListModel.setSupervisor_color_code(userSingletonModel.getPartially_returned_color());
+            }else if(jsonObject2.getInt("ts_status_id")==7){
+                supervisorListModel.setSupervisor_status("Partially Approved");
+                supervisorListModel.setSupervisor_color_code(userSingletonModel.getPartially_approved_color());
+            }
+            arrayList.add(supervisorListModel);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    //----------created function and have called the the function inside for loop at json parsing for filteration of data, code ends------------
 }
