@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -205,6 +206,7 @@ public class SubordinateListFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             TextView tv_subordinate_name, tv_subordinate_hrs, tv_subordinate_status;
             RelativeLayout relative_layout;
+            LinearLayout linear_layout;
             LayoutInflater layoutInflater = LayoutInflater.from(getContext());
             view = layoutInflater.inflate(R.layout.custom_row_subordinatelist, viewGroup, false);
             tv_subordinate_name=(TextView)view.findViewById(R.id.tv_subordinate_name);
@@ -226,7 +228,9 @@ public class SubordinateListFragment extends Fragment {
 
             tv_subordinate_status.setText(arrayList.get(i).getSupervisor_status());
             relative_layout = view.findViewById(R.id.relative_layout);
+            linear_layout = view.findViewById(R.id.linear_layout);
             relative_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getSupervisor_color_code()));
+            linear_layout.setBackgroundColor(Color.parseColor(arrayList.get(i).getSupervisor_color_code()));
             return view;
         }
     }

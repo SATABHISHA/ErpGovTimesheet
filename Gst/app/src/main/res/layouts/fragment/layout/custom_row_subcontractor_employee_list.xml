@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#F5F5F5"
-        android:paddingBottom="1dp"
-        android:layout_marginTop="1dp">
+        android:paddingBottom="0dp"
+        android:layout_marginTop="0dp">
         <RelativeLayout
             android:id="@+id/relative_layout"
             android:layout_width="match_parent"
