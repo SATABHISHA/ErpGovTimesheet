@@ -96,6 +96,15 @@
             android:textColor="#808080"
             android:textStyle="normal"
             android:text="Partially Approved"/>
-
+        <Button
+            android:id="@+id/btn_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:textSize="17dp"
+            android:text="Apply"
+            />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
