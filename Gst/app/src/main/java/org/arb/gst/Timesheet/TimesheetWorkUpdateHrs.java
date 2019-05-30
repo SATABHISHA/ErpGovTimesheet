@@ -41,6 +41,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.arb.gst.Home.HomeActivity;
 import org.arb.gst.Login.LoginActivity;
 import org.arb.gst.Model.EmployeeTimesheetListModel;
 import org.arb.gst.Model.UserSingletonModel;
@@ -177,141 +178,184 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                 imgbtn_ts_wrkhrs_next.setVisibility(View.VISIBLE);
                 final int Start = 0;
                 final int secondStart = 1;
-                if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
-                    for(int j=0;j<TimesheetSelectDay.datePeriod.size();j++){
-                        String value = tv_ts_wrkhrs_date.getText().toString();
-                        if(value == TimesheetSelectDay.datePeriod.get(j)){
-                            if(j != Start) {
-                                if(j == secondStart){
+                if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+                    if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                        for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
+                            String value = tv_ts_wrkhrs_date.getText().toString();
+                            if (value == TimesheetSelectDay.datePeriod.get(j)) {
+                                if (j != Start) {
+                                    if (j == secondStart) {
+                                        imgbtn_ts_wrkhrs_prev.setVisibility(View.INVISIBLE);
+                                    } else {
+                                        imgbtn_ts_wrkhrs_prev.setVisibility(View.VISIBLE);
+                                    }
+                                    tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j - 1));
+                                    userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
+                                    getEployeeTimesheetDetails(); //--newly added on 28th nov
+                                    break;
+                                } else if (j == Start) {
                                     imgbtn_ts_wrkhrs_prev.setVisibility(View.INVISIBLE);
-                                }else {
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        //---------Alert dialog code starts(added on 1st dec)--------
+                        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                        alertDialogBuilder.setMessage("Entered data will be lost.\nWould you still want to continue!");
+                        alertDialogBuilder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialogBuilder.setCancelable(false);
+                                for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
+                                    String value = tv_ts_wrkhrs_date.getText().toString();
+                                    if (value == TimesheetSelectDay.datePeriod.get(j)) {
+                                        if (j != Start) {
+                                            if (j == secondStart) {
+                                                imgbtn_ts_wrkhrs_prev.setVisibility(View.GONE);
+                                            } else {
+                                                imgbtn_ts_wrkhrs_prev.setVisibility(View.VISIBLE);
+                                            }
+                                            tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j - 1));
+                                            userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
+                                            getEployeeTimesheetDetails(); //--newly added on 28th nov
+                                            break;
+                                        } else if (j == Start) {
+                                            imgbtn_ts_wrkhrs_prev.setVisibility(View.GONE);
+                                            break;
+                                        }
+                                    }
+                                }
+
+                            }
+                        });
+                        alertDialogBuilder.setPositiveButton("No",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        alertDialogBuilder.setCancelable(true);
+                                    }
+                                });
+
+                        final AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+
+                        //--------Alert dialog code ends--------
+                    }
+                }else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
+                    for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
+                        String value = tv_ts_wrkhrs_date.getText().toString();
+                        if (value == TimesheetSelectDay.datePeriod.get(j)) {
+                            if (j != Start) {
+                                if (j == secondStart) {
+                                    imgbtn_ts_wrkhrs_prev.setVisibility(View.INVISIBLE);
+                                } else {
                                     imgbtn_ts_wrkhrs_prev.setVisibility(View.VISIBLE);
                                 }
                                 tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j - 1));
                                 userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
                                 getEployeeTimesheetDetails(); //--newly added on 28th nov
                                 break;
-                            }else if(j == Start){
+                            } else if (j == Start) {
                                 imgbtn_ts_wrkhrs_prev.setVisibility(View.INVISIBLE);
                                 break;
                             }
                         }
                     }
-                }else {
-                    //---------Alert dialog code starts(added on 1st dec)--------
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                    alertDialogBuilder.setMessage("Entered data will be lost.\nWould you still want to continue!");
-                    alertDialogBuilder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            alertDialogBuilder.setCancelable(false);
-                            for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
-                                String value = tv_ts_wrkhrs_date.getText().toString();
-                                if (value == TimesheetSelectDay.datePeriod.get(j)) {
-                                    if (j != Start) {
-                                        if (j == secondStart) {
-                                            imgbtn_ts_wrkhrs_prev.setVisibility(View.GONE);
-                                        } else {
-                                            imgbtn_ts_wrkhrs_prev.setVisibility(View.VISIBLE);
-                                        }
-                                        tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j - 1));
-                                        userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
-                                        getEployeeTimesheetDetails(); //--newly added on 28th nov
-                                        break;
-                                    } else if (j == Start) {
-                                        imgbtn_ts_wrkhrs_prev.setVisibility(View.GONE);
-                                        break;
-                                    }
-                                }
-                            }
-
-                        }
-                    });
-                    alertDialogBuilder.setPositiveButton("No",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    alertDialogBuilder.setCancelable(true);
-                                }
-                            });
-
-                    final AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
-
-                    //--------Alert dialog code ends--------
                 }
-
                 break;
             case R.id.imgbtn_ts_wrkhrs_next:
                 imgbtn_ts_wrkhrs_prev.setVisibility(View.VISIBLE);
                 final int End = TimesheetSelectDay.datePeriod.size()-1;
                 final int secondEnd = TimesheetSelectDay.datePeriod.size()-2;
-
-                if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
-                    for(int j=0;j<TimesheetSelectDay.datePeriod.size();j++){
-                        String value = tv_ts_wrkhrs_date.getText().toString();
-                        if(value == TimesheetSelectDay.datePeriod.get(j)){
-                            if(j != End) {
-                                if(j == secondEnd){
+                if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+                    if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                        for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
+                            String value = tv_ts_wrkhrs_date.getText().toString();
+                            if (value == TimesheetSelectDay.datePeriod.get(j)) {
+                                if (j != End) {
+                                    if (j == secondEnd) {
+                                        imgbtn_ts_wrkhrs_next.setVisibility(View.INVISIBLE);
+                                    } else {
+                                        imgbtn_ts_wrkhrs_next.setVisibility(View.VISIBLE);
+                                    }
+                                    tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j + 1));
+                                    userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
+                                    getEployeeTimesheetDetails(); //--newly added on 28th nov
+                                    break;
+                                } else if (j == End) {
                                     imgbtn_ts_wrkhrs_next.setVisibility(View.INVISIBLE);
-                                }else{
+                                    break;
+                                }
+                            }
+//                            Toast.makeText(getApplicationContext(),TimesheetSelectDay.datePeriod.get(j),Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+
+                        //---------Alert dialog code starts(added on 1st dec)--------
+                        final AlertDialog.Builder alertDialogBuilder3 = new AlertDialog.Builder(this);
+                        alertDialogBuilder3.setMessage("Entered data will be lost.\nWould you still want to continue!");
+                        alertDialogBuilder3.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                alertDialogBuilder3.setCancelable(true);
+                                for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
+                                    String value = tv_ts_wrkhrs_date.getText().toString();
+                                    if (value == TimesheetSelectDay.datePeriod.get(j)) {
+                                        if (j != End) {
+                                            if (j == secondEnd) {
+                                                imgbtn_ts_wrkhrs_next.setVisibility(View.INVISIBLE);
+                                            } else {
+                                                imgbtn_ts_wrkhrs_next.setVisibility(View.VISIBLE);
+                                            }
+                                            tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j + 1));
+                                            userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
+                                            getEployeeTimesheetDetails(); //--newly added on 28th nov
+                                            break;
+                                        } else if (j == End) {
+                                            imgbtn_ts_wrkhrs_next.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
+                                    }
+//                            Toast.makeText(getApplicationContext(),TimesheetSelectDay.datePeriod.get(j),Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+                        alertDialogBuilder3.setPositiveButton("No",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        alertDialogBuilder3.setCancelable(true);
+                                    }
+                                });
+
+                        final AlertDialog alertDialog3 = alertDialogBuilder3.create();
+                        alertDialog3.show();
+
+                        //--------Alert dialog code ends--------
+                    }
+                }else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
+                    for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
+                        String value = tv_ts_wrkhrs_date.getText().toString();
+                        if (value == TimesheetSelectDay.datePeriod.get(j)) {
+                            if (j != End) {
+                                if (j == secondEnd) {
+                                    imgbtn_ts_wrkhrs_next.setVisibility(View.INVISIBLE);
+                                } else {
                                     imgbtn_ts_wrkhrs_next.setVisibility(View.VISIBLE);
                                 }
                                 tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j + 1));
                                 userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
                                 getEployeeTimesheetDetails(); //--newly added on 28th nov
                                 break;
-                            }else if (j == End){
+                            } else if (j == End) {
                                 imgbtn_ts_wrkhrs_next.setVisibility(View.INVISIBLE);
                                 break;
                             }
                         }
 //                            Toast.makeText(getApplicationContext(),TimesheetSelectDay.datePeriod.get(j),Toast.LENGTH_SHORT).show();
                     }
-                }else {
-
-                    //---------Alert dialog code starts(added on 1st dec)--------
-                    final AlertDialog.Builder alertDialogBuilder3 = new AlertDialog.Builder(this);
-                    alertDialogBuilder3.setMessage("Entered data will be lost.\nWould you still want to continue!");
-                    alertDialogBuilder3.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            alertDialogBuilder3.setCancelable(true);
-                            for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
-                                String value = tv_ts_wrkhrs_date.getText().toString();
-                                if (value == TimesheetSelectDay.datePeriod.get(j)) {
-                                    if (j != End) {
-                                        if (j == secondEnd) {
-                                            imgbtn_ts_wrkhrs_next.setVisibility(View.INVISIBLE);
-                                        } else {
-                                            imgbtn_ts_wrkhrs_next.setVisibility(View.VISIBLE);
-                                        }
-                                        tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j + 1));
-                                        userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
-                                        getEployeeTimesheetDetails(); //--newly added on 28th nov
-                                        break;
-                                    } else if (j == End) {
-                                        imgbtn_ts_wrkhrs_next.setVisibility(View.INVISIBLE);
-                                        break;
-                                    }
-                                }
-//                            Toast.makeText(getApplicationContext(),TimesheetSelectDay.datePeriod.get(j),Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    });
-                    alertDialogBuilder3.setPositiveButton("No",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    alertDialogBuilder3.setCancelable(true);
-                                }
-                            });
-
-                    final AlertDialog alertDialog3 = alertDialogBuilder3.create();
-                    alertDialog3.show();
-
-                    //--------Alert dialog code ends--------
                 }
                 break;
             case R.id.btn_save:
@@ -336,39 +380,48 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                 break;
             case R.id.btn_back:
                 //---------Redirect to previous Activity with condition check and Alert dialog code starts(added on 1st dec)--------
-                if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+                    if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
 //                    super.onBackPressed(); //----added on 6th dec
+                        //-----following code is commented on 6th dec to get the calender saved state data------
+                        Intent intent = new Intent(TimesheetWorkUpdateHrs.this, TimesheetSelectDay.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        TimesheetWorkUpdateHrs.this.finish();
+                        //-----above code is commented on 6th dec to get the calender saved state data------
+                    } else {
+                        final AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(this);
+                        alertDialogBuilder2.setMessage("Entered data will be lost.\nWould you still want to continue!");
+                        alertDialogBuilder2.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+//                            TimesheetWorkUpdateHrs.super.onBackPressed();  //---added on 6th dec
+                                //-----following code is commented on 6th dec to get the calender saved state data------
+                                Intent intent = new Intent(TimesheetWorkUpdateHrs.this, TimesheetSelectDay.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                TimesheetWorkUpdateHrs.this.finish();
+                                //-----above code is commented on 6th dec to get the calender saved state data------
+                            }
+                        });
+                        alertDialogBuilder2.setPositiveButton("No",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        alertDialogBuilder2.setCancelable(true);
+                                    }
+                                });
+
+                        final AlertDialog alertDialog2 = alertDialogBuilder2.create();
+                        alertDialog2.show();
+                    }
+                }else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
                     //-----following code is commented on 6th dec to get the calender saved state data------
-                    Intent intent = new Intent(TimesheetWorkUpdateHrs.this,TimesheetSelectDay.class);
+                    Intent intent = new Intent(TimesheetWorkUpdateHrs.this, TimesheetSelectDay.class);
 //                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     TimesheetWorkUpdateHrs.this.finish();
                     //-----above code is commented on 6th dec to get the calender saved state data------
-                }else {
-                    final AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(this);
-                    alertDialogBuilder2.setMessage("Entered data will be lost.\nWould you still want to continue!");
-                    alertDialogBuilder2.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-//                            TimesheetWorkUpdateHrs.super.onBackPressed();  //---added on 6th dec
-                            //-----following code is commented on 6th dec to get the calender saved state data------
-                            Intent intent = new Intent(TimesheetWorkUpdateHrs.this, TimesheetSelectDay.class);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            TimesheetWorkUpdateHrs.this.finish();
-                            //-----above code is commented on 6th dec to get the calender saved state data------
-                        }
-                    });
-                    alertDialogBuilder2.setPositiveButton("No",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    alertDialogBuilder2.setCancelable(true);
-                                }
-                            });
-
-                    final AlertDialog alertDialog2 = alertDialogBuilder2.create();
-                    alertDialog2.show();
                 }
                 //--------Redirect to previous Activity with condition check and Alert dialog code ends--------
                 break;
