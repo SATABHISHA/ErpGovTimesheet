@@ -80,10 +80,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="11dp"
+                            android:layout_marginTop="0dp"
                             android:text="09-10-2018"
-                            android:textSize="13dp"
+                            android:textSize="15dp"
                             android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_ts_wrkhrs_dayname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="15dp"
+                            android:text="M"
+                            android:textSize="12dp"
+                            android:textStyle="normal" />
 
                         <ImageButton
                             android:id="@+id/imgbtn_ts_wrkhrs_next"
@@ -101,7 +110,7 @@
                             android:layout_below="@id/tv_ts_wrkhrs_date"
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="center"
-                            android:layout_marginTop="0dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="5dp"
                             android:text="(09-10-2018 To 09-16-2018)" />
                     </RelativeLayout>

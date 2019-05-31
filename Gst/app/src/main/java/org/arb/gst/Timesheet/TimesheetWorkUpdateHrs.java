@@ -57,7 +57,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +67,7 @@ import java.util.Map;
 
 public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
     RecyclerView mRecyclerView;
-    TextView  tv_ts_wrkhrs_date, tv_ts_wrkhrs_date_period, tv_ts_wkhrs_update_empname;
+    TextView  tv_ts_wrkhrs_date,tv_ts_wrkhrs_dayname, tv_ts_wrkhrs_date_period, tv_ts_wkhrs_update_empname;
     public static TextView tv_ts_wrkhrs_totalhrs;
     ImageButton imgbtn_ts_wrkhrs_prev, imgbtn_ts_wrkhrs_next;
     ListView listView,listz,k;
@@ -116,11 +118,23 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
         btn_back = (Button)findViewById(R.id.btn_back);
 
         tv_ts_wrkhrs_date = (TextView)findViewById(R.id.tv_ts_wrkhrs_date);
+        tv_ts_wrkhrs_dayname = findViewById(R.id.tv_ts_wrkhrs_dayname);
         tv_ts_wrkhrs_date_period = (TextView)findViewById(R.id.tv_ts_wrkhrs_date_period);  //----commented on 13/11/18(as it's looking odd)
         tv_ts_wkhrs_update_empname = (TextView)findViewById(R.id.tv_ts_wkhrs_update_empname);
         imgbtn_ts_wrkhrs_prev = (ImageButton)findViewById(R.id.imgbtn_ts_wrkhrs_prev);
         imgbtn_ts_wrkhrs_next = (ImageButton)findViewById(R.id.imgbtn_ts_wrkhrs_next);
         tv_ts_wrkhrs_date.setText(userSingletonModel.getDayDate());
+        //-----------added on 31st may for getting day name code starts...----------
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyy");
+        Date sourceDate = null;
+        try {
+            sourceDate = dateFormat.parse(userSingletonModel.getDayDate());
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+            tv_ts_wrkhrs_dayname.setText(sdf.format(sourceDate));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        //-----------added on 31st may for getting day name code ends...----------
         tv_ts_wrkhrs_date_period.setText("(Period: "+userSingletonModel.getPeriodStartDate()+" To "+userSingletonModel.getPeriodEndDate()+")");  //----commented on 13/11/18(as it's looking odd)
         tv_ts_wkhrs_update_empname.setText(userSingletonModel.getEmpName());
         //==========Recycler code initializing and setting layoutManager starts======
@@ -190,6 +204,17 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                                         imgbtn_ts_wrkhrs_prev.setVisibility(View.VISIBLE);
                                     }
                                     tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j - 1));
+                                    //-----------added on 31st may for getting day name code starts...----------
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyy");
+                                    Date sourceDate = null;
+                                    try {
+                                        sourceDate = dateFormat.parse(tv_ts_wrkhrs_date.getText().toString());
+                                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                                        tv_ts_wrkhrs_dayname.setText(sdf.format(sourceDate));
+                                    }catch(Exception e){
+                                        e.printStackTrace();
+                                    }
+                                    //-----------added on 31st may for getting day name code ends...----------
                                     userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
                                     getEployeeTimesheetDetails(); //--newly added on 28th nov
                                     break;
@@ -217,6 +242,17 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                                                 imgbtn_ts_wrkhrs_prev.setVisibility(View.VISIBLE);
                                             }
                                             tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j - 1));
+                                            //-----------added on 31st may for getting day name code starts...----------
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyy");
+                                            Date sourceDate = null;
+                                            try {
+                                                sourceDate = dateFormat.parse(tv_ts_wrkhrs_date.getText().toString());
+                                                SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                                                tv_ts_wrkhrs_dayname.setText(sdf.format(sourceDate));
+                                            }catch(Exception e){
+                                                e.printStackTrace();
+                                            }
+                                            //-----------added on 31st may for getting day name code ends...----------
                                             userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
                                             getEployeeTimesheetDetails(); //--newly added on 28th nov
                                             break;
@@ -253,6 +289,17 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                                     imgbtn_ts_wrkhrs_prev.setVisibility(View.VISIBLE);
                                 }
                                 tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j - 1));
+                                //-----------added on 31st may for getting day name code starts...----------
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyy");
+                                Date sourceDate = null;
+                                try {
+                                    sourceDate = dateFormat.parse(tv_ts_wrkhrs_date.getText().toString());
+                                    SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                                    tv_ts_wrkhrs_dayname.setText(sdf.format(sourceDate));
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                                //-----------added on 31st may for getting day name code ends...----------
                                 userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
                                 getEployeeTimesheetDetails(); //--newly added on 28th nov
                                 break;
@@ -280,6 +327,17 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                                         imgbtn_ts_wrkhrs_next.setVisibility(View.VISIBLE);
                                     }
                                     tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j + 1));
+                                    //-----------added on 31st may for getting day name code starts...----------
+                                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyy");
+                                    Date sourceDate = null;
+                                    try {
+                                        sourceDate = dateFormat.parse(tv_ts_wrkhrs_date.getText().toString());
+                                        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                                        tv_ts_wrkhrs_dayname.setText(sdf.format(sourceDate));
+                                    }catch(Exception e){
+                                        e.printStackTrace();
+                                    }
+                                    //-----------added on 31st may for getting day name code ends...----------
                                     userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
                                     getEployeeTimesheetDetails(); //--newly added on 28th nov
                                     break;
@@ -309,6 +367,17 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                                                 imgbtn_ts_wrkhrs_next.setVisibility(View.VISIBLE);
                                             }
                                             tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j + 1));
+                                            //-----------added on 31st may for getting day name code starts...----------
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyy");
+                                            Date sourceDate = null;
+                                            try {
+                                                sourceDate = dateFormat.parse(tv_ts_wrkhrs_date.getText().toString());
+                                                SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                                                tv_ts_wrkhrs_dayname.setText(sdf.format(sourceDate));
+                                            }catch(Exception e){
+                                                e.printStackTrace();
+                                            }
+                                            //-----------added on 31st may for getting day name code ends...----------
                                             userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
                                             getEployeeTimesheetDetails(); //--newly added on 28th nov
                                             break;
@@ -346,6 +415,17 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                                     imgbtn_ts_wrkhrs_next.setVisibility(View.VISIBLE);
                                 }
                                 tv_ts_wrkhrs_date.setText(TimesheetSelectDay.datePeriod.get(j + 1));
+                                //-----------added on 31st may for getting day name code starts...----------
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyy");
+                                Date sourceDate = null;
+                                try {
+                                    sourceDate = dateFormat.parse(tv_ts_wrkhrs_date.getText().toString());
+                                    SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+                                    tv_ts_wrkhrs_dayname.setText(sdf.format(sourceDate));
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                                //-----------added on 31st may for getting day name code ends...----------
                                 userSingletonModel.setDayDate(tv_ts_wrkhrs_date.getText().toString()); //--newly added on 28th nov
                                 getEployeeTimesheetDetails(); //--newly added on 28th nov
                                 break;
