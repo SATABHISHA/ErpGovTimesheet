@@ -40,6 +40,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -425,11 +426,11 @@ public class HomeActivity extends AppCompatActivity
             }else {
                 //--------adding custom dialog on 14th may starts------
                 LayoutInflater li2 = LayoutInflater.from(this);
-                View dialog = li2.inflate(R.layout.dialog_choose_timesheet, null);
-                Button btn_employee = (Button) dialog.findViewById(R.id.btn_employee);
-                Button btn_supervisor = (Button) dialog.findViewById(R.id.btn_supervisor);
-                Button btn_payroll_clerk = (Button) dialog.findViewById(R.id.btn_payroll_clerk);
-                Button btn_payable_clerk = (Button) dialog.findViewById(R.id.btn_payable_clerk);
+                View dialog = li2.inflate(R.layout.dialog_choose_timesheet_new, null);
+                RelativeLayout btn_employee = (RelativeLayout) dialog.findViewById(R.id.btn_employee);
+                RelativeLayout btn_supervisor = (RelativeLayout) dialog.findViewById(R.id.btn_supervisor);
+                RelativeLayout btn_payroll_clerk = (RelativeLayout) dialog.findViewById(R.id.btn_payroll_clerk);
+                RelativeLayout btn_payable_clerk = (RelativeLayout) dialog.findViewById(R.id.btn_payable_clerk);
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.setView(dialog);
 //                        alert.setCancelable(false);
@@ -689,11 +690,11 @@ public class HomeActivity extends AppCompatActivity
                 }else {
                     //--------adding custom dialog on 14th may starts------
                     LayoutInflater li2 = LayoutInflater.from(this);
-                    View dialog = li2.inflate(R.layout.dialog_choose_timesheet, null);
-                    Button btn_employee = (Button) dialog.findViewById(R.id.btn_employee);
-                    Button btn_supervisor = (Button) dialog.findViewById(R.id.btn_supervisor);
-                    Button btn_payroll_clerk = (Button) dialog.findViewById(R.id.btn_payroll_clerk);
-                    Button btn_payable_clerk = (Button) dialog.findViewById(R.id.btn_payable_clerk);
+                    View dialog = li2.inflate(R.layout.dialog_choose_timesheet_new, null);
+                    RelativeLayout btn_employee = (RelativeLayout) dialog.findViewById(R.id.btn_employee);
+                    RelativeLayout btn_supervisor = (RelativeLayout) dialog.findViewById(R.id.btn_supervisor);
+                    RelativeLayout btn_payroll_clerk = (RelativeLayout) dialog.findViewById(R.id.btn_payroll_clerk);
+                    RelativeLayout btn_payable_clerk = (RelativeLayout) dialog.findViewById(R.id.btn_payable_clerk);
                     AlertDialog.Builder alert = new AlertDialog.Builder(this);
                     alert.setView(dialog);
 //                        alert.setCancelable(false);
