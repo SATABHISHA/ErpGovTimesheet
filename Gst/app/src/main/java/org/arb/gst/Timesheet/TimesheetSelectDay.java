@@ -52,7 +52,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -136,11 +138,13 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         tv_addOrView_supervisor_note.setOnClickListener(this);
         btn_calender.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
+        btn_approve.setOnClickListener(this);
         //------added on 3rd dec for making submit button default disable code starts--------
         btn_submit.setAlpha(0.5f);
         btn_submit.setEnabled(false);
         btn_submit.setClickable(false);
         //------added on 3rd dec for making submit button default disable code ends--------
+
 
         //------added on  3rd dec, making btn approve & return by default disable as it's work is on progress code starts----
 
@@ -249,11 +253,54 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             case R.id.btn_submit:
                 validatePasswordAndSubmit(); //----this function will validate password and submit data to the server by calling submitData()
                 break;
+            case R.id.btn_approve:
+                approveEmployee();
+                break;
 
         }
     }
    //========swicth case for onclickListner code ends========
 
+    //==================approve function code starts, added on 31st may==========
+    public void approveEmployee(){
+        String WeekDate="", EmployeeNote= "", SupervisorNote="";
+        final JSONObject DocumentElementobj = new JSONObject();
+        JSONArray req = new JSONArray();
+        JSONObject reqObjdt = new JSONObject();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyy");
+            Date sourceDate = null;
+            for (int i = 0; i < arrayListTimesheetSelectDayModelsWeekDay.size(); i++) {
+                JSONObject reqObj = new JSONObject();
+                try {
+                    sourceDate = dateFormat.parse(arrayListTimesheetSelectDayModelsWeekDay.get(i).getWeekDate());
+                    SimpleDateFormat targetFormat = new SimpleDateFormat("MM-dd-yyyy");
+                    WeekDate = targetFormat.format(sourceDate);
+                    EmployeeNote = "";
+                    SupervisorNote = "";
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+                reqObj.put("WeekDate", WeekDate);
+                reqObj.put("EmployeeNote", EmployeeNote);
+                reqObj.put("SupervisorNote", SupervisorNote);
+
+                req.put(reqObj);
+
+            }
+            DocumentElementobj.put("UserID",userSingletonModel.getUserID());
+            DocumentElementobj.put("UserCode", "ob");
+            DocumentElementobj.put("EmployeeID",userSingletonModel.getSupervisor_id_person());
+            DocumentElementobj.put("UserType","MAIN");
+            DocumentElementobj.put( "SubmitValue", req );
+            reqObjdt.put("dt", DocumentElementobj);
+            Log.d("jsonTest",DocumentElementobj.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    //==================approve function code ends==========
 
     //===============added on 8th dec, function to load alert dialog for add or view note button code starts=============
     public void loadPopupForAddOrViewNote(){
