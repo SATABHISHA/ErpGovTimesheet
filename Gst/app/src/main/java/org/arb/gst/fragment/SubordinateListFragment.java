@@ -63,6 +63,12 @@ public class SubordinateListFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        loadData();
+        super.onResume();
+    }
+
     public void loadData(){
         String url = Config.BaseUrl+"SubordinateEmployeeList";
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading", "Please wait...", true, false);

@@ -140,6 +140,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         btn_calender.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
         btn_approve.setOnClickListener(this);
+        btn_return.setOnClickListener(this);
         //------added on 3rd dec for making submit button default disable code starts--------
         btn_submit.setAlpha(0.5f);
         btn_submit.setEnabled(false);
@@ -263,10 +264,110 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             case R.id.btn_approve:
                 approveEmployee();
                 break;
+            case R.id.btn_return:
+                returnEmployee();
+                break;
 
         }
     }
    //========swicth case for onclickListner code ends========
+
+
+    //================return function code starts, added on 31st may==============
+    public void returnEmployee(){
+        String WeekDate="", EmployeeNote= "", SupervisorNote="";
+        final JSONObject DocumentElementobj = new JSONObject();
+        JSONArray req = new JSONArray();
+        JSONObject reqObjdt = new JSONObject();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyy");
+            Date sourceDate = null;
+            for (int i = 0; i < arrayListTimesheetSelectDayModelsWeekDay.size(); i++) {
+                JSONObject reqObj = new JSONObject();
+                try {
+                    sourceDate = dateFormat.parse(arrayListTimesheetSelectDayModelsWeekDay.get(i).getWeekDate());
+                    SimpleDateFormat targetFormat = new SimpleDateFormat("MM-dd-yyyy");
+                    WeekDate = targetFormat.format(sourceDate);
+                    EmployeeNote = userSingletonModel.getTimesheetSelectDay_empNote();
+                    SupervisorNote = userSingletonModel.getTimesheetSelectDay_supNote();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+                reqObj.put("WeekDate", WeekDate);
+                reqObj.put("EmployeeNote", EmployeeNote);
+                reqObj.put("SupervisorNote", SupervisorNote);
+
+                req.put(reqObj);
+
+            }
+            DocumentElementobj.put("UserID",userSingletonModel.getUserID());
+            DocumentElementobj.put("UserCode", userSingletonModel.getUserName());
+            if(HomeActivity.supervisor_yn_temp.contentEquals("1")) {
+                DocumentElementobj.put("EmployeeID", userSingletonModel.getSupervisor_id_person());
+            }else if(HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
+                DocumentElementobj.put("EmployeeID", userSingletonModel.getPayable_payroll_supervisor_person_id());
+            }
+            DocumentElementobj.put("UserType",userSingletonModel.getAll_employee_type());
+            DocumentElementobj.put( "SubmitValue", req );
+            reqObjdt.put("dt", DocumentElementobj);
+            Log.d("jsonTest",DocumentElementobj.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //==========follwing is the code for volley i.e to send the data to the server... code starts=======
+        String url = Config.BaseUrl+"TimeSheetReturn";
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject jsonObj = null;
+                try{
+                    jsonObj = XML.toJSONObject(response);
+                    String responseData = jsonObj.toString();
+                    String val = "";
+                    JSONObject resobj = new JSONObject(responseData);
+                    Iterator<?> keys = resobj.keys();
+                    loading.dismiss();
+                    while(keys.hasNext() ) {
+                        String key = (String) keys.next();
+                        if (resobj.get(key) instanceof JSONObject) {
+                            JSONObject xx = new JSONObject(resobj.get(key).toString());
+                            val = xx.getString("content");
+                            JSONObject jsonObject = new JSONObject(val);
+                            Log.d("saveList: ",val);
+                            String message = jsonObject.getString("message");
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            loadDataOfDayWiseTimeSheetNew();
+                        }
+                    }
+                }catch (JSONException e){
+                    loading.dismiss();
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast.makeText(getApplicationContext(),"Error! Please try again",Toast.LENGTH_LONG).show();
+                loading.dismiss();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("TSApprovalDataJSON", DocumentElementobj.toString());
+                params.put("CorpId", userSingletonModel.getCorpID());
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(TimesheetSelectDay.this);
+        requestQueue.add(stringRequest);
+        //==========follwing is the code for volley i.e to send the data to the server... code ends=======
+    }
+    //================return function code ends, added on 31st may================
 
     //==================approve function code starts, added on 31st may==========
     public void approveEmployee(){
@@ -352,7 +453,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("TSApprovalDataJSON", DocumentElementobj.toString());
+                params.put("TSReturnDataJSON", DocumentElementobj.toString());
                 params.put("CorpId", userSingletonModel.getCorpID());
                 return params;
             }
