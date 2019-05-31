@@ -69,7 +69,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     ArrayList<WeekDays> weekDaysArrayList = new ArrayList<>();
     public static ArrayList<String> datePeriod = new ArrayList<>();
     RecyclerView mRecyclerView;
-    public static String colorcode,selectedDate;
+    public static String colorcode,selectedDate, description_status_temp;
     EditText edtxtEmployeeNote;
     TextView tv_empname, tv_period_date, tv_selected_date, tv_totalhrs, tv_period_totalhrs;
     LinearLayout tv_addOrView_employee_note, tv_addOrView_supervisor_note;
@@ -207,12 +207,18 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                     editText1.setText("");
                 }
 
-                //----added on 4th dec----
-                btn_save1.setVisibility(View.GONE);
-                btn_cancel1.setVisibility(View.GONE);
-                editText1.setEnabled(false);
-                editText1.setBackgroundColor(Color.parseColor("#EBEBEB"));
-                //----above codse added on 4th dec------
+                //----added/modified on 4th/31st dec/may----
+                if(description_status_temp.contentEquals("1")){
+                    btn_save1.setVisibility(View.VISIBLE);
+                    btn_cancel1.setVisibility(View.VISIBLE);
+                    editText1.setEnabled(true);
+                }else {
+                    btn_save1.setVisibility(View.GONE);
+                    btn_cancel1.setVisibility(View.GONE);
+                    editText1.setEnabled(false);
+                    editText1.setBackgroundColor(Color.parseColor("#EBEBEB"));
+                }
+                //----above codse added/modified on 4th/31st dec/may------
 
                 AlertDialog.Builder alert1 = new AlertDialog.Builder(context);
                 alert1.setView(dialog1);
@@ -277,8 +283,8 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                     sourceDate = dateFormat.parse(arrayListTimesheetSelectDayModelsWeekDay.get(i).getWeekDate());
                     SimpleDateFormat targetFormat = new SimpleDateFormat("MM-dd-yyyy");
                     WeekDate = targetFormat.format(sourceDate);
-                    EmployeeNote = "";
-                    SupervisorNote = "";
+                    EmployeeNote = userSingletonModel.getTimesheetSelectDay_empNote();
+                    SupervisorNote = userSingletonModel.getTimesheetSelectDay_supNote();
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
@@ -289,10 +295,14 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 req.put(reqObj);
 
             }
-            DocumentElementobj.put("UserID",1);
-            DocumentElementobj.put("UserCode", "ob");
-            DocumentElementobj.put("EmployeeID",1);
-            DocumentElementobj.put("UserType","MAIN");
+            DocumentElementobj.put("UserID",userSingletonModel.getUserID());
+            DocumentElementobj.put("UserCode", userSingletonModel.getUserName());
+            if(HomeActivity.supervisor_yn_temp.contentEquals("1")) {
+                DocumentElementobj.put("EmployeeID", userSingletonModel.getSupervisor_id_person());
+            }else if(HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
+                DocumentElementobj.put("EmployeeID", userSingletonModel.getPayable_payroll_supervisor_person_id());
+            }
+            DocumentElementobj.put("UserType",userSingletonModel.getAll_employee_type());
             DocumentElementobj.put( "SubmitValue", req );
             reqObjdt.put("dt", DocumentElementobj);
             Log.d("jsonTest",DocumentElementobj.toString());
@@ -323,6 +333,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                             Log.d("saveList: ",val);
                             String message = jsonObject.getString("message");
                             Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            loadDataOfDayWiseTimeSheetNew();
                             }
                     }
                 }catch (JSONException e){
@@ -972,14 +983,34 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
                                                 //***supervisor note is not modified
                                                 //=============Following is the code to check whether supNote is empty or not(the supnote will be present in the dialog box and stored via SingletonModel class)==========
-                                                if (userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")) {
-                                                    img_sup_note_view.setVisibility(View.GONE);
-                                                    tv_addOrView_supervisor_note.setClickable(false);
-                                                    //  img_sup_add_view.setVisibility(View.VISIBLE);  //----commented on 4th dec
-                                                } else if (!userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")) {
-                                                    //   img_sup_add_view.setVisibility(View.GONE);  //---commented on 4th dec
-                                                    img_sup_note_view.setVisibility(View.VISIBLE);
-                                                    tv_addOrView_supervisor_note.setClickable(true);
+                                                if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+                                                    if (userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")) {
+                                                        img_sup_note_view.setVisibility(View.GONE);
+                                                        tv_addOrView_supervisor_note.setClickable(false);
+                                                        //  img_sup_add_view.setVisibility(View.VISIBLE);  //----commented on 4th dec
+                                                    } else if (!userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")) {
+                                                        //   img_sup_add_view.setVisibility(View.GONE);  //---commented on 4th dec
+                                                        img_sup_note_view.setVisibility(View.VISIBLE);
+                                                        tv_addOrView_supervisor_note.setClickable(true);
+                                                    }
+                                                } else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
+                                                    if((days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                        img_sup_note_view.setVisibility(View.GONE);
+                                                        tv_addOrView_supervisor_note.setClickable(true);
+                                                        img_sup_add_view.setVisibility(View.VISIBLE);
+                                                    }else if((days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                        img_sup_note_view.setVisibility(View.VISIBLE);
+                                                        tv_addOrView_supervisor_note.setClickable(true);
+                                                        img_sup_add_view.setVisibility(View.GONE);
+                                                    }else if((!days.getString("StatusDescription").contentEquals("SUBMITTED") || !days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                        img_sup_note_view.setVisibility(View.GONE);
+                                                        tv_addOrView_supervisor_note.setClickable(false);
+                                                        img_sup_add_view.setVisibility(View.GONE);
+                                                    }else if((!days.getString("StatusDescription").contentEquals("SUBMITTED") || !days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                        img_sup_note_view.setVisibility(View.VISIBLE);
+                                                        tv_addOrView_supervisor_note.setClickable(true);
+                                                        img_sup_add_view.setVisibility(View.GONE);
+                                                    }
                                                 }
                                                 //==============code to check supNote is empty or not ends===========
                                                 //-------above code newly added on 4th dec---------
@@ -1003,12 +1034,14 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                     btn_submit.setClickable(false);
                                                     if(days.getString("StatusDescription").contentEquals("SUBMITTED") || (days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")))
                                                     {
+                                                        description_status_temp = "1";
                                                         btn_approve.setEnabled(true);
                                                         btn_approve.setClickable(true);
 
                                                         btn_return.setEnabled(true);
                                                         btn_return.setClickable(true);
                                                     }else{
+                                                        description_status_temp = "0";
                                                         btn_approve.setAlpha(0.5f);
                                                         btn_approve.setEnabled(false);
                                                         btn_approve.setClickable(false);

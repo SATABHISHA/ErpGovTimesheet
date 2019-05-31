@@ -122,7 +122,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //------initializing some variables of singleton class starts, added on 30th may-------
+        //------initializing some variables of singleton class starts, added on 30th may(these variable are initialized for filtaration in superviosr section)-------
         userSingletonModel.setTimesheet_personId_yn("0");
         userSingletonModel.setSupervisor_notstarted_yn("1");
         userSingletonModel.setSupervisor_saved_yn("1");

@@ -133,6 +133,7 @@ public class SubcontractorEmployeeListFragment extends Fragment {
                                                 textView.setTextColor(color);
                                                 snackbar.show();
                                             }else {
+                                                userSingletonModel.setAll_employee_type("SUB");
                                                 startActivity(new Intent(getActivity(), TimesheetSelectDay.class));
 //                                            Toast.makeText(getContext(),arrayList.get(i).getId_person()+"/"+arrayList.get(i).getEmployee_name(),Toast.LENGTH_SHORT).show();
                                             }

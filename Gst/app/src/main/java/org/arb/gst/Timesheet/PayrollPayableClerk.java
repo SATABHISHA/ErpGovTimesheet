@@ -30,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.arb.gst.Home.HomeActivity;
 import org.arb.gst.Model.PayrollPayableModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
@@ -185,6 +186,11 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                                 textView.setTextColor(color);
                                                 snackbar.show();
                                             }else {
+                                                if(HomeActivity.payrollclerk_yn_temp.contentEquals("1")){
+                                                    userSingletonModel.setAll_employee_type("MAIN");
+                                                }else if(HomeActivity.payableclerk_yn_temp.contentEquals("1")){
+                                                    userSingletonModel.setAll_employee_type("SUB");
+                                                }
                                                 startActivity(new Intent(PayrollPayableClerk.this,TimesheetSelectDay.class));
                                             }
 

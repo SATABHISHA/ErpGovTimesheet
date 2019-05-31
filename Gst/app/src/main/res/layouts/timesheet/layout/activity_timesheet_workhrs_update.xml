@@ -90,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="15dp"
-                            android:text="M"
+                            android:text="Monday"
                             android:textSize="12dp"
                             android:textStyle="normal" />
 
