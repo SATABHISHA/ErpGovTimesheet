@@ -288,9 +288,9 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 req.put(reqObj);
 
             }
-            DocumentElementobj.put("UserID",userSingletonModel.getUserID());
+            DocumentElementobj.put("UserID",1);
             DocumentElementobj.put("UserCode", "ob");
-            DocumentElementobj.put("EmployeeID",userSingletonModel.getSupervisor_id_person());
+            DocumentElementobj.put("EmployeeID",1);
             DocumentElementobj.put("UserType","MAIN");
             DocumentElementobj.put( "SubmitValue", req );
             reqObjdt.put("dt", DocumentElementobj);
@@ -298,6 +298,57 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        //==========follwing is the code for volley i.e to send the data to the server... code starts=======
+        String url = Config.BaseUrl+"TimeSheetApprove";
+        final ProgressDialog loading = ProgressDialog.show(this, "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject jsonObj = null;
+                try{
+                    jsonObj = XML.toJSONObject(response);
+                    String responseData = jsonObj.toString();
+                    String val = "";
+                    JSONObject resobj = new JSONObject(responseData);
+                    Iterator<?> keys = resobj.keys();
+                    loading.dismiss();
+                    while(keys.hasNext() ) {
+                        String key = (String) keys.next();
+                        if (resobj.get(key) instanceof JSONObject) {
+                            JSONObject xx = new JSONObject(resobj.get(key).toString());
+                            val = xx.getString("content");
+                            JSONObject jsonObject = new JSONObject(val);
+                            Log.d("saveList: ",val);
+                            String message = jsonObject.getString("message");
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            }
+                    }
+                }catch (JSONException e){
+                    loading.dismiss();
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Toast.makeText(getApplicationContext(),"Error! Please try again",Toast.LENGTH_LONG).show();
+                loading.dismiss();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("TSApprovalDataJSON", DocumentElementobj.toString());
+                params.put("CorpId", userSingletonModel.getCorpID());
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(TimesheetSelectDay.this);
+        requestQueue.add(stringRequest);
+        //==========follwing is the code for volley i.e to send the data to the server... code ends=======
 
     }
     //==================approve function code ends==========
