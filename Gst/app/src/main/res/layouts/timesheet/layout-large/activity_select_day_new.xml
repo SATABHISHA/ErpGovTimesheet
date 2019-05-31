@@ -108,6 +108,15 @@
                             android:layout_marginLeft="6dp"
                             android:text="Date: 09-10-2018"
                             android:textStyle="normal"/>
+                        <TextView
+                            android:id="@+id/tv_period_totalhrs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:layout_alignParentRight="true"
+                            android:textSize="15sp"
+                            android:text="0.0"
+                            android:textStyle="bold" />
                     </RelativeLayout>
                     <ExpandableListView
                         android:id="@+id/lvExp"

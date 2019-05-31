@@ -71,7 +71,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     RecyclerView mRecyclerView;
     public static String colorcode,selectedDate;
     EditText edtxtEmployeeNote;
-    TextView tv_empname, tv_period_date, tv_selected_date, tv_totalhrs;
+    TextView tv_empname, tv_period_date, tv_selected_date, tv_totalhrs, tv_period_totalhrs;
     LinearLayout tv_addOrView_employee_note, tv_addOrView_supervisor_note;
     NestedScrollView nestedScrollView;
     ImageView img_empnote_view, img_empnote_add, img_sup_add_view, img_sup_note_view;
@@ -130,6 +130,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         btn_approve = (Button)findViewById(R.id.btn_approve);
 
         tv_totalhrs = (TextView)findViewById(R.id.tv_totalhrs);
+        tv_period_totalhrs = (TextView)findViewById(R.id.tv_period_totalhrs);
         tv_addOrView_employee_note = (LinearLayout) findViewById(R.id.tv_addOrView_employee_note);
         tv_addOrView_supervisor_note = (LinearLayout) findViewById(R.id.tv_addOrView_supervisor_note);
 //        tv_selected_date.setText(TimesheetHome.dateOnSelectedCalender);
@@ -1055,6 +1056,15 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 }
 
                                                 tv_period_date.setText("("+userSingletonModel.getPeriodStartDate()+" - "+userSingletonModel.getPeriodEndDate()+")");
+
+                                                //-------code to add all the total hours and display at the top of the page, starts...added on 31st may--------
+                                                Double sum = 0.0;
+                                                for(int k=0;k<arrayListTimesheetSelectDayModelsWeekDay.size();k++){
+                                                    sum = sum + Double.parseDouble(arrayListTimesheetSelectDayModelsWeekDay.get(k).getTotalHours());
+//                                                    Log.d("totalhrs",arrayListTimesheetSelectDayModelsWeekDay.get())
+                                                }
+                                                tv_period_totalhrs.setText(sum.toString());
+                                                //-------code to add all the total hours and display at the top of the page, ends...added on 31st may--------
                                                 ListView listView = (ListView)findViewById(R.id.lv_color);
                                                 listView.setAdapter(new displayStatusAdapter());
                                                 listView.setDivider(null);
