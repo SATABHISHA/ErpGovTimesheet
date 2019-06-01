@@ -204,25 +204,39 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                                 snackbar.show();*/
 
                                                 //-----------added email section on 1st june, starts----
-                                                int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                                                if (SDK_INT > 8)
-                                                {
-                                                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                                                            .permitAll().build();
-                                                    StrictMode.setThreadPolicy(policy);
-                                                    //your codes here
-                                                    String recipientName = arrayList.get(i).getEmployee_name();
-//                                                    String recipientEmailid = arrayList.get(i).getPayroll_payable_email_id();
-                                                    String recipientEmailid = "satabhishar@arbsoft.com";
-                                                    String recipientPeriodDate = TimesheetHome.period_date;
-                                                    String orgName = userSingletonModel.getCompanyName();
-                                                    if(recipientEmailid.contentEquals("")){
-                                                        Toast.makeText(getApplicationContext(),"Email id not registered",Toast.LENGTH_LONG).show();
-                                                    }else {
-                                                        sendEmail(recipientName,recipientEmailid,recipientPeriodDate,orgName);
-                                                    }
+                                                String message = "Want to send notification?";
+                                                final String recipientName = arrayList.get(i).getEmployee_name();
+//                                                final String recipientEmailid = arrayList.get(i).getPayroll_payable_email_id();
+                                                final String recipientEmailid = "satabhishar@arbsoft.com"; //for testing
+                                                final String recipientPeriodDate = TimesheetHome.period_date;
+                                                final String orgName = userSingletonModel.getCompanyName();
+                                                final Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator_layout_payrollpayable), message, Snackbar.LENGTH_LONG);
 
-                                                }
+                                                snackbar.setAction("Yes", new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                                                        if (SDK_INT > 8)
+                                                        {
+                                                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                                                    .permitAll().build();
+                                                            StrictMode.setThreadPolicy(policy);
+                                                            //your codes here
+
+                                                            if(recipientEmailid.contentEquals("")){
+                                                                Toast.makeText(getApplicationContext(),"Email id not registered",Toast.LENGTH_LONG).show();
+                                                                snackbar.dismiss();
+                                                            }else {
+                                                                sendEmail(recipientName,recipientEmailid,recipientPeriodDate,orgName);
+                                                                snackbar.dismiss();
+                                                            }
+
+                                                        }
+                                                    }
+                                                });
+
+                                                snackbar.show();
+
                                                 //-----------added email section on 1st june, ends----
                                             }else {
                                                 if(HomeActivity.payrollclerk_yn_temp.contentEquals("1")){
