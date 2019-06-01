@@ -64,6 +64,7 @@ public class SubordinateListFragment extends Fragment {
     //-------------variables for email, starts----------
     final String username = "gsttest123@gmail.com";
     final String password = "ARB@1234";
+    // -------------variables for email, ends----------
 
     @Nullable
     @Override

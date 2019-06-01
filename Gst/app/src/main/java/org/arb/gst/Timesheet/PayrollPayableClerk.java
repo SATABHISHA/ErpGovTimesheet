@@ -3,6 +3,7 @@ package org.arb.gst.Timesheet;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -45,6 +46,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class PayrollPayableClerk extends AppCompatActivity {
     TextView tv_payrollclerk_period_date;
@@ -56,6 +66,11 @@ public class PayrollPayableClerk extends AppCompatActivity {
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     ListView lv_payrollclerk;
     RelativeLayout relative_layout;
+
+    //-------------variables for email, starts----------
+    final String username = "gsttest123@gmail.com";
+    final String password = "ARB@1234";
+    // -------------variables for email, ends----------
 
 
     @Override
@@ -136,6 +151,7 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                         payrollPayableModel.setEmp_type(jsonObject.getString("emp_type"));
                                         payrollPayableModel.setSupervisor_name(jsonObject.getString("supervisor_name"));
                                         payrollPayableModel.setTotal_hours(jsonObject.getString("total_hours"));
+                                        payrollPayableModel.setPayroll_payable_email_id(jsonObject.getString("email_id"));
 //                                        payrollPayableModel.setTimesheet_status_id(jsonObject.getString("timesheet_status_id")); //---since it is in integer format
                                         if(jsonObject.getInt("timesheet_status_id")==0){
                                             payrollPayableModel.setPayroll_payable_clerk_status("Not Started");
@@ -178,14 +194,36 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                             userSingletonModel.setPayable_payroll_supervisor_person_id(arrayList.get(i).getId_person());
 
                                             if(arrayList.get(i).getPayroll_payable_clerk_status().contentEquals("Not Started")){
-                                                String message = "Not Started Timesheet cannot be viewed";
+                                               /* String message = "Not Started Timesheet cannot be viewed";
                                                 int color = Color.parseColor("#FF4242");
                                                 Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator_layout_payrollpayable), message, 4000);
 
                                                 View sbView = snackbar.getView();
                                                 TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
                                                 textView.setTextColor(color);
-                                                snackbar.show();
+                                                snackbar.show();*/
+
+                                                //-----------added email section on 1st june, starts----
+                                                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                                                if (SDK_INT > 8)
+                                                {
+                                                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                                            .permitAll().build();
+                                                    StrictMode.setThreadPolicy(policy);
+                                                    //your codes here
+                                                    String recipientName = arrayList.get(i).getEmployee_name();
+//                                                    String recipientEmailid = arrayList.get(i).getPayroll_payable_email_id();
+                                                    String recipientEmailid = "satabhishar@arbsoft.com";
+                                                    String recipientPeriodDate = TimesheetHome.period_date;
+                                                    String orgName = userSingletonModel.getCompanyName();
+                                                    if(recipientEmailid.contentEquals("")){
+                                                        Toast.makeText(getApplicationContext(),"Email id not registered",Toast.LENGTH_LONG).show();
+                                                    }else {
+                                                        sendEmail(recipientName,recipientEmailid,recipientPeriodDate,orgName);
+                                                    }
+
+                                                }
+                                                //-----------added email section on 1st june, ends----
                                             }else {
                                                 if(HomeActivity.payrollclerk_yn_temp.contentEquals("1")){
                                                     userSingletonModel.setAll_employee_type("MAIN");
@@ -289,6 +327,62 @@ public class PayrollPayableClerk extends AppCompatActivity {
         }
     }
     //==============BaseAdapter code for listview ends===========
+
+    //-------------email code starts----------------
+    public void sendEmail(String recipientName,String recipientEmailid, String recipientPeriodDate, String orgName){
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", Config.host);
+        props.put("mail.smtp.port", Config.port);
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(Config.email_username, Config.email_password);
+                    }
+                });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("gsttest123@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(recipientEmailid));
+            message.setSubject("Fill-up and Submit Timesheet - "+recipientPeriodDate);
+            message.setText(
+                    "Hello "+recipientName+"," +
+                            "\n\n" +
+                            "Please fill up and submit your timesheet for the period of "+ recipientPeriodDate+"." +
+                            "\n\n" +
+                            "Thanks." +
+                            "\n\n" +
+                            "Admin" +
+                            "\n" +
+                            orgName);
+
+            /* MimeBodyPart messageBodyPart = new MimeBodyPart();
+
+             Multipart multipart = new MimeMultipart();
+
+             messageBodyPart = new MimeBodyPart();
+             String file = "path of file to be attached";
+             String fileName = "attachmentName";
+             DataSource source = new FileDataSource(file);
+             messageBodyPart.setDataHandler(new DataHandler(source));
+             messageBodyPart.setFileName(fileName);
+             multipart.addBodyPart(messageBodyPart);
+
+             message.setContent(multipart);*/
+
+            Transport.send(message);
+
+            System.out.println("Done");
+            Toast.makeText(getApplicationContext(),"Notification has been sent successfully",Toast.LENGTH_LONG).show();
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    //-------------email code ends----------------
 
     public void onBackPressed() {
         super.onBackPressed();
