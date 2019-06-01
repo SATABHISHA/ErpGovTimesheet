@@ -4,9 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -40,10 +39,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class SubordinateListFragment extends Fragment {
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
@@ -51,6 +60,10 @@ public class SubordinateListFragment extends Fragment {
     ListView lv_subordinatelist;
     ArrayList<SupervisorListModel> arrayList = new ArrayList<>();
     CoordinatorLayout coordinator_layout_subordinate;
+
+    //-------------variables for email, starts----------
+    final String username = "gsttest123@gmail.com";
+    final String password = "ARB@1234";
 
     @Nullable
     @Override
@@ -133,14 +146,26 @@ public class SubordinateListFragment extends Fragment {
                                             userSingletonModel.setTimesheet_personId_yn("1");
                                             userSingletonModel.setPayable_payroll_supervisor_person_id(arrayList.get(i).getId_person());
                                             if(arrayList.get(i).getSupervisor_status().contentEquals("Not Started")){
-                                                String message = "Not Started Timesheet cannot be viewed";
+                                               /* String message = "Not Started Timesheet cannot be viewed";
                                                 int color = Color.parseColor("#FF4242");
                                                 Snackbar snackbar = Snackbar.make(coordinator_layout_subordinate, message, 4000);
 
                                                 View sbView = snackbar.getView();
                                                 TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
                                                 textView.setTextColor(color);
-                                                snackbar.show();
+                                                snackbar.show();*/
+                                                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                                                if (SDK_INT > 8)
+                                                {
+                                                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                                            .permitAll().build();
+                                                    StrictMode.setThreadPolicy(policy);
+                                                    //your codes here
+//                                                    sendEmail();
+
+                                                }
+
+
                                             }else {
                                                 userSingletonModel.setAll_employee_type("MAIN");
                                                 startActivity(new Intent(getActivity(), TimesheetSelectDay.class));
@@ -269,5 +294,60 @@ public class SubordinateListFragment extends Fragment {
 
     }
     //----------created function and have called the the function inside for loop at json parsing for filteration of data, code ends------------
+
+    //-------------email code starts----------------
+     public void sendEmail(String recipientName,String recipientEmailid, String recipientPeriodDate, String orgName){
+         Properties props = new Properties();
+         props.put("mail.smtp.auth", "true");
+         props.put("mail.smtp.starttls.enable", "true");
+         props.put("mail.smtp.host", "smtp.gmail.com");
+         props.put("mail.smtp.port", "587");
+
+         Session session = Session.getInstance(props,
+                 new javax.mail.Authenticator() {
+                     protected PasswordAuthentication getPasswordAuthentication() {
+                         return new PasswordAuthentication(username, password);
+                     }
+                 });
+         try {
+             Message message = new MimeMessage(session);
+             message.setFrom(new InternetAddress("gsttest123@gmail.com"));
+             message.setRecipients(Message.RecipientType.TO,
+                     InternetAddress.parse(recipientEmailid));
+             message.setSubject("Fill-up and Submit Timesheet - "+recipientPeriodDate);
+             message.setText(
+                     "Hello "+recipientName+"," +
+                     "\n\n" +
+                     "Please fill up and submit your timesheet for the period of "+ recipientPeriodDate+"." +
+                     "\n\n" +
+                     "Thanks." +
+                     "\n\n" +
+                     "Admin" +
+                     "\n" +
+                     orgName);
+
+            /* MimeBodyPart messageBodyPart = new MimeBodyPart();
+
+             Multipart multipart = new MimeMultipart();
+
+             messageBodyPart = new MimeBodyPart();
+             String file = "path of file to be attached";
+             String fileName = "attachmentName";
+             DataSource source = new FileDataSource(file);
+             messageBodyPart.setDataHandler(new DataHandler(source));
+             messageBodyPart.setFileName(fileName);
+             multipart.addBodyPart(messageBodyPart);
+
+             message.setContent(multipart);*/
+
+             Transport.send(message);
+
+             System.out.println("Done");
+
+         } catch (MessagingException e) {
+             throw new RuntimeException(e);
+         }
+     }
+    //-------------email code ends----------------
 
 }

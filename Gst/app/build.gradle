@@ -22,6 +22,9 @@ android {
             res.srcDirs = ['src/main/res', 'src/main/res/layouts/home', 'src/main/res/layouts/login', 'src/main/res/layouts/timesheet', 'src/main/res/layouts/fragment']
         }
     }
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE.txt' // picks the JavaMail license file
+    }
 }
 
 dependencies {
@@ -40,6 +43,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'pub.devrel:easypermissions:0.2.0'
+    implementation 'com.sun.mail:android-mail:1.5.5'
+    implementation 'com.sun.mail:android-activation:1.5.5'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
