@@ -125,6 +125,7 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                 if (resobj.get(key) instanceof JSONObject) {
                                     JSONObject xx = new JSONObject(resobj.get(key).toString());
                                     val = xx.getString("content");
+                                    Log.d("getEmpdata",val.toString());
                                     JSONArray jsonArray = new JSONArray(val);
                                     for(int i=0;i<jsonArray.length();i++){
                                         JSONObject jsonObject = jsonArray.getJSONObject(i);

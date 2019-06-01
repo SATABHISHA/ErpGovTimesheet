@@ -161,6 +161,10 @@ public class SubordinateListFragment extends Fragment {
                                                             .permitAll().build();
                                                     StrictMode.setThreadPolicy(policy);
                                                     //your codes here
+                                                    String recipientName = arrayList.get(i).getEmployee_name();
+                                                    String recipientEmailid = "";
+                                                    String recipientPeriodDate = TimesheetHome.period_date;
+                                                    String orgName = userSingletonModel.getCompanyName();
 //                                                    sendEmail();
 
                                                 }
@@ -300,8 +304,8 @@ public class SubordinateListFragment extends Fragment {
          Properties props = new Properties();
          props.put("mail.smtp.auth", "true");
          props.put("mail.smtp.starttls.enable", "true");
-         props.put("mail.smtp.host", "smtp.gmail.com");
-         props.put("mail.smtp.port", "587");
+         props.put("mail.smtp.host", Config.host);
+         props.put("mail.smtp.port", Config.port);
 
          Session session = Session.getInstance(props,
                  new javax.mail.Authenticator() {
