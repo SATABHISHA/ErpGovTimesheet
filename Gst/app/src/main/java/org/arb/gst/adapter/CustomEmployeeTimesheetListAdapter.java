@@ -1,19 +1,14 @@
 package org.arb.gst.adapter;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,15 +18,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.arb.gst.Home.HomeActivity;
 import org.arb.gst.Model.EmployeeTimesheetListModel;
 import org.arb.gst.Model.UserSingletonModel;
-import org.arb.gst.Model.UserUpdateHoursModel;
 import org.arb.gst.R;
-import org.arb.gst.Timesheet.TimesheetSelectDay;
-import org.arb.gst.Timesheet.TimesheetWorkUpdateHrs;
 
 import java.util.ArrayList;
 
@@ -242,8 +233,8 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
 //                    dialog.setBackgroundResource(android.R.color.transparent);
                         TextView text = (TextView) dialog.findViewById(R.id.tv_accountcode);
                         final EditText editText = (EditText) dialog.findViewById(R.id.ed_note);
-                        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
-                        Button btn_save = (Button) dialog.findViewById(R.id.btn_save);
+                        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_sup_cancel);
+                        Button btn_save = (Button) dialog.findViewById(R.id.btn_sup_save);
                         ImageButton imgbtn_close = (ImageButton) dialog.findViewById(R.id.imgbtn_close);
 //                    text.setText("Notes for "+employeeTimesheetListModelArrayList.get(position).getTask()+"("+employeeTimesheetListModelArrayList.get(position).getAccountCode()+")");
 //                    editText.setText(employeeTimesheetListModelArrayList.get(position).getEditTextAddNote()); //---if edittext value exists then it will load data to edittext
@@ -319,8 +310,8 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
 //                    dialog.setBackgroundResource(android.R.color.transparent);
                     TextView text = (TextView) dialog.findViewById(R.id.tv_accountcode);
                     final EditText editText = (EditText) dialog.findViewById(R.id.ed_note);
-                    final Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
-                    final Button btn_save = (Button) dialog.findViewById(R.id.btn_save);
+                    final Button btn_cancel = (Button) dialog.findViewById(R.id.btn_sup_cancel);
+                    final Button btn_save = (Button) dialog.findViewById(R.id.btn_sup_save);
                     ImageButton imgbtn_close = (ImageButton) dialog.findViewById(R.id.imgbtn_close);
                     final ImageButton imgbtn_edit = (ImageButton) dialog.findViewById(R.id.imgbtn_edit);
 

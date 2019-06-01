@@ -1,13 +1,9 @@
 package org.arb.gst.Timesheet;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,17 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.JsonReader;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,7 +30,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.arb.gst.Home.HomeActivity;
-import org.arb.gst.Login.LoginActivity;
 import org.arb.gst.Model.EmployeeTimesheetListModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.Model.UserUpdateHoursModel;
@@ -114,7 +101,7 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
 
 //        listView = (ListView)findViewById(R.id.lv_workhrs);  //======commented temporary 1st nov
         tv_ts_wrkhrs_totalhrs = (TextView)findViewById(R.id.tv_ts_wrkhrs_totalhrs);
-        btn_save = (Button)findViewById(R.id.btn_save);
+        btn_save = (Button)findViewById(R.id.btn_sup_save);
         btn_back = (Button)findViewById(R.id.btn_back);
 
         tv_ts_wrkhrs_date = (TextView)findViewById(R.id.tv_ts_wrkhrs_date);
@@ -438,7 +425,7 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                     }
                 }
                 break;
-            case R.id.btn_save:
+            case R.id.btn_sup_save:
                 if(tv_ts_wrkhrs_totalhrs.getText().toString().contentEquals("0.0")){
                     //---------Alert dialog code starts(added on 1st dec)--------
                     final AlertDialog.Builder alertDialogBuilder1 = new AlertDialog.Builder(this);

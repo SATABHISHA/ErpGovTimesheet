@@ -69,7 +69,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     ArrayList<WeekDays> weekDaysArrayList = new ArrayList<>();
     public static ArrayList<String> datePeriod = new ArrayList<>();
     RecyclerView mRecyclerView;
-    public static String colorcode,selectedDate, description_status_temp;
+    public static String colorcode,selectedDate, description_status_temp = "0";
     EditText edtxtEmployeeNote;
     TextView tv_empname, tv_period_date, tv_selected_date, tv_totalhrs, tv_period_totalhrs;
     LinearLayout tv_addOrView_employee_note, tv_addOrView_supervisor_note;
@@ -145,6 +145,14 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         btn_submit.setAlpha(0.5f);
         btn_submit.setEnabled(false);
         btn_submit.setClickable(false);
+
+        btn_approve.setAlpha(0.5f);
+        btn_approve.setEnabled(false);
+        btn_approve.setClickable(false);
+
+        btn_return.setAlpha(0.5f);
+        btn_return.setEnabled(false);
+        btn_return.setClickable(false);
         //------added on 3rd dec for making submit button default disable code ends--------
 
 
@@ -197,9 +205,9 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             case R.id.tv_addOrView_supervisor_note:
                 LayoutInflater li1 = LayoutInflater.from(this);
                 View dialog1 = li1.inflate(R.layout.dialog_addsupervisor_note, null);
-                final EditText editText1 = (EditText) dialog1.findViewById(R.id.ed_addemp_note);
-                Button btn_cancel1 = (Button) dialog1.findViewById(R.id.btn_cancel);
-                Button btn_save1 = (Button) dialog1.findViewById(R.id.btn_save);
+                final EditText editText1 = (EditText) dialog1.findViewById(R.id.ed_addsup_note);
+                Button btn_cancel1 = (Button) dialog1.findViewById(R.id.btn_sup_cancel);
+                Button btn_save1 = (Button) dialog1.findViewById(R.id.btn_sup_save);
                 ImageButton imgbtn_close1 = (ImageButton) dialog1.findViewById(R.id.imgbtn_close);
 
                 if (!userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
@@ -213,7 +221,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                     btn_save1.setVisibility(View.VISIBLE);
                     btn_cancel1.setVisibility(View.VISIBLE);
                     editText1.setEnabled(true);
-                }else {
+                }else if(description_status_temp.contentEquals("0")){
                     btn_save1.setVisibility(View.GONE);
                     btn_cancel1.setVisibility(View.GONE);
                     editText1.setEnabled(false);
@@ -470,9 +478,9 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     public void loadPopupForAddOrViewNote(){
         LayoutInflater li = LayoutInflater.from(this);
         View dialog = li.inflate(R.layout.dialog_addemployee_note, null);
-        final EditText editText = (EditText) dialog.findViewById(R.id.ed_addemp_note);
-        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
-        Button btn_save = (Button) dialog.findViewById(R.id.btn_save);
+        final EditText editText = (EditText) dialog.findViewById(R.id.ed_addsup_note);
+        Button btn_cancel = (Button) dialog.findViewById(R.id.btn_sup_cancel);
+        Button btn_save = (Button) dialog.findViewById(R.id.btn_sup_save);
         ImageButton imgbtn_close = (ImageButton) dialog.findViewById(R.id.imgbtn_close);
 //        editText.setText(userSingletonModel.getTimesheetSelectDay_empNote());
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -555,7 +563,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         View dialog2 = li2.inflate(R.layout.dialog_validate_pwd, null);
         final EditText ed_pwd = (EditText) dialog2.findViewById(R.id.ed_pwd);
         final TextView tv_incorrectpwd = (TextView)dialog2.findViewById(R.id.tv_incorrectpwd);
-        Button btn_cancel2 = (Button) dialog2.findViewById(R.id.btn_cancel);
+        Button btn_cancel2 = (Button) dialog2.findViewById(R.id.btn_sup_cancel);
         Button btn_save2 = (Button) dialog2.findViewById(R.id.btn_submit);
         AlertDialog.Builder alert2 = new AlertDialog.Builder(context);
         alert2.setView(dialog2);

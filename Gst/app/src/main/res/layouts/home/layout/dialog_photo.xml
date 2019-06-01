@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/btn_cancel"
+                android:id="@+id/btn_sup_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="#ffffff"
@@ -86,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:background="#e9e3e3"></LinearLayout>
             <Button
-                android:id="@+id/btn_save"
+                android:id="@+id/btn_sup_save"
                 android:layout_width="90dp"
                 android:layout_height="35dp"
                 android:background="#ffffff"

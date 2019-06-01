@@ -15,7 +15,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,7 +59,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import org.arb.gst.Login.LoginActivity;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
-import org.arb.gst.Timesheet.Subordinate;
 import org.arb.gst.Timesheet.TimesheetHome;
 import org.arb.gst.config.CameraUtils;
 import org.arb.gst.config.Config;
@@ -71,15 +69,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
-
-import static android.provider.DocumentsContract.isDocumentUri;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ConnectivityReceiver.ConnectivityReceiverListener, View.OnClickListener {
@@ -206,8 +198,8 @@ public class HomeActivity extends AppCompatActivity
                  */
                 LayoutInflater li = LayoutInflater.from(getLayoutInflater().getContext());
                 View dialog = li.inflate(R.layout.dialog_photo, null);
-                Button btn_cancel = (Button) dialog.findViewById(R.id.btn_cancel);
-                Button btn_save = (Button) dialog.findViewById(R.id.btn_save);
+                Button btn_cancel = (Button) dialog.findViewById(R.id.btn_sup_cancel);
+                Button btn_save = (Button) dialog.findViewById(R.id.btn_sup_save);
                 Button btn_take_photo = (Button) dialog.findViewById(R.id.btn_take_photo);
                 Button btn_gallery = (Button) dialog.findViewById(R.id.btn_gallery);
                 ImageButton imgbtn_close = (ImageButton) dialog.findViewById(R.id.imgbtn_close);
