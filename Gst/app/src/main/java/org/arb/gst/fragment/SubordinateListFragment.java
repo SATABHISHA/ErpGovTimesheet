@@ -379,7 +379,7 @@ public class SubordinateListFragment extends Fragment {
 
              //----to display message in snackbar, code starts
              String message_notf = "Notification has been sent successfully";
-             int color = Color.parseColor("#FF4242");
+             int color = Color.parseColor("#FFFFFF");
              Snackbar snackbar = Snackbar.make(coordinator_layout_subordinate, message_notf, 4000);
 
              View sbView = snackbar.getView();

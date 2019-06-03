@@ -410,7 +410,7 @@ public class PayrollPayableClerk extends AppCompatActivity {
 
             //----to display message in snackbar, code starts
             String message_notf = "Notification has been sent successfully";
-            int color = Color.parseColor("#FF4242");
+            int color = Color.parseColor("#FFFFFF");
             Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator_layout_payrollpayable), message_notf, 4000);
 
             View sbView = snackbar.getView();
