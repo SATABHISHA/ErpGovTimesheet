@@ -1,5 +1,6 @@
 package org.arb.gst.Timesheet;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -32,6 +34,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.arb.gst.Home.HomeActivity;
+import org.arb.gst.Login.LoginActivity;
 import org.arb.gst.Model.PayrollPayableModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
@@ -210,7 +213,38 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                                 final String recipientEmailid = "satabhishar@arbsoft.com"; //for testing
                                                 final String recipientPeriodDate = TimesheetHome.period_date;
                                                 final String orgName = userSingletonModel.getCompanyName();
-                                                final Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator_layout_payrollpayable), message, Snackbar.LENGTH_LONG);
+
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(PayrollPayableClerk.this);
+                                                builder.setMessage("Want to send Email Notification?")
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                                                                if (SDK_INT > 8)
+                                                                {
+                                                                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                                                            .permitAll().build();
+                                                                    StrictMode.setThreadPolicy(policy);
+                                                                    //your codes here
+
+                                                                    if(recipientEmailid.contentEquals("")){
+                                                                        Toast.makeText(getApplicationContext(),"Email id not registered",Toast.LENGTH_LONG).show();
+                                                                    }else {
+                                                                        dialog.cancel();
+                                                                        sendEmail(recipientName,recipientEmailid,recipientPeriodDate,orgName);
+                                                                    }
+
+                                                                }
+                                                            }
+                                                        })
+                                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                dialog.cancel();
+                                                            }
+                                                        });
+                                                AlertDialog alert = builder.create();
+                                                alert.show();
+                                               /* final Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator_layout_payrollpayable), message, Snackbar.LENGTH_LONG);
 
                                                 snackbar.setAction("Yes", new View.OnClickListener() {
                                                     @Override
@@ -235,7 +269,7 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                                     }
                                                 });
 
-                                                snackbar.show();
+                                                snackbar.show();*/
 
                                                 //-----------added email section on 1st june, ends----
                                             }else {
