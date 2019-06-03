@@ -71,6 +71,9 @@ import org.json.JSONObject;
 import org.json.XML;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -822,13 +825,20 @@ public class HomeActivity extends AppCompatActivity
 
     //==========function to load leave balance data from api, starts============
     public void loadLeaveBalanceData(){
+
+        //--------------code to get current date and set in custom format, starts----------
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        final String WeekDate = df.format(c);
+        //--------------code to get current date and set in custom format, ends----------
+
         String url = Config.BaseUrl+"LeaveBalance";
         final ProgressDialog loading = ProgressDialog.show(HomeActivity.this, "Loading", "Please wait...", true, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new
                 Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        getLeaveData(response);
+                        getLeaveData(response,WeekDate);
                         loading.dismiss();
                     }
                 }, new Response.ErrorListener() {
@@ -843,7 +853,7 @@ public class HomeActivity extends AppCompatActivity
                 Map<String, String> params = new HashMap<>();
                 params.put("UserId", userSingletonModel.getUserID());
                 params.put("EmployeeID", userSingletonModel.getUserID());
-                params.put("WeekDate","10-07-2018");
+                params.put("WeekDate",WeekDate);
                 params.put("CompanyId",userSingletonModel.getCompID());
                 params.put("CorpId", userSingletonModel.getCorpID());
                 return params;
@@ -854,7 +864,7 @@ public class HomeActivity extends AppCompatActivity
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(stringRequest);
     }
-    public void getLeaveData(String request){
+    public void getLeaveData(String request, String WeekDate){
         JSONObject jsonObj = null;
         try {
             jsonObj = XML.toJSONObject(request);
@@ -883,6 +893,7 @@ public class HomeActivity extends AppCompatActivity
                         tv_benifit_hrs.setText(jsonObject1.getString("Benefit/Comp:"));
                         tv_sick_hrs.setText(jsonObject1.getString("Sick/Personal-TEST:"));
                         tv_earned_leave_hrs.setText(jsonObject1.getString("Earned Leave:"));
+                        tv_blnc_week_date.setText(WeekDate);
 
                         RelativeLayout relativeLayout_ok = (RelativeLayout) dialog.findViewById(R.id.relativeLayout_ok);
                         AlertDialog.Builder alert = new AlertDialog.Builder(this);
