@@ -35,7 +35,23 @@
             android:id="@+id/nav_vacation_request"
             android:icon="@drawable/vctn"
             android:title="Vacation Request" />
+        <item
+            android:id="@+id/nav_view_leavebalance"
+            android:icon="@drawable/vctn"
+            android:title="View Leave Balance" />
 
+    </group>
+    <group
+        android:id="@+id/nav_settings"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_change_pswd"
+            android:icon="@drawable/power"
+            android:title="Change Password" />
+        <item
+            android:id="@+id/nav_change_email"
+            android:icon="@drawable/power"
+            android:title="Change Email" />
     </group>
     <group
         android:id="@+id/nav2"
