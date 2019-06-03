@@ -244,32 +244,6 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                                         });
                                                 AlertDialog alert = builder.create();
                                                 alert.show();
-                                               /* final Snackbar snackbar = Snackbar.make(findViewById(R.id.coordinator_layout_payrollpayable), message, Snackbar.LENGTH_LONG);
-
-                                                snackbar.setAction("Yes", new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View v) {
-                                                        int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                                                        if (SDK_INT > 8)
-                                                        {
-                                                            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                                                                    .permitAll().build();
-                                                            StrictMode.setThreadPolicy(policy);
-                                                            //your codes here
-
-                                                            if(recipientEmailid.contentEquals("")){
-                                                                Toast.makeText(getApplicationContext(),"Email id not registered",Toast.LENGTH_LONG).show();
-                                                                snackbar.dismiss();
-                                                            }else {
-                                                                sendEmail(recipientName,recipientEmailid,recipientPeriodDate,orgName);
-                                                                snackbar.dismiss();
-                                                            }
-
-                                                        }
-                                                    }
-                                                });
-
-                                                snackbar.show();*/
 
                                                 //-----------added email section on 1st june, ends----
                                             }else {

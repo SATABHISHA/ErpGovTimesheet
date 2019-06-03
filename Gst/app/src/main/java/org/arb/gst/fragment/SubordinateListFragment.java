@@ -1,6 +1,7 @@
 package org.arb.gst.fragment;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -31,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import org.arb.gst.Model.SupervisorListModel;
 import org.arb.gst.Model.UserSingletonModel;
 import org.arb.gst.R;
+import org.arb.gst.Timesheet.PayrollPayableClerk;
 import org.arb.gst.Timesheet.TimesheetHome;
 import org.arb.gst.Timesheet.TimesheetSelectDay;
 import org.arb.gst.config.Config;
@@ -147,30 +151,43 @@ public class SubordinateListFragment extends Fragment {
                                             userSingletonModel.setTimesheet_personId_yn("1");
                                             userSingletonModel.setPayable_payroll_supervisor_person_id(arrayList.get(i).getId_person());
                                             if(arrayList.get(i).getSupervisor_status().contentEquals("Not Started")){
-                                               /* String message = "Not Started Timesheet cannot be viewed";
-                                                int color = Color.parseColor("#FF4242");
-                                                Snackbar snackbar = Snackbar.make(coordinator_layout_subordinate, message, 4000);
+                                                //-------------added email notification for "Not Started" public, starts-------------
+                                                final String recipientName = arrayList.get(i).getEmployee_name();
+//                                                final String recipientEmailid = arrayList.get(i).getSupervisor_email_id();
+                                                final String recipientEmailid = "satabhishar@arbsoft.com";  //for testing
+                                                final String recipientPeriodDate = TimesheetHome.period_date;
+                                                final String orgName = userSingletonModel.getCompanyName();
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                                builder.setMessage("Want to send Email Notification?")
+                                                        .setCancelable(false)
+                                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                                                                if (SDK_INT > 8)
+                                                                {
+                                                                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                                                                            .permitAll().build();
+                                                                    StrictMode.setThreadPolicy(policy);
+                                                                    //your codes here
 
-                                                View sbView = snackbar.getView();
-                                                TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-                                                textView.setTextColor(color);
-                                                snackbar.show();*/
-                                                int SDK_INT = android.os.Build.VERSION.SDK_INT;
-                                                if (SDK_INT > 8)
-                                                {
-                                                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                                                            .permitAll().build();
-                                                    StrictMode.setThreadPolicy(policy);
-                                                    //your codes here
-                                                    String recipientName = arrayList.get(i).getEmployee_name();
-                                                    String recipientEmailid = "";
-                                                    String recipientPeriodDate = TimesheetHome.period_date;
-                                                    String orgName = userSingletonModel.getCompanyName();
-//                                                    sendEmail();
+                                                                    if(recipientEmailid.contentEquals("")){
+                                                                        Toast.makeText(getActivity(),"Email id not registered",Toast.LENGTH_LONG).show();
+                                                                    }else {
+                                                                        dialog.cancel();
+                                                                        sendEmail(recipientName,recipientEmailid,recipientPeriodDate,orgName);
+                                                                    }
 
-                                                }
-
-
+                                                                }
+                                                            }
+                                                        })
+                                                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                dialog.cancel();
+                                                            }
+                                                        });
+                                                AlertDialog alert = builder.create();
+                                                alert.show();
+                                                //-------------added email notification for "Not Started" public, ends-------------
                                             }else {
                                                 userSingletonModel.setAll_employee_type("MAIN");
                                                 startActivity(new Intent(getActivity(), TimesheetSelectDay.class));
@@ -267,6 +284,7 @@ public class SubordinateListFragment extends Fragment {
             supervisorListModel.setId_person(jsonObject2.getString("id_person"));
             supervisorListModel.setEmployee_name(jsonObject2.getString("employee_name"));
             supervisorListModel.setTotal_hours(jsonObject2.getString("total_hours"));
+            supervisorListModel.setSupervisor_email_id(jsonObject2.getString("email_id"));
             if(jsonObject2.getInt("ts_status_id")==0){
                 supervisorListModel.setSupervisor_status("Not Started");
                 supervisorListModel.setSupervisor_color_code(userSingletonModel.getNot_started_color());
@@ -311,7 +329,7 @@ public class SubordinateListFragment extends Fragment {
          Session session = Session.getInstance(props,
                  new javax.mail.Authenticator() {
                      protected PasswordAuthentication getPasswordAuthentication() {
-                         return new PasswordAuthentication(username, password);
+                         return new PasswordAuthentication(Config.email_username, Config.email_password);
                      }
                  });
          try {
@@ -348,6 +366,7 @@ public class SubordinateListFragment extends Fragment {
              Transport.send(message);
 
              System.out.println("Done");
+             Toast.makeText(getActivity(),"Notification has been sent successfully",Toast.LENGTH_LONG).show();
 
          } catch (MessagingException e) {
              throw new RuntimeException(e);
