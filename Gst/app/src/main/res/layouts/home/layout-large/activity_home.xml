@@ -55,7 +55,6 @@
                                 android:layout_weight=".33"
                                 android:orientation="horizontal"
                                 android:weightSum="1">
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -78,38 +77,25 @@
                                                 android:layout_height="match_parent"
                                                 android:layout_marginTop="10dp"
                                                 android:layout_weight=".5"
-
                                                 android:gravity="center_horizontal"
-                                                android:src="@drawable/upcoming_events" />
+                                                android:src="@drawable/holiday_list" />
 
                                             <TextView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
                                                 android:layout_weight=".5"
+                                                android:layout_marginTop="5dp"
                                                 android:gravity="center_horizontal"
-                                                android:text="Upcoming\nEvents"
-
+                                                android:text="Timesheet"
                                                 android:textAllCaps="true"
                                                 android:textColor="#2e5772"
                                                 android:textSize="16sp"
-                                                android:layout_marginTop="5dp"
                                                 android:textStyle="bold" />
 
                                         </LinearLayout>
-                                        <TextView
-                                            android:id="@+id/tv_upcomingevents_comingsoon"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Coming Soon"
-                                            android:textStyle="bold"
-                                            android:textSize="13dp"
-                                            android:visibility="gone"
-                                            android:textColor="#de5353"
-                                            android:layout_alignParentBottom="true"
-                                            android:layout_centerHorizontal="true"
-                                            android:layout_marginBottom="10dp"/>
+
                                         <Button
-                                            android:id="@+id/activity_main_btn_upcoming_events"
+                                            android:id="@+id/activity_main_btn_timesheet_entry"
                                             android:layout_width="fill_parent"
                                             android:layout_height="fill_parent"
                                             android:layout_alignParentStart="true"
@@ -119,91 +105,6 @@
                                     </RelativeLayout>
 
                                 </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="5dip"
-                                    android:layout_weight=".5"
-                                    android:background="@drawable/icon_background">
-
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent">
-
-                                        <LinearLayout
-                                            android:layout_width="fill_parent"
-                                            android:layout_height="fill_parent"
-                                            android:orientation="vertical"
-                                            android:weightSum="1">
-
-                                            <ImageView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:layout_marginTop="10dp"
-                                                android:layout_weight=".4"
-
-                                                android:gravity="center_horizontal"
-                                                android:src="@drawable/announcements" />
-
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-
-                                                android:layout_weight=".6"
-                                                android:gravity="center_horizontal"
-                                                android:text="Announcements"
-                                                android:textAllCaps="true"
-                                                android:textColor="#2e5772"
-                                                android:textSize="16sp"
-                                                android:textStyle="bold" />
-
-                                        </LinearLayout>
-                                        <TextView
-                                            android:id="@+id/tv_announcements_comingsoon"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Coming Soon"
-                                            android:textStyle="bold"
-                                            android:visibility="gone"
-                                            android:textSize="13dp"
-                                            android:layout_alignParentBottom="true"
-                                            android:layout_centerHorizontal="true"
-                                            android:layout_marginBottom="10dp"/>
-                                        <Button
-                                            android:id="@+id/activity_main_btn_announcements"
-                                            android:layout_width="fill_parent"
-                                            android:layout_height="fill_parent"
-                                            android:background="@android:color/transparent" />
-
-                                    </RelativeLayout>
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_marginBottom="5dip"
-                                android:layout_marginTop="5dp"
-                                android:layout_weight=".33"
-                                android:orientation="horizontal"
-                                android:weightSum="1">
-
-                                <!--<Button
-                                    android:id="@+id/activity_home_btn_pickup"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:text="PICKUP\nORDER"
-                                    android:textAllCaps="false"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#444444"
-                                    android:layout_weight=".5"
-                                    android:layout_marginRight="10dip"
-                                    android:background="#ED2437"
-                                    />-->
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -270,6 +171,92 @@
 
                                 </LinearLayout>
 
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginBottom="5dip"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight=".33"
+                                android:orientation="horizontal"
+                                android:weightSum="1">
+
+                                <!--<Button
+                                    android:id="@+id/activity_home_btn_pickup"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:text="PICKUP\nORDER"
+                                    android:textAllCaps="false"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#444444"
+                                    android:layout_weight=".5"
+                                    android:layout_marginRight="10dip"
+                                    android:background="#ED2437"
+                                    />-->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="5dip"
+                                    android:layout_weight=".5"
+                                    android:background="@drawable/icon_background">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <LinearLayout
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="fill_parent"
+                                            android:orientation="vertical"
+                                            android:weightSum="1">
+
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_weight=".4"
+
+                                                android:gravity="center_horizontal"
+                                                android:src="@drawable/announcements" />
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+
+                                                android:layout_weight=".6"
+                                                android:gravity="center_horizontal"
+                                                android:text="Announcements"
+                                                android:textAllCaps="true"
+                                                android:textColor="#2e5772"
+                                                android:textSize="16sp"
+                                                android:textStyle="bold" />
+
+                                        </LinearLayout>
+                                        <TextView
+                                            android:id="@+id/tv_announcements_comingsoon"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Coming Soon"
+                                            android:textStyle="bold"
+                                            android:visibility="gone"
+                                            android:textSize="13dp"
+                                            android:layout_alignParentBottom="true"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginBottom="10dp"/>
+                                        <Button
+                                            android:id="@+id/activity_main_btn_announcements"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="fill_parent"
+                                            android:background="@android:color/transparent" />
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+
                                 <!--  <Button
                                       android:id="@+id/activity_home_btn_delivery"
                                       android:layout_width="fill_parent"
@@ -283,10 +270,99 @@
                                       android:textSize="20sp"
                                       android:textStyle="bold" />-->
 
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_marginLeft="5dip"
+                                    android:layout_marginRight="5dip"
+                                    android:layout_weight=".5"
+                                    android:background="@drawable/icon_background">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <LinearLayout
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="fill_parent"
+                                            android:orientation="vertical"
+                                            android:weightSum="1">
+
+                                            <ImageView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_marginTop="10dp"
+                                                android:layout_weight=".5"
+
+                                                android:gravity="center_horizontal"
+                                                android:src="@drawable/upcoming_events" />
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                android:layout_weight=".5"
+                                                android:gravity="center_horizontal"
+                                                android:text="Upcoming\nEvents"
+
+                                                android:textAllCaps="true"
+                                                android:textColor="#2e5772"
+                                                android:textSize="16sp"
+                                                android:layout_marginTop="5dp"
+                                                android:textStyle="bold" />
+
+                                        </LinearLayout>
+                                        <TextView
+                                            android:id="@+id/tv_upcomingevents_comingsoon"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Coming Soon"
+                                            android:textStyle="bold"
+                                            android:textSize="13dp"
+                                            android:visibility="gone"
+                                            android:textColor="#de5353"
+                                            android:layout_alignParentBottom="true"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginBottom="10dp"/>
+                                        <Button
+                                            android:id="@+id/activity_main_btn_upcoming_events"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="fill_parent"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_alignParentTop="true"
+                                            android:background="@android:color/transparent" />
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight=".33"
+                                android:orientation="horizontal"
+                                android:weightSum="1">
+
+                                <!--  <Button
+                                      android:id="@+id/activity_home_btn_redeem_code"
+                                      android:layout_width="fill_parent"
+                                      android:layout_height="fill_parent"
+                                      android:layout_marginRight="10dip"
+                                      android:layout_weight=".5"
+                                      android:background="#ED2437"
+                                      android:text="REDEEM\nCODE"
+                                      android:textAllCaps="false"
+                                      android:textColor="#444444"
+                                      android:textSize="20sp"
+                                      android:textStyle="bold" />-->
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="5dip"
                                     android:layout_weight=".5"
                                     android:background="@drawable/icon_background">
 
@@ -346,80 +422,6 @@
 
                                 </LinearLayout>
 
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_marginTop="5dp"
-                                android:layout_weight=".33"
-                                android:orientation="horizontal"
-                                android:weightSum="1">
-
-                                <!--  <Button
-                                      android:id="@+id/activity_home_btn_redeem_code"
-                                      android:layout_width="fill_parent"
-                                      android:layout_height="fill_parent"
-                                      android:layout_marginRight="10dip"
-                                      android:layout_weight=".5"
-                                      android:background="#ED2437"
-                                      android:text="REDEEM\nCODE"
-                                      android:textAllCaps="false"
-                                      android:textColor="#444444"
-                                      android:textSize="20sp"
-                                      android:textStyle="bold" />-->
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginRight="5dip"
-                                    android:layout_weight=".5"
-                                    android:background="@drawable/icon_background">
-
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent">
-
-                                        <LinearLayout
-                                            android:layout_width="fill_parent"
-                                            android:layout_height="fill_parent"
-                                            android:orientation="vertical"
-                                            android:weightSum="1">
-
-                                            <ImageView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:layout_marginTop="10dp"
-                                                android:layout_weight=".5"
-                                                android:gravity="center_horizontal"
-                                                android:src="@drawable/holiday_list" />
-
-                                            <TextView
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                android:layout_weight=".5"
-                                                android:layout_marginTop="5dp"
-                                                android:gravity="center_horizontal"
-                                                android:text="Timesheet"
-                                                android:textAllCaps="true"
-                                                android:textColor="#2e5772"
-                                                android:textSize="16sp"
-                                                android:textStyle="bold" />
-
-                                        </LinearLayout>
-
-                                        <Button
-                                            android:id="@+id/activity_main_btn_timesheet_entry"
-                                            android:layout_width="fill_parent"
-                                            android:layout_height="fill_parent"
-                                            android:layout_alignParentStart="true"
-                                            android:layout_alignParentTop="true"
-                                            android:background="@android:color/transparent" />
-
-                                    </RelativeLayout>
-
-                                </LinearLayout>
-
                                 <!-- <Button
                                      android:id="@+id/activity_home_btn_refer_friend"
                                      android:layout_width="fill_parent"
@@ -436,7 +438,7 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_marginLeft="5dip"
+                                    android:layout_marginRight="5dip"
                                     android:layout_weight=".5"
                                     android:background="@drawable/icon_background">
 
