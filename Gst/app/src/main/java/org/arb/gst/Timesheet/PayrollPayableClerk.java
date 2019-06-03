@@ -209,8 +209,8 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                                 //-----------added email section on 1st june, starts----
                                                 String message = "Want to send notification?";
                                                 final String recipientName = arrayList.get(i).getEmployee_name();
-//                                                final String recipientEmailid = arrayList.get(i).getPayroll_payable_email_id();
-                                                final String recipientEmailid = "satabhishar@arbsoft.com"; //for testing
+                                                final String recipientEmailid = arrayList.get(i).getPayroll_payable_email_id();
+//                                                final String recipientEmailid = "satabhishar@arbsoft.com"; //for testing
                                                 final String recipientPeriodDate = TimesheetHome.period_date;
                                                 final String orgName = userSingletonModel.getCompanyName();
 
@@ -227,7 +227,7 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                                                     StrictMode.setThreadPolicy(policy);
                                                                     //your codes here
 
-                                                                    if(recipientEmailid.contentEquals("")){
+                                                                    if(recipientEmailid.trim().contentEquals("")){
                                                                         Toast.makeText(getApplicationContext(),"Email id not registered",Toast.LENGTH_LONG).show();
                                                                     }else {
                                                                         dialog.cancel();

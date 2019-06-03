@@ -146,8 +146,8 @@ public class SubcontractorEmployeeListFragment extends Fragment {
 
                                                 //-------------added email notification for "Not Started" public, starts------------
                                                 final String recipientName = arrayList.get(i).getEmployee_name();
-//                                                final String recipientEmailid = arrayList.get(i).getSupervisor_email_id();
-                                                final String recipientEmailid = "satabhishar@arbsoft.com";  //for testing
+                                                final String recipientEmailid = arrayList.get(i).getSupervisor_email_id();
+//                                                final String recipientEmailid = "satabhishar@arbsoft.com";  //for testing
                                                 final String recipientPeriodDate = TimesheetHome.period_date;
                                                 final String orgName = userSingletonModel.getCompanyName();
                                                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -163,7 +163,7 @@ public class SubcontractorEmployeeListFragment extends Fragment {
                                                                     StrictMode.setThreadPolicy(policy);
                                                                     //your codes here
 
-                                                                    if(recipientEmailid.contentEquals("")){
+                                                                    if(recipientEmailid.trim().contentEquals("")){
                                                                         Toast.makeText(getActivity(),"Email id not registered",Toast.LENGTH_LONG).show();
                                                                     }else {
                                                                         dialog.cancel();
