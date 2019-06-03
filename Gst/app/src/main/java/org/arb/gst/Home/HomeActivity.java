@@ -552,7 +552,32 @@ public class HomeActivity extends AppCompatActivity
             AlertDialog alert = builder.create();
             alert.show();
 
-        }/* else if (id == R.id.nav_share) {
+        }else if(id == R.id.nav_change_email){
+            Toast.makeText(getApplicationContext(),"Working on",Toast.LENGTH_LONG).show();
+        }else if(id == R.id.nav_view_leavebalance){
+            Toast.makeText(getApplicationContext(),"Working on Leave Balance",Toast.LENGTH_LONG).show();
+            //------------------added on 3rd june-----------
+            LayoutInflater li2 = LayoutInflater.from(this);
+            View dialog = li2.inflate(R.layout.dialog_leave_balance, null);
+            TextView tv_blnc_week_date = dialog.findViewById(R.id.tv_blnc_week_date);
+            TextView tv_benifit_hrs = dialog.findViewById(R.id.tv_benifit_hrs);
+            TextView tv_sick_hrs = dialog.findViewById(R.id.tv_sick_hrs);
+            TextView tv_earned_leave_hrs = dialog.findViewById(R.id.tv_earned_leave_hrs);
+            RelativeLayout relativeLayout_ok = (RelativeLayout) dialog.findViewById(R.id.relativeLayout_ok);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setView(dialog);
+//                        alert.setCancelable(false);
+            //Creating an alert dialog
+            final AlertDialog alertDialog = alert.create();
+            alertDialog.show();
+            relativeLayout_ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+        }
+        /* else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

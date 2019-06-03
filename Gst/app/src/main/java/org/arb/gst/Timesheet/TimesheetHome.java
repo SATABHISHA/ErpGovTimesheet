@@ -577,7 +577,12 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
             AlertDialog alert = builder.create();
             alert.show();
 
-        }/* else if (id == R.id.nav_share) {
+        }else if(id == R.id.nav_change_email){
+            Toast.makeText(getApplicationContext(),"Working on",Toast.LENGTH_LONG).show();
+        }else if(id == R.id.nav_view_leavebalance){
+            Toast.makeText(getApplicationContext(),"Working on Leave Balance",Toast.LENGTH_LONG).show();
+        }
+        /* else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

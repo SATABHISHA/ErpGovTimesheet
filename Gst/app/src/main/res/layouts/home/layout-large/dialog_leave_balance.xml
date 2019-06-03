@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#c2c2c2">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Leave Balance"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center"
+        android:textSize="25sp"/>
+</LinearLayout>
+   <TextView
+       android:id="@+id/tv_blnc"
+       android:layout_below="@id/linearlayout1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textSize="20sp"
+       android:layout_marginLeft="15dp"
+       android:layout_marginTop="10dp"
+       android:text="Balances Up To"/>
+    <TextView
+        android:id="@+id/tv_blnc_week_date"
+        android:layout_below="@id/linearlayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_blnc"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:text="01/31/2019"/>
+    <LinearLayout
+        android:id="@+id/linearlayout2"
+        android:layout_below="@id/tv_blnc"
+        android:layout_width="match_parent"
+        android:background="#c2c2c2"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_height="2dp"/>
+    <LinearLayout
+        android:id="@+id/linearlayout3"
+        android:layout_below="@id/linearlayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tv_benifit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15sp"
+                    android:text="Benefit/Comp: "
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tv_benifit_hrs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="150dp"
+                    android:layout_alignParentRight="true"
+                    android:text="8.00"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_sick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15sp"
+                android:text="Sick/Personal-Test: "
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_sick_hrs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="150dp"
+                android:layout_alignParentRight="true"
+                android:text="8.00"
+                android:textSize="20sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/tv_earned_leave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15sp"
+                android:text="Sick/Personal-Test: "
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tv_earned_leave_hrs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="8.00"
+                android:textSize="20sp"
+                android:layout_marginRight="150dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayout_ok"
+        android:layout_below="@id/linearlayout3"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:background="#ffffff">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:textSize="20dp"
+            android:textColor="#72273F47"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
