@@ -43,6 +43,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -70,8 +71,10 @@ import org.json.JSONObject;
 import org.json.XML;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ConnectivityReceiver.ConnectivityReceiverListener, View.OnClickListener {
@@ -555,27 +558,7 @@ public class HomeActivity extends AppCompatActivity
         }else if(id == R.id.nav_change_email){
             Toast.makeText(getApplicationContext(),"Working on",Toast.LENGTH_LONG).show();
         }else if(id == R.id.nav_view_leavebalance){
-            Toast.makeText(getApplicationContext(),"Working on Leave Balance",Toast.LENGTH_LONG).show();
-            //------------------added on 3rd june-----------
-            LayoutInflater li2 = LayoutInflater.from(this);
-            View dialog = li2.inflate(R.layout.dialog_leave_balance, null);
-            TextView tv_blnc_week_date = dialog.findViewById(R.id.tv_blnc_week_date);
-            TextView tv_benifit_hrs = dialog.findViewById(R.id.tv_benifit_hrs);
-            TextView tv_sick_hrs = dialog.findViewById(R.id.tv_sick_hrs);
-            TextView tv_earned_leave_hrs = dialog.findViewById(R.id.tv_earned_leave_hrs);
-            RelativeLayout relativeLayout_ok = (RelativeLayout) dialog.findViewById(R.id.relativeLayout_ok);
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setView(dialog);
-//                        alert.setCancelable(false);
-            //Creating an alert dialog
-            final AlertDialog alertDialog = alert.create();
-            alertDialog.show();
-            relativeLayout_ok.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    alertDialog.dismiss();
-                }
-            });
+           loadLeaveBalanceData();
         }
         /* else if (id == R.id.nav_share) {
 
@@ -836,6 +819,95 @@ public class HomeActivity extends AppCompatActivity
         }
     }
     //========Button onClick() using switch case code ends=======
+
+    //==========function to load leave balance data from api, starts============
+    public void loadLeaveBalanceData(){
+        String url = Config.BaseUrl+"LeaveBalance";
+        final ProgressDialog loading = ProgressDialog.show(HomeActivity.this, "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new
+                Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        getLeaveData(response);
+                        loading.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("UserId", userSingletonModel.getUserID());
+                params.put("EmployeeID", userSingletonModel.getUserID());
+                params.put("WeekDate","10-07-2018");
+                params.put("CompanyId",userSingletonModel.getCompID());
+                params.put("CorpId", userSingletonModel.getCorpID());
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+    }
+    public void getLeaveData(String request){
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = XML.toJSONObject(request);
+            String responseData = jsonObj.toString();
+            String val = "";
+            JSONObject resobj = new JSONObject(responseData);
+            Log.d("getLeaveData",responseData.toString());
+            Iterator<?> keys = resobj.keys();
+            while(keys.hasNext() ) {
+                String key = (String) keys.next();
+                if (resobj.get(key) instanceof JSONObject) {
+                    JSONObject xx = new JSONObject(resobj.get(key).toString());
+                    Log.d("getLeaveData1",xx.getString("content"));
+                    JSONObject jsonObject = new JSONObject(xx.getString("content"));
+                    String status = jsonObject.getString("status");
+                    if(status.trim().contentEquals("true")){
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("LeaveBalanceItems");
+                        //-------custom dialog code starts=========
+                        LayoutInflater li2 = LayoutInflater.from(this);
+                        View dialog = li2.inflate(R.layout.dialog_leave_balance, null);
+                        TextView tv_blnc_week_date = dialog.findViewById(R.id.tv_blnc_week_date);
+                        TextView tv_benifit_hrs = dialog.findViewById(R.id.tv_benifit_hrs);
+                        TextView tv_sick_hrs = dialog.findViewById(R.id.tv_sick_hrs);
+                        TextView tv_earned_leave_hrs = dialog.findViewById(R.id.tv_earned_leave_hrs);
+
+                        tv_benifit_hrs.setText(jsonObject1.getString("Benefit/Comp:"));
+                        tv_sick_hrs.setText(jsonObject1.getString("Sick/Personal-TEST:"));
+                        tv_earned_leave_hrs.setText(jsonObject1.getString("Earned Leave:"));
+
+                        RelativeLayout relativeLayout_ok = (RelativeLayout) dialog.findViewById(R.id.relativeLayout_ok);
+                        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                        alert.setView(dialog);
+                        //Creating an alert dialog
+                        final AlertDialog alertDialog = alert.create();
+                        alertDialog.show();
+                        relativeLayout_ok.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        //-------custom dialog code ends=========
+
+                    }
+
+
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+    //==========function to load leave balance data, ends============
 
     //=============function for status color from api, starts.....==========
     public void loadColorData(){
