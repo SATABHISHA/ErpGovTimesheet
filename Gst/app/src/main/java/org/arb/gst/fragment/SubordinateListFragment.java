@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -171,7 +172,15 @@ public class SubordinateListFragment extends Fragment {
                                                                     //your codes here
 
                                                                     if(recipientEmailid.trim().contentEquals("")){
-                                                                        Toast.makeText(getActivity(),"Email id not registered",Toast.LENGTH_LONG).show();
+//                                                                        Toast.makeText(getActivity(),"Email id not registered",Toast.LENGTH_LONG).show();
+                                                                        String message = "No Email id is set for this employee";
+                                                                        int color = Color.parseColor("#FF4242");
+                                                                        Snackbar snackbar = Snackbar.make(coordinator_layout_subordinate, message, 4000);
+
+                                                                        View sbView = snackbar.getView();
+                                                                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                                                                        textView.setTextColor(color);
+                                                                        snackbar.show();
                                                                     }else {
                                                                         dialog.cancel();
                                                                         sendEmail(recipientName,recipientEmailid,recipientPeriodDate,orgName);
@@ -366,8 +375,18 @@ public class SubordinateListFragment extends Fragment {
              Transport.send(message);
 
              System.out.println("Done");
-             Toast.makeText(getActivity(),"Notification has been sent successfully",Toast.LENGTH_LONG).show();
+//             Toast.makeText(getActivity(),"Notification has been sent successfully",Toast.LENGTH_LONG).show();
 
+             //----to display message in snackbar, code starts
+             String message_notf = "Notification has been sent successfully";
+             int color = Color.parseColor("#FF4242");
+             Snackbar snackbar = Snackbar.make(coordinator_layout_subordinate, message_notf, 4000);
+
+             View sbView = snackbar.getView();
+             TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+             textView.setTextColor(color);
+             snackbar.show();
+             //----to display message in snackbar, code ends
          } catch (MessagingException e) {
              throw new RuntimeException(e);
          }
