@@ -199,6 +199,7 @@ public class SubordinateListFragment extends Fragment {
                                                 //-------------added email notification for "Not Started" public, ends-------------
                                             }else {
                                                 userSingletonModel.setAll_employee_type("MAIN");
+                                                userSingletonModel.setSub_updated_employee_name(arrayList.get(i).getEmployee_name());
                                                 startActivity(new Intent(getActivity(), TimesheetSelectDay.class));
 //                                            Toast.makeText(getContext(),arrayList.get(i).getId_person()+"/"+arrayList.get(i).getEmployee_name(),Toast.LENGTH_SHORT).show();
                                             }

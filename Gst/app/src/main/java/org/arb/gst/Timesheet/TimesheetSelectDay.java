@@ -117,7 +117,11 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         //==========Recycler code initializing and setting layoutManager ends======
 //        edtxtEmployeeNote = (EditText)findViewById(R.id.edtxt_employeenote);
         tv_empname = (TextView)findViewById(R.id.tv_empname);
-        tv_empname.setText(userSingletonModel.getEmpName());
+        if(userSingletonModel.getEmployeeYN().contentEquals("1")) {
+            tv_empname.setText(userSingletonModel.getEmpName());
+        }else{
+            tv_empname.setText(userSingletonModel.getSub_updated_employee_name());
+        }
         tv_period_date = (TextView)findViewById(R.id.tv_period_date);
         tv_selected_date = (TextView)findViewById(R.id.tv_selected_date);
         img_empnote_view = (ImageView)findViewById(R.id.img_empnote_view);
