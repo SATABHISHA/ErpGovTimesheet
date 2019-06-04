@@ -75,7 +75,7 @@
                                             <ImageView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
-                                                android:layout_marginTop="10dp"
+                                                android:layout_marginTop="20dp"
                                                 android:layout_weight=".5"
                                                 android:gravity="center_horizontal"
                                                 android:src="@drawable/holiday_list" />
@@ -84,7 +84,7 @@
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
                                                 android:layout_weight=".5"
-                                                android:layout_marginTop="5dp"
+                                                android:layout_marginTop="15dp"
                                                 android:gravity="center_horizontal"
                                                 android:text="Timesheet"
                                                 android:textAllCaps="true"
@@ -126,7 +126,7 @@
                                             <ImageView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
-                                                android:layout_marginTop="10dp"
+                                                android:layout_marginTop="20dp"
                                                 android:layout_weight=".5"
 
                                                 android:gravity="center_horizontal"
@@ -142,7 +142,7 @@
                                                 android:textAllCaps="true"
                                                 android:textColor="#2e5772"
                                                 android:textSize="16sp"
-                                                android:layout_marginTop="5dp"
+                                                android:layout_marginTop="10dp"
                                                 android:textStyle="bold" />
 
                                         </LinearLayout>
@@ -158,7 +158,7 @@
                                             android:textColor="#de5353"
                                             android:layout_alignParentBottom="true"
                                             android:layout_centerHorizontal="true"
-                                            android:layout_marginBottom="10dp"/>
+                                            android:layout_marginBottom="20dp"/>
                                         <Button
                                             android:id="@+id/activity_main_btn_pending_items"
                                             android:layout_width="fill_parent"
@@ -216,7 +216,7 @@
                                             <ImageView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
-                                                android:layout_marginTop="10dp"
+                                                android:layout_marginTop="20dp"
                                                 android:layout_weight=".4"
 
                                                 android:gravity="center_horizontal"
@@ -225,7 +225,7 @@
                                             <TextView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
-
+                                                android:layout_marginTop="10dp"
                                                 android:layout_weight=".6"
                                                 android:gravity="center_horizontal"
                                                 android:text="Announcements"
@@ -245,7 +245,7 @@
                                             android:textSize="13dp"
                                             android:layout_alignParentBottom="true"
                                             android:layout_centerHorizontal="true"
-                                            android:layout_marginBottom="10dp"/>
+                                            android:layout_marginBottom="20dp"/>
                                         <Button
                                             android:id="@+id/activity_main_btn_announcements"
                                             android:layout_width="fill_parent"
@@ -291,7 +291,7 @@
                                             <ImageView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
-                                                android:layout_marginTop="10dp"
+                                                android:layout_marginTop="20dp"
                                                 android:layout_weight=".5"
 
                                                 android:gravity="center_horizontal"
@@ -307,7 +307,7 @@
                                                 android:textAllCaps="true"
                                                 android:textColor="#2e5772"
                                                 android:textSize="16sp"
-                                                android:layout_marginTop="5dp"
+                                                android:layout_marginTop="10dp"
                                                 android:textStyle="bold" />
 
                                         </LinearLayout>
@@ -322,7 +322,7 @@
                                             android:textColor="#de5353"
                                             android:layout_alignParentBottom="true"
                                             android:layout_centerHorizontal="true"
-                                            android:layout_marginBottom="10dp"/>
+                                            android:layout_marginBottom="20dp"/>
                                         <Button
                                             android:id="@+id/activity_main_btn_upcoming_events"
                                             android:layout_width="fill_parent"
@@ -379,7 +379,7 @@
                                             <ImageView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
-                                                android:layout_marginTop="10dp"
+                                                android:layout_marginTop="20dp"
                                                 android:layout_weight=".5"
                                                 android:gravity="center_horizontal"
                                                 android:src="@drawable/time_entry" />
@@ -392,7 +392,7 @@
                                                 android:text="Holiday\nList"
                                                 android:textAllCaps="true"
                                                 android:textColor="#2e5772"
-                                                android:layout_marginTop="5dp"
+                                                android:layout_marginTop="10dp"
                                                 android:textSize="16sp"
                                                 android:textStyle="bold" />
 
@@ -455,7 +455,7 @@
                                             <ImageView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
-                                                android:layout_marginTop="10dp"
+                                                android:layout_marginTop="20dp"
                                                 android:layout_weight=".5"
 
                                                 android:gravity="center_horizontal"
@@ -472,7 +472,7 @@
                                                 android:textColor="#2e5772"
                                                 android:textSize="16sp"
                                                 android:textStyle="bold"
-                                                android:layout_marginTop="5dp"/>
+                                                android:layout_marginTop="10dp"/>
 
                                         </LinearLayout>
                                         <TextView
