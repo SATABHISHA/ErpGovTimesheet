@@ -36,7 +36,7 @@
             android:title="Vacation Request" />
         <item
             android:id="@+id/nav_view_leavebalance"
-            android:icon="@drawable/vctn"
+            android:icon="@drawable/leavebalance"
             android:title="View Leave Balance" />
     </group>
     <group
@@ -44,11 +44,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_change_pswd"
-            android:icon="@drawable/power"
+            android:icon="@drawable/change_password"
             android:title="Change Password" />
         <item
             android:id="@+id/nav_change_email"
-            android:icon="@drawable/power"
+            android:icon="@drawable/email2"
             android:title="Change Email" />
     </group>
     <group

@@ -108,7 +108,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dip"
+                            android:layout_marginLeft="5dip"
                             android:layout_weight=".5"
                             android:background="@drawable/icon_background">
 
@@ -271,7 +271,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dip"
+                            android:layout_marginLeft="5dip"
                             android:layout_weight=".5"
                             android:background="#ffffff">
 
@@ -409,7 +409,7 @@
                                     android:textColor="#de5353"
                                     android:layout_alignParentBottom="true"
                                     android:layout_centerHorizontal="true"
-                                    android:layout_marginBottom="10dp"/>
+                                    android:layout_marginBottom="20dp"/>
                                 <Button
                                     android:id="@+id/activity_main_btn_holiday_list"
                                     android:layout_width="fill_parent"
@@ -437,7 +437,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dip"
+                            android:layout_marginLeft="5dip"
                             android:layout_weight=".5"
                             android:background="@drawable/icon_background">
 
@@ -485,7 +485,7 @@
                                     android:textColor="#de5353"
                                     android:layout_alignParentBottom="true"
                                     android:layout_centerHorizontal="true"
-                                    android:layout_marginBottom="10dp"/>
+                                    android:layout_marginBottom="20dp"/>
                                 <Button
                                     android:id="@+id/activity_main_btn_vacation_request"
                                     android:layout_width="fill_parent"
