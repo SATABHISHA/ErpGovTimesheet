@@ -258,9 +258,11 @@ public class PayrollPayableClerk extends AppCompatActivity {
                                                 if(HomeActivity.payrollclerk_yn_temp.contentEquals("1")){
                                                     userSingletonModel.setAll_employee_type("MAIN");
                                                     userSingletonModel.setSub_updated_employee_name(arrayList.get(i).getEmployee_name());
+                                                    userSingletonModel.setSub_updated_employee_id(arrayList.get(i).getId_person());
                                                 }else if(HomeActivity.payableclerk_yn_temp.contentEquals("1")){
                                                     userSingletonModel.setAll_employee_type("SUB");
                                                     userSingletonModel.setSub_updated_employee_name(arrayList.get(i).getEmployee_name());
+                                                    userSingletonModel.setSub_updated_employee_id(arrayList.get(i).getId_person());
                                                 }
                                                 startActivity(new Intent(PayrollPayableClerk.this,TimesheetSelectDay.class));
                                             }

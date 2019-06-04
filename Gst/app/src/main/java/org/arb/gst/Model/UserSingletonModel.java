@@ -6,7 +6,7 @@ public class UserSingletonModel {
             imagePath="",timesheetSelectDate_WeekDate, employeeYN, supervisor_id_person, supervisor_employee_name, supervisor_department, payroll_payable_strTimesheetStatusList, payroll_payable_notstarted, payroll_payable_saved,
             payroll_payable_submitted, payroll_payable_returned, payroll_payable_approve, payroll_payable_posted, payroll_payable_partialreturn, payroll_payable_partialapprove, payroll_payable_type, payroll_payable_strActiveFlag, timesheet_personId_yn,
             payable_payroll_supervisor_person_id, not_started_color, saved_color, submitted_color, returned_color, approved_color, posted_color, partially_returned_color, partially_approved_color, supervisor_notstarted_yn, supervisor_saved_yn,
-            supervisor_submitted_yn,supervisor_returned_yn, supervisor_approved_yn, supervisor_posted_yn, supervisor_partially_returned_yn, supervisor_partially_approved_yn, all_employee_type, sub_updated_employee_name;
+            supervisor_submitted_yn,supervisor_returned_yn, supervisor_approved_yn, supervisor_posted_yn, supervisor_partially_returned_yn, supervisor_partially_approved_yn, all_employee_type, sub_updated_employee_name, sub_updated_employee_id;
 
 
     /*
@@ -279,6 +279,10 @@ public class UserSingletonModel {
     public String getSub_updated_employee_name() {
         return sub_updated_employee_name;
     }
+
+    public String getSub_updated_employee_id() {
+        return sub_updated_employee_id;
+    }
     //===============================Getter method ends=====================
 
 
@@ -531,6 +535,10 @@ public class UserSingletonModel {
 
     public void setSub_updated_employee_name(String sub_updated_employee_name) {
         this.sub_updated_employee_name = sub_updated_employee_name;
+    }
+
+    public void setSub_updated_employee_id(String sub_updated_employee_id) {
+        this.sub_updated_employee_id = sub_updated_employee_id;
     }
     //===============================Setter method ends====================
 

@@ -27,10 +27,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -54,6 +56,7 @@ import org.json.XML;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -74,7 +77,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     TextView tv_empname, tv_period_date, tv_selected_date, tv_totalhrs, tv_period_totalhrs;
     LinearLayout tv_addOrView_employee_note, tv_addOrView_supervisor_note;
     NestedScrollView nestedScrollView;
-    ImageView img_empnote_view, img_empnote_add, img_sup_add_view, img_sup_note_view;
+    ImageView img_empnote_view, img_empnote_add, img_sup_add_view, img_sup_note_view, img_leave_balance;
     Button btn_calender, btn_submit, btn_return, btn_approve;
     Context context = this;
     @Override
@@ -128,6 +131,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         img_empnote_add = (ImageView)findViewById(R.id.img_empnote_add);
         img_sup_add_view = (ImageView)findViewById(R.id.img_sup_add_view);
         img_sup_note_view = (ImageView)findViewById(R.id.img_sup_note_view);
+        img_leave_balance = (ImageView)findViewById(R.id.img_leave_balance);
         btn_calender = (Button)findViewById(R.id.btn_calender);
         btn_submit = (Button)findViewById(R.id.btn_submit);
         btn_return = (Button)findViewById(R.id.btn_return);
@@ -145,6 +149,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         btn_submit.setOnClickListener(this);
         btn_approve.setOnClickListener(this);
         btn_return.setOnClickListener(this);
+        img_leave_balance.setOnClickListener(this);
         //------added on 3rd dec for making submit button default disable code starts--------
         btn_submit.setAlpha(0.5f);
         btn_submit.setEnabled(false);
@@ -279,10 +284,114 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             case R.id.btn_return:
                 returnEmployee();
                 break;
+            case R.id.img_leave_balance:
+                loadLeaveBalanceData();
+                break;
 
         }
     }
    //========swicth case for onclickListner code ends========
+
+    //==========function to load leave balance data from api, starts============
+    public void loadLeaveBalanceData(){
+
+        //--------------code to get current date and set in custom format, starts----------
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        final String WeekDate = df.format(c);
+        //--------------code to get current date and set in custom format, ends----------
+
+        String url = Config.BaseUrl+"LeaveBalance";
+        final ProgressDialog loading = ProgressDialog.show(TimesheetSelectDay.this, "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new
+                Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        getLeaveData(response,WeekDate);
+                        loading.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("UserId", userSingletonModel.getUserID());
+                if(userSingletonModel.getEmployeeYN().contentEquals("1")) {
+                    params.put("EmployeeID", userSingletonModel.getUserID());
+                }else{
+                    params.put("EmployeeID", userSingletonModel.getSub_updated_employee_id());
+                }
+                params.put("WeekDate",WeekDate);
+                params.put("CompanyId",userSingletonModel.getCompID());
+                params.put("CorpId", userSingletonModel.getCorpID());
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+    }
+    public void getLeaveData(String request, String WeekDate){
+        JSONObject jsonObj = null;
+        try {
+            jsonObj = XML.toJSONObject(request);
+            String responseData = jsonObj.toString();
+            String val = "";
+            JSONObject resobj = new JSONObject(responseData);
+            Log.d("getLeaveData",responseData.toString());
+            Iterator<?> keys = resobj.keys();
+            while(keys.hasNext() ) {
+                String key = (String) keys.next();
+                if (resobj.get(key) instanceof JSONObject) {
+                    JSONObject xx = new JSONObject(resobj.get(key).toString());
+                    Log.d("getLeaveData1",xx.getString("content"));
+                    JSONObject jsonObject = new JSONObject(xx.getString("content"));
+                    String status = jsonObject.getString("status");
+                    if(status.trim().contentEquals("true")){
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("LeaveBalanceItems");
+                        //-------custom dialog code starts=========
+                        LayoutInflater li2 = LayoutInflater.from(this);
+                        View dialog = li2.inflate(R.layout.dialog_leave_balance, null);
+                        TextView tv_blnc_week_date = dialog.findViewById(R.id.tv_blnc_week_date);
+                        TextView tv_benifit_hrs = dialog.findViewById(R.id.tv_benifit_hrs);
+                        TextView tv_sick_hrs = dialog.findViewById(R.id.tv_sick_hrs);
+                        TextView tv_earned_leave_hrs = dialog.findViewById(R.id.tv_earned_leave_hrs);
+
+                        tv_benifit_hrs.setText(jsonObject1.getString("Benefit/Comp:"));
+                        tv_sick_hrs.setText(jsonObject1.getString("Sick/Personal-TEST:"));
+                        tv_earned_leave_hrs.setText(jsonObject1.getString("Earned Leave:"));
+                        tv_blnc_week_date.setText(WeekDate);
+
+                        RelativeLayout relativeLayout_ok = (RelativeLayout) dialog.findViewById(R.id.relativeLayout_ok);
+                        android.support.v7.app.AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(this);
+                        alert.setView(dialog);
+                        //Creating an alert dialog
+                        final android.support.v7.app.AlertDialog alertDialog = alert.create();
+                        alertDialog.show();
+                        relativeLayout_ok.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                        //-------custom dialog code ends=========
+
+                    }
+
+
+                }
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+    //==========function to load leave balance data, ends============
 
 
     //================return function code starts, added on 31st may==============
