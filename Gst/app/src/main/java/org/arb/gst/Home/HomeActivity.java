@@ -37,6 +37,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -562,6 +563,29 @@ public class HomeActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(),"Working on",Toast.LENGTH_LONG).show();
         }else if(id == R.id.nav_view_leavebalance){
            loadLeaveBalanceData();
+        } else if(id == R.id.nav_change_pswd){
+            //--------adding custom dialog on 14th may starts------
+            LayoutInflater li2 = LayoutInflater.from(this);
+            View dialog = li2.inflate(R.layout.dialog_change_password, null);
+            EditText ed_current_password = dialog.findViewById(R.id.ed_current_password);
+            EditText edt_new_password = dialog.findViewById(R.id.edt_new_password);
+            EditText edt_retype_password = dialog.findViewById(R.id.edt_retype_password);
+            EditText ed_password_hint = dialog.findViewById(R.id.ed_password_hint);
+            RelativeLayout rl_cancel = dialog.findViewById(R.id.rl_cancel);
+            RelativeLayout rl_submit = dialog.findViewById(R.id.rl_submit);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setView(dialog);
+//                        alert.setCancelable(false);
+            //Creating an alert dialog
+            final AlertDialog alertDialog = alert.create();
+            alertDialog.show();
+            rl_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.cancel();
+                }
+            });
+
         }
         /* else if (id == R.id.nav_share) {
 
