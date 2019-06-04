@@ -25,7 +25,9 @@ import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -567,22 +569,74 @@ public class HomeActivity extends AppCompatActivity
             //--------adding custom dialog on 14th may starts------
             LayoutInflater li2 = LayoutInflater.from(this);
             View dialog = li2.inflate(R.layout.dialog_change_password, null);
-            EditText ed_current_password = dialog.findViewById(R.id.ed_current_password);
-            EditText edt_new_password = dialog.findViewById(R.id.edt_new_password);
-            EditText edt_retype_password = dialog.findViewById(R.id.edt_retype_password);
-            EditText ed_password_hint = dialog.findViewById(R.id.ed_password_hint);
+            final EditText ed_current_password = dialog.findViewById(R.id.ed_current_password);
+            final EditText edt_new_password = dialog.findViewById(R.id.edt_new_password);
+            final EditText edt_retype_password = dialog.findViewById(R.id.edt_retype_password);
+            final EditText ed_password_hint = dialog.findViewById(R.id.ed_password_hint);
+            final TextView tv_pswd_chk = dialog.findViewById(R.id.tv_pswd_chk);
+            final TextView tv_submit = dialog.findViewById(R.id.tv_submit);
             RelativeLayout rl_cancel = dialog.findViewById(R.id.rl_cancel);
-            RelativeLayout rl_submit = dialog.findViewById(R.id.rl_submit);
+            final RelativeLayout rl_submit = dialog.findViewById(R.id.rl_submit);
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setView(dialog);
 //                        alert.setCancelable(false);
             //Creating an alert dialog
             final AlertDialog alertDialog = alert.create();
             alertDialog.show();
+            rl_submit.setClickable(false);
+            tv_submit.setAlpha(0.5f);
             rl_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     alertDialog.cancel();
+                }
+            });
+            edt_retype_password.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                 if(edt_new_password.getText().toString().contentEquals(charSequence)){
+                     tv_pswd_chk.setVisibility(View.VISIBLE);
+                     tv_pswd_chk.setTextColor(Color.parseColor("#00AE00"));
+                     tv_pswd_chk.setText("Correct Password");
+                     tv_submit.setAlpha(1.0f);
+                     rl_submit.setClickable(true);
+                 }else {
+                     tv_pswd_chk.setVisibility(View.VISIBLE);
+                     tv_pswd_chk.setTextColor(Color.parseColor("#AE0000"));
+                     rl_submit.setClickable(false);
+                     tv_submit.setAlpha(0.5f);
+                     tv_pswd_chk.setText("Incorrect Password");
+                 }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+            rl_submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(ed_current_password.getText().toString().contentEquals("") || edt_retype_password.getText().toString().contentEquals("") || ed_password_hint.getText().toString().contentEquals("")){
+                        //----to display message in snackbar, code starts
+                        String message_notf = "Field cannot be left blank";
+                        int color = Color.parseColor("#FFFFFF");
+                        Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message_notf, 4000);
+
+                        View sbView = snackbar.getView();
+                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(color);
+                        snackbar.show();
+                        //----to display message in snackbar, code ends
+                    }else{
+                        changePswd(ed_current_password.getText().toString(),edt_new_password.getText().toString(),ed_password_hint.getText().toString());
+                        alertDialog.dismiss();
+                    }
                 }
             });
 
@@ -846,6 +900,78 @@ public class HomeActivity extends AppCompatActivity
         }
     }
     //========Button onClick() using switch case code ends=======
+
+    //=========function to change password using volley, starts==============
+    public void changePswd(final String CurrentPassword, final String NewPassword, final String PasswordHint){
+        String url = Config.BaseUrl+"ChangePassword";
+        final ProgressDialog loading = ProgressDialog.show(HomeActivity.this, "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new
+                Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        loading.dismiss();
+                        JSONObject jsonObj = null;
+                        try {
+                            jsonObj = XML.toJSONObject(response);
+                            String responseData = jsonObj.toString();
+                            String val = "";
+                            JSONObject resobj = new JSONObject(responseData);
+                            Log.d("changepswd",responseData.toString());
+                            Iterator<?> keys = resobj.keys();
+                            while(keys.hasNext() ) {
+                                String key = (String) keys.next();
+                                if (resobj.get(key) instanceof JSONObject) {
+                                    JSONObject xx = new JSONObject(resobj.get(key).toString());
+                                    Log.d("getLeaveData1", xx.getString("content"));
+                                    JSONObject jsonObject = new JSONObject(xx.getString("content"));
+                                    //----to display message in snackbar, code starts
+                                    String message_notf = jsonObject.getString("message");
+                                    int color = 0;
+                                    if(jsonObject.getString("status").trim().contentEquals("true")) {
+                                        color = Color.parseColor("#FFFFFF");
+                                    }else if(jsonObject.getString("status").trim().contentEquals("false")){
+                                        color = Color.parseColor("#AE0000");
+                                    }
+                                    Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message_notf, 4000);
+
+                                    View sbView = snackbar.getView();
+                                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                                    textView.setTextColor(color);
+                                    snackbar.show();
+                                    //----to display message in snackbar, code ends
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("CurrentPassword", CurrentPassword);
+                params.put("NewPassword",NewPassword);
+                params.put("PasswordHint",PasswordHint);
+                params.put("CompanyId",userSingletonModel.getCompID());
+                params.put("UserID",userSingletonModel.getUserName());
+                params.put("CorpId", userSingletonModel.getCorpID());
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+    }
+    //=========function to change password using volley, ends==============
 
     //==========function to load leave balance data from api, starts============
     public void loadLeaveBalanceData(){
