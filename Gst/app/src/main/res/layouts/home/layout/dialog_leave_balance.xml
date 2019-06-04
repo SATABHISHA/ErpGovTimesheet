@@ -16,14 +16,14 @@
         android:text="Current Leave Balance"
         android:layout_marginLeft="15dp"
         android:layout_gravity="center"
-        android:textSize="25sp"/>
+        android:textSize="23sp"/>
 </LinearLayout>
    <TextView
        android:id="@+id/tv_blnc"
        android:layout_below="@id/linearlayout1"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:textSize="20sp"
+       android:textSize="18sp"
        android:layout_marginLeft="15dp"
        android:layout_marginTop="10dp"
        android:text="Balances Up To"/>
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tv_blnc"
         android:layout_marginLeft="20dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:text="01/31/2019"/>
     <LinearLayout
@@ -61,14 +61,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15sp"
                     android:text="Benefit/Comp: "
-                    android:textSize="20sp"/>
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/tv_benifit_hrs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="8.00"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_toRightOf="@id/tv_benifit"
                     android:layout_marginLeft="10dp"/>
             </RelativeLayout>
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
                 android:text="Sick/Personal-Test: "
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/tv_sick_hrs"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:text="8.00"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_toRightOf="@id/tv_sick"
                 android:layout_marginLeft="10dp"/>
         </RelativeLayout>
@@ -104,14 +104,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
                 android:text="Sick/Personal-Test: "
-                android:textSize="20sp"/>
+                android:textSize="18sp"/>
             <TextView
                 android:id="@+id/tv_earned_leave_hrs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:text="8.00"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:layout_toRightOf="@id/tv_earned_leave"
                 android:layout_marginLeft="10dp"/>
         </RelativeLayout>
