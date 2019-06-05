@@ -1156,7 +1156,39 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                             //-----following snippet added on 14th may-------------
                                             userSingletonModel.setPeriodStartDate(jobject.getString("PeriodStartDate"));
                                             userSingletonModel.setPeriodEndDate(jobject.getString("PeriodEndDate"));
+                                            userSingletonModel.setTimesheetSelectDay_status_code(jobject.getString("statusCode"));
                                             //------above snippet added on 14th may-----------
+
+                                            //========added on 5th june, starts============
+                                            ImageView img_status_color = findViewById(R.id.img_status_color);
+                                            TextView tv_status = findViewById(R.id.tv_status);
+                                            if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("0")){
+                                                tv_status.setText("Not Started");
+                                                img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getNot_started_color()));
+                                            }else if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("1")){
+                                                tv_status.setText("Saved");
+                                                img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getSaved_color()));
+                                            }else if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("2")){
+                                                tv_status.setText("Submitted");
+                                                img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getSubmitted_color()));
+                                            }else if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("3")){
+                                                tv_status.setText("Returned");
+                                                img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getReturned_color()));
+                                            }else if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("4")){
+                                                tv_status.setText("Approved");
+                                                img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getApproved_color()));
+                                            }else if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("5")){
+                                                tv_status.setText("Posted");
+                                                img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getPosted_color()));
+                                            }else if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("6")){
+                                                tv_status.setText("Partially Returned");
+                                                img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getPartially_returned_color()));
+                                            }else if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("7")){
+                                                tv_status.setText("Partially Approved");
+                                                img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getPartially_approved_color()));
+                                            }
+
+                                            //========added on 5th june, ends============
                                             JSONArray weekDays = jobject.getJSONArray("WeekDays");
                                             for (int j = 0; j < weekDays.length(); j++) {
                                                 JSONObject days = weekDays.getJSONObject(j);
