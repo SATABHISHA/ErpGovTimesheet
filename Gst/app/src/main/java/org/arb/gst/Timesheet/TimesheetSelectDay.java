@@ -74,7 +74,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     RecyclerView mRecyclerView;
     public static String colorcode,selectedDate, description_status_temp = "0";
     EditText edtxtEmployeeNote;
-    TextView tv_empname, tv_period_date, tv_selected_date, tv_totalhrs, tv_period_totalhrs;
+    TextView tv_empname, tv_period_date, tv_selected_date, tv_totalhrs, tv_period_totalhrs, tv_status;
     LinearLayout tv_addOrView_employee_note, tv_addOrView_supervisor_note;
     NestedScrollView nestedScrollView;
     ImageView img_empnote_view, img_empnote_add, img_sup_add_view, img_sup_note_view, img_leave_balance;
@@ -127,6 +127,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         }
         tv_period_date = (TextView)findViewById(R.id.tv_period_date);
         tv_selected_date = (TextView)findViewById(R.id.tv_selected_date);
+        tv_status = findViewById(R.id.tv_status);
         img_empnote_view = (ImageView)findViewById(R.id.img_empnote_view);
         img_empnote_add = (ImageView)findViewById(R.id.img_empnote_add);
         img_sup_add_view = (ImageView)findViewById(R.id.img_sup_add_view);
@@ -290,7 +291,18 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 startActivity(new Intent(TimesheetSelectDay.this,TimesheetHome.class));
                 break;
             case R.id.btn_submit:
-                validatePasswordAndSubmit(); //----this function will validate password and submit data to the server by calling submitData()
+                if(userSingletonModel.getTimesheetSelectDay_empNote().trim().contentEquals("") && tv_status.getText().toString().contentEquals("Returned")){
+                    String message = "While submitting Timesheet employee note is mandatory";
+                    int color = Color.parseColor("#FF4242");
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message, 4000);
+
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(color);
+                    snackbar.show();
+                }else {
+                    validatePasswordAndSubmit(); //----this function will validate password and submit data to the server by calling submitData()
+                }
                 break;
             case R.id.btn_approve:
                 approveEmployee();
@@ -1186,7 +1198,6 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
                                             //========added on 5th june, starts============
                                             ImageView img_status_color = findViewById(R.id.img_status_color);
-                                            TextView tv_status = findViewById(R.id.tv_status);
                                             if(userSingletonModel.getTimesheetSelectDay_status_code().contentEquals("0")){
                                                 tv_status.setText("Not Started");
                                                 img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getNot_started_color()));
