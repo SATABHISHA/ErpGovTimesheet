@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -122,7 +123,8 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
             e.printStackTrace();
         }
         //-----------added on 31st may for getting day name code ends...----------
-        tv_ts_wrkhrs_date_period.setText("(Period: "+userSingletonModel.getPeriodStartDate()+" To "+userSingletonModel.getPeriodEndDate()+")");  //----commented on 13/11/18(as it's looking odd)
+//        tv_ts_wrkhrs_date_period.setText("(Period: "+userSingletonModel.getPeriodStartDate()+" To "+userSingletonModel.getPeriodEndDate()+")");  //----commented on 13/11/18(as it's looking odd)
+        tv_ts_wrkhrs_date_period.setText((Html.fromHtml("("+"<b>" + "Period: " + "</b>"+userSingletonModel.getPeriodStartDate()+"<b>"+ " To " + "</b>"+userSingletonModel.getPeriodEndDate()+")")));  //----commented on 13/11/18(as it's looking odd)
         tv_ts_wkhrs_update_empname.setText(userSingletonModel.getEmpName());
         //==========Recycler code initializing and setting layoutManager starts======
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);

@@ -59,10 +59,12 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
         holder.relative_task.setBackgroundColor(Color.parseColor(userSingletonModel.getColorcode()));
         Log.d("ColorCode=>",userSingletonModel.getColorcode());
 
+        holder.editText.setEnabled(false); //--not working
         holder.editText.setText(employeeTimesheetListModelArrayList.get(position).getEditTextValue()); //---this lie is important to hold the editext value position
 
         holder.imgbtn_rcl_ts_wkhsupdte_viewnote.setVisibility(View.GONE);
         holder.imgbtn_rcl_ts_wkhsupdte_addnote.setVisibility(View.GONE);
+
 
         //----newly added 30th nov for making editText eidtable/non editable according to description status code starts-----
         if(userSingletonModel.getEmployeeYN().contentEquals("1") /*&& HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")*/) {
@@ -80,7 +82,7 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                         employeeTimesheetListModelArrayList.get(position).setEditTextAddNote(employeeTimesheetListModelArrayList.get(position).getNote());
                     }
                 }
-            } else {
+            } else if(!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED") || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
                 holder.editText.setEnabled(true);
                 //------newly added 30th nov to make the add/view button visible/invisible, code starts-------
                 if (!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("") || !employeeTimesheetListModelArrayList.get(position).getEditTextAddNote().contentEquals("")) {

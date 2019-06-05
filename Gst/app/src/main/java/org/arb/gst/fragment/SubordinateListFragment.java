@@ -63,7 +63,7 @@ public class SubordinateListFragment extends Fragment {
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
     View rootView;
     ListView lv_subordinatelist;
-    ArrayList<SupervisorListModel> arrayList = new ArrayList<>();
+    ArrayList<SupervisorListModel> arrayList;
     CoordinatorLayout coordinator_layout_subordinate;
 
     //-------------variables for email, starts----------
@@ -90,6 +90,7 @@ public class SubordinateListFragment extends Fragment {
 
     public void loadData(){
         String url = Config.BaseUrl+"SubordinateEmployeeList";
+        arrayList = arrayList = new ArrayList<>();
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading", "Please wait...", true, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
@@ -105,7 +106,9 @@ public class SubordinateListFragment extends Fragment {
 
 //                            Toast.makeText(getApplicationContext(),jsonObject.getString("status"),Toast.LENGTH_LONG).show();
                             Log.d("getEmpData",responseData.toString());
-
+                           if(!arrayList.isEmpty()){
+                               arrayList.clear();
+                           }
                             Iterator<?> keys = resobj.keys();
                             while(keys.hasNext() ) {
                                 String key = (String) keys.next();

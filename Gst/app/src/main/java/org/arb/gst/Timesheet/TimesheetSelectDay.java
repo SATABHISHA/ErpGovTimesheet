@@ -151,17 +151,31 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         btn_return.setOnClickListener(this);
         img_leave_balance.setOnClickListener(this);
         //------added on 3rd dec for making submit button default disable code starts--------
-        btn_submit.setAlpha(0.5f);
-        btn_submit.setEnabled(false);
-        btn_submit.setClickable(false);
+        if(userSingletonModel.getEmployeeYN().trim().contentEquals("1")) {
+            btn_submit.setAlpha(0.5f);
+            btn_submit.setEnabled(false);
+            btn_submit.setClickable(false);
 
-        btn_approve.setAlpha(0.5f);
-        btn_approve.setEnabled(false);
-        btn_approve.setClickable(false);
+            btn_approve.setAlpha(0.5f);
+            btn_approve.setEnabled(false);
+            btn_approve.setClickable(false);
 
-        btn_return.setAlpha(0.5f);
-        btn_return.setEnabled(false);
-        btn_return.setClickable(false);
+            btn_return.setAlpha(0.5f);
+            btn_return.setEnabled(false);
+            btn_return.setClickable(false);
+        }else{
+
+            btn_submit.setEnabled(true);
+            btn_submit.setClickable(true);
+
+
+            btn_approve.setEnabled(true);
+            btn_approve.setClickable(true);
+
+
+            btn_return.setEnabled(true);
+            btn_return.setClickable(true);
+        }
         //------added on 3rd dec for making submit button default disable code ends--------
 
 
@@ -282,7 +296,18 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 approveEmployee();
                 break;
             case R.id.btn_return:
-                returnEmployee();
+                if(userSingletonModel.getTimesheetSelectDay_supNote().trim().contentEquals("")){
+                    String message = "While returning Timesheet supervisor note is mandatory";
+                    int color = Color.parseColor("#FF4242");
+                    Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message, 4000);
+
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(color);
+                    snackbar.show();
+                }else {
+                    returnEmployee();
+                }
                 break;
             case R.id.img_leave_balance:
                 loadLeaveBalanceData();
@@ -307,7 +332,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        getLeaveData(response,WeekDate);
+                        getLeaveData(response,TimesheetHome.period_date);
                         loading.dismiss();
                     }
                 }, new Response.ErrorListener() {
@@ -326,7 +351,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 }else{
                     params.put("EmployeeID", userSingletonModel.getSub_updated_employee_id());
                 }
-                params.put("WeekDate",WeekDate);
+                params.put("WeekDate",TimesheetHome.period_date);
                 params.put("CompanyId",userSingletonModel.getCompID());
                 params.put("CorpId", userSingletonModel.getCorpID());
                 return params;
@@ -478,7 +503,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("TSApprovalDataJSON", DocumentElementobj.toString());
+                params.put("TSReturnDataJSON", DocumentElementobj.toString());
                 params.put("CorpId", userSingletonModel.getCorpID());
                 return params;
             }
@@ -574,7 +599,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("TSReturnDataJSON", DocumentElementobj.toString());
+                params.put("TSApprovalDataJSON", DocumentElementobj.toString());
                 params.put("CorpId", userSingletonModel.getCorpID());
                 return params;
             }
@@ -844,9 +869,9 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 Map<String, String> params = new HashMap<>();
                 params.put("CorpID", userSingletonModel.getCorpID());
                 params.put("UserId", userSingletonModel.getUserID());
-                params.put("Weekdate", TimesheetHome.dateOnSelectedCalender);
-                params.put("WeekStartDate", userSingletonModel.getPeriodStartDate());
-                params.put("WeekEndDate", userSingletonModel.getPeriodEndDate());
+                params.put("PeriodDate", TimesheetHome.dateOnSelectedCalender);
+//                params.put("WeekStartDate", userSingletonModel.getPeriodStartDate());
+//                params.put("WeekEndDate", userSingletonModel.getPeriodEndDate());
                 params.put("EmployeeNote", userSingletonModel.getTimesheetSelectDay_empNote());
                 params.put("SupervisorNote", "");
                 params.put("UserType", "EMPLOYEE");
