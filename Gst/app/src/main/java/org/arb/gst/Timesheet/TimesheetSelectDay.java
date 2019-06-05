@@ -1320,9 +1320,11 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 }
                                                 tv_period_totalhrs.setText(sum.toString());
                                                 //-------code to add all the total hours and display at the top of the page, ends...added on 31st may--------
-                                                ListView listView = (ListView)findViewById(R.id.lv_color);
+                                               //==================temporary commenting the listview status of color, on 5th june 2019===================
+                                               /* ListView listView = (ListView)findViewById(R.id.lv_color);
                                                 listView.setAdapter(new displayStatusAdapter());
-                                                listView.setDivider(null);
+                                                listView.setDivider(null);*/
+                                                //==================above code is temporary commented the listview status of color, on 5th june 2019===================
                                                 //---temporary commenting 9th may
                                                 ExpandableListView explistviewData = (ExpandableListView)findViewById(R.id.lvExp);
                                                 ExpandableListAdapter explistAdapter;
