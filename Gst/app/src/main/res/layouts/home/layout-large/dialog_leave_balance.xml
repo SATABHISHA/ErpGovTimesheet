@@ -121,19 +121,18 @@
     <RelativeLayout
         android:id="@+id/relativeLayout_ok"
         android:layout_below="@id/linearlayout3"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:layout_alignParentRight="true"
-        android:background="#ffffff">
+        android:background="#F3F2F2">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OK"
             android:textSize="20dp"
-            android:textColor="#72273F47"
-            android:layout_centerInParent="true"/>
+            android:textColor="#72111010"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
