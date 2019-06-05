@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EBEBEB">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -10,7 +11,7 @@
             android:id="@+id/btn_employee"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#F0EEEE">
+            android:background="#FFFFFF">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,13 +28,10 @@
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/briefcase"/>
         </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#ECECEC"/>
         <RelativeLayout
             android:id="@+id/btn_supervisor"
             android:layout_width="match_parent"
+            android:layout_marginTop="1.5dp"
             android:layout_height="60dp"
             android:visibility="gone"
             android:background="#ffffff">
@@ -56,9 +54,10 @@
         <RelativeLayout
             android:id="@+id/btn_payroll_clerk"
             android:layout_width="match_parent"
+            android:layout_marginTop="1.5dp"
             android:layout_height="60dp"
-            android:visibility="gone"
-            android:background="#F0EEEE">
+            android:background="#ffffff"
+            android:visibility="gone">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,6 +86,7 @@
         <RelativeLayout
             android:id="@+id/btn_payable_clerk"
             android:layout_width="match_parent"
+            android:layout_marginTop="1.5dp"
             android:layout_height="60dp"
             android:visibility="gone"
             android:background="#ffffff">
