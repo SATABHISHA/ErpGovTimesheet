@@ -565,9 +565,8 @@ public class HomeActivity extends AppCompatActivity
             //--------adding custom dialog on 14th may starts------
             LayoutInflater li2 = LayoutInflater.from(this);
             View dialog = li2.inflate(R.layout.dialog_change_email, null);
+            final EditText edt_current_email = dialog.findViewById(R.id.edt_current_email);
             final EditText edt_new_email = dialog.findViewById(R.id.edt_new_email);
-            final EditText edt_confirm_email = dialog.findViewById(R.id.edt_confirm_email);
-            final TextView tv_email_chk = dialog.findViewById(R.id.tv_email_chk);
             final TextView tv_submit = dialog.findViewById(R.id.tv_submit);
             RelativeLayout rl_cancel = dialog.findViewById(R.id.rl_cancel);
             final RelativeLayout rl_submit = dialog.findViewById(R.id.rl_submit);
@@ -577,46 +576,25 @@ public class HomeActivity extends AppCompatActivity
             //Creating an alert dialog
             final AlertDialog alertDialog = alert.create();
             alertDialog.show();
-            rl_submit.setClickable(false);
-            tv_submit.setAlpha(0.5f);
+            edt_current_email.setFocusable(false);
+            edt_current_email.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
+            edt_current_email.setClickable(false);
+            if(userSingletonModel.getEmailId().trim().contentEquals("")){
+                edt_current_email.setText("Not Available");
+            }else{
+                edt_current_email.setText(userSingletonModel.getEmailId());
+            }
             rl_cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     alertDialog.cancel();
                 }
             });
-            edt_confirm_email.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if(edt_new_email.getText().toString().contentEquals(charSequence)){
-                        tv_email_chk.setVisibility(View.VISIBLE);
-                        tv_email_chk.setTextColor(Color.parseColor("#00AE00"));
-                        tv_email_chk.setText("Correct Email Id");
-                        tv_submit.setAlpha(1.0f);
-                        rl_submit.setClickable(true);
-                    }else {
-                        tv_email_chk.setVisibility(View.VISIBLE);
-                        tv_email_chk.setTextColor(Color.parseColor("#AE0000"));
-                        rl_submit.setClickable(false);
-                        tv_submit.setAlpha(0.5f);
-                        tv_email_chk.setText("Incorrect Email Id");
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
             rl_submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(edt_new_email.getText().toString().contentEquals("") || edt_confirm_email.getText().toString().contentEquals("")){
+                    if(edt_new_email.getText().toString().contentEquals("")){
                         //----to display message in snackbar, code starts
                         String message_notf = "Field cannot be left blank";
                         int color = Color.parseColor("#FFFFFF");
@@ -629,7 +607,7 @@ public class HomeActivity extends AppCompatActivity
                         //----to display message in snackbar, code ends
                     }else{
 //                        changePswd(ed_current_password.getText().toString(),edt_new_password.getText().toString(),ed_password_hint.getText().toString());
-                        changeEmail(edt_confirm_email.getText().toString());
+                        changeEmail(edt_new_email.getText().toString());
                         alertDialog.dismiss();
                     }
                 }
@@ -1002,6 +980,7 @@ public class HomeActivity extends AppCompatActivity
                                     int color = 0;
                                     if(jsonObject.getString("status").trim().contentEquals("true")) {
                                         color = Color.parseColor("#FFFFFF");
+                                        userSingletonModel.setEmailId(NewEmail);
                                     }else if(jsonObject.getString("status").trim().contentEquals("false")){
                                         color = Color.parseColor("#AE0000");
                                     }
