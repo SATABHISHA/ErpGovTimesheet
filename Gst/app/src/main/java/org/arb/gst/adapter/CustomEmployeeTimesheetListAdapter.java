@@ -65,7 +65,7 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
         holder.imgbtn_rcl_ts_wkhsupdte_addnote.setVisibility(View.GONE);
 
         //----newly added 30th nov for making editText eidtable/non editable according to description status code starts-----
-        if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+        if(userSingletonModel.getEmployeeYN().contentEquals("1") /*&& HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")*/) {
             if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
                 holder.editText.setEnabled(false);
                 holder.editText.setFocusable(false);
@@ -95,7 +95,7 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                 Log.d("noteTest:", employeeTimesheetListModelArrayList.get(position).getNote().toString());
                 //------newly added 30th nov to make the add/view button visible/invisible, code ends-------
             }
-        }else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
+        }else if(userSingletonModel.getEmployeeYN().contentEquals("0") /*HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")*/){
             holder.editText.setEnabled(false);
             holder.editText.setFocusable(false);
             holder.editText.setCursorVisible(false);
