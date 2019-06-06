@@ -148,25 +148,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         //-----------have modified the following code on 9th May------------------
         if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
-            if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && weekDays.getHours().contentEquals("0.0")) {
+            if ((userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) && weekDays.getHours().contentEquals("0.0")) {
                 imgbtn_add.setVisibility(View.INVISIBLE);
                 rl_add.setVisibility(View.INVISIBLE);//---added on 30th nov for large area selection of recycler item/button
 
                 imgbtn_view.setVisibility(View.VISIBLE);
                 rl_view.setVisibility(View.VISIBLE);//---added on 30th nov for large area selection of recycler item/button
-            } else if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !weekDays.getHours().contentEquals("0.0")) {
+            } else if ((userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) && !weekDays.getHours().contentEquals("0.0")) {
                 imgbtn_add.setVisibility(View.INVISIBLE);
                 rl_add.setVisibility(View.INVISIBLE);//---added on 30th nov for large area selection of recycler item/button
 
                 imgbtn_view.setVisibility(View.VISIBLE);
                 rl_view.setVisibility(View.VISIBLE);//---added on 30th nov for large area selection of recycler item/button
-            } else if ((!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED") || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !weekDays.getHours().contentEquals("0.0")) {
+            } else if ((!userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) && !weekDays.getHours().contentEquals("0.0")) {
                 imgbtn_add.setVisibility(View.INVISIBLE);
                 rl_add.setVisibility(View.INVISIBLE);//---added on 30th nov for large area selection of recycler item/button
 
                 imgbtn_view.setVisibility(View.VISIBLE);
                 rl_view.setVisibility(View.VISIBLE);//---added on 30th nov for large area selection of recycler item/button
-            } else if ((!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED") || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && weekDays.getHours().contentEquals("0.0")) {
+            } else if ((!userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) && weekDays.getHours().contentEquals("0.0")) {
                 imgbtn_add.setVisibility(View.VISIBLE);
                 rl_add.setVisibility(View.VISIBLE);//---added on 30th nov for large area selection of recycler item/button
 
