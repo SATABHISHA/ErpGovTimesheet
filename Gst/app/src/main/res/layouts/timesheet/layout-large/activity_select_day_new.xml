@@ -79,7 +79,7 @@
                         <LinearLayout
                             android:id="@+id/linear_layout1"
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
+                            android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="5dp"
                             android:orientation="horizontal">
@@ -87,11 +87,11 @@
                                 android:id="@+id/img_status_color"
                                 android:layout_width="15dp"
                                 android:layout_height="15dp"
-                                android:layout_gravity="bottom"/>
+                                android:layout_gravity="center"/>
                             <TextView
                                 android:id="@+id/tv_status"
                                 android:layout_width="wrap_content"
-                                android:layout_height="20dp"
+                                android:layout_height="wrap_content"
                                 android:gravity="top"
                                 android:textSize="18dp"
                                 android:layout_marginLeft="10dp"

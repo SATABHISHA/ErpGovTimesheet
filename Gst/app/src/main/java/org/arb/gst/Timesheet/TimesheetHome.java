@@ -583,7 +583,56 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
             alert.show();
 
         }else if(id == R.id.nav_change_email){
-            Toast.makeText(getApplicationContext(),"Working on",Toast.LENGTH_LONG).show();
+            //--------adding custom dialog on 14th may starts------
+            LayoutInflater li2 = LayoutInflater.from(this);
+            View dialog = li2.inflate(R.layout.dialog_change_email, null);
+            final EditText edt_current_email = dialog.findViewById(R.id.edt_current_email);
+            final EditText edt_new_email = dialog.findViewById(R.id.edt_new_email);
+            final TextView tv_submit = dialog.findViewById(R.id.tv_submit);
+            RelativeLayout rl_cancel = dialog.findViewById(R.id.rl_cancel);
+            final RelativeLayout rl_submit = dialog.findViewById(R.id.rl_submit);
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setView(dialog);
+//                        alert.setCancelable(false);
+            //Creating an alert dialog
+            final AlertDialog alertDialog = alert.create();
+            alertDialog.show();
+            edt_current_email.setFocusable(false);
+            edt_current_email.setFocusableInTouchMode(false); // user touches widget on phone with touch screen
+            edt_current_email.setClickable(false);
+            if(userSingletonModel.getEmailId().trim().contentEquals("")){
+                edt_current_email.setText("Not Available");
+            }else{
+                edt_current_email.setText(userSingletonModel.getEmailId());
+            }
+            rl_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.cancel();
+                }
+            });
+
+            rl_submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(edt_new_email.getText().toString().contentEquals("")){
+                        //----to display message in snackbar, code starts
+                        String message_notf = "Field cannot be left blank";
+                        int color = Color.parseColor("#FFFFFF");
+                        Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message_notf, 4000);
+
+                        View sbView = snackbar.getView();
+                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(color);
+                        snackbar.show();
+                        //----to display message in snackbar, code ends
+                    }else{
+//                        changePswd(ed_current_password.getText().toString(),edt_new_password.getText().toString(),ed_password_hint.getText().toString());
+                        changeEmail(edt_new_email.getText().toString());
+                        alertDialog.dismiss();
+                    }
+                }
+            });
         }else if(id == R.id.nav_view_leavebalance){
             loadLeaveBalanceData();
         } else if(id == R.id.nav_change_pswd){
@@ -675,6 +724,76 @@ public class TimesheetHome extends AppCompatActivity implements NavigationView.O
 
     //===============Navigation drawer on Selecting the items, code ends==============
 
+    //=========function to change email using volley, starts==============
+    public void changeEmail(final String NewEmail){
+        String url = Config.BaseUrl+"ChangeEmail";
+        final ProgressDialog loading = ProgressDialog.show(TimesheetHome.this, "Loading", "Please wait...", true, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new
+                Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        loading.dismiss();
+                        JSONObject jsonObj = null;
+                        try {
+                            jsonObj = XML.toJSONObject(response);
+                            String responseData = jsonObj.toString();
+                            String val = "";
+                            JSONObject resobj = new JSONObject(responseData);
+                            Log.d("changeEmail",responseData.toString());
+                            Iterator<?> keys = resobj.keys();
+                            while(keys.hasNext() ) {
+                                String key = (String) keys.next();
+                                if (resobj.get(key) instanceof JSONObject) {
+                                    JSONObject xx = new JSONObject(resobj.get(key).toString());
+                                    Log.d("getLeaveData1", xx.getString("content"));
+                                    JSONObject jsonObject = new JSONObject(xx.getString("content"));
+                                    //----to display message in snackbar, code starts
+                                    String message_notf = jsonObject.getString("message");
+                                    int color = 0;
+                                    if(jsonObject.getString("status").trim().contentEquals("true")) {
+                                        color = Color.parseColor("#FFFFFF");
+                                        userSingletonModel.setEmailId(NewEmail);
+                                    }else if(jsonObject.getString("status").trim().contentEquals("false")){
+                                        color = Color.parseColor("#AE0000");
+                                    }
+                                    Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message_notf, 4000);
+
+                                    View sbView = snackbar.getView();
+                                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                                    textView.setTextColor(color);
+                                    snackbar.show();
+                                    //----to display message in snackbar, code ends
+                                }
+                            }
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("NewEmail", NewEmail);
+                params.put("CompanyId",userSingletonModel.getCompID());
+                params.put("UserID",userSingletonModel.getUserName());
+                params.put("CorpId", userSingletonModel.getCorpID());
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+    }
+    //=========function to change email using volley, ends==============
     //=========function to change password using volley, starts==============
     public void changePswd(final String CurrentPassword, final String NewPassword, final String PasswordHint){
         String url = Config.BaseUrl+"ChangePassword";

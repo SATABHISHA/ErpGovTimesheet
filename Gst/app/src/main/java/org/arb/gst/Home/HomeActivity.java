@@ -613,7 +613,6 @@ public class HomeActivity extends AppCompatActivity
                 }
             });
 
-            Toast.makeText(getApplicationContext(),"Working on",Toast.LENGTH_LONG).show();
         }else if(id == R.id.nav_view_leavebalance){
            loadLeaveBalanceData();
         } else if(id == R.id.nav_change_pswd){
