@@ -1238,7 +1238,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 tv_status.setText("Partially Approved");
                                                 img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getPartially_approved_color()));
                                             }
-                                            userSingletonModel.setStatusDescription(tv_status.getText().toString()); //---6th june
+                                            userSingletonModel.setStatusDescription(tv_status.getText().toString()); //---6th june added text status
 
                                             //========added on 5th june, ends============
                                             JSONArray weekDays = jobject.getJSONArray("WeekDays");
@@ -1301,19 +1301,19 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                         tv_addOrView_supervisor_note.setClickable(true);
                                                     }
                                                 } else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
-                                                    if((days.getString("StatusDescription").contentEquals("Submitted") || days.getString("StatusDescription").contentEquals("Partially Returned")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                    if((days.getString("DayStatus").contentEquals("2") || days.getString("DayStatus").contentEquals("6")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
                                                         img_sup_note_view.setVisibility(View.GONE);
                                                         tv_addOrView_supervisor_note.setClickable(true);
                                                         img_sup_add_view.setVisibility(View.VISIBLE);
-                                                    }else if((days.getString("StatusDescription").contentEquals("Submitted") || days.getString("StatusDescription").contentEquals("Partially Returned")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                    }else if((days.getString("DayStatus").contentEquals("2") || days.getString("DayStatus").contentEquals("6")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
                                                         img_sup_note_view.setVisibility(View.VISIBLE);
                                                         tv_addOrView_supervisor_note.setClickable(true);
                                                         img_sup_add_view.setVisibility(View.GONE);
-                                                    }else if((!days.getString("StatusDescription").contentEquals("Submitted") || !days.getString("StatusDescription").contentEquals("Partially Returned")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                    }else if((!days.getString("DayStatus").contentEquals("2") || !days.getString("DayStatus").contentEquals("6")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
                                                         img_sup_note_view.setVisibility(View.GONE);
                                                         tv_addOrView_supervisor_note.setClickable(false);
                                                         img_sup_add_view.setVisibility(View.GONE);
-                                                    }else if((!days.getString("StatusDescription").contentEquals("Submitted") || !days.getString("StatusDescription").contentEquals("Partially Returned")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                    }else if((!days.getString("DayStatus").contentEquals("2") || !days.getString("DayStatus").contentEquals("6")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
                                                         img_sup_note_view.setVisibility(View.VISIBLE);
                                                         tv_addOrView_supervisor_note.setClickable(true);
                                                         img_sup_add_view.setVisibility(View.GONE);
