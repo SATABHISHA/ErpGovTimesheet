@@ -187,7 +187,7 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                 final int Start = 0;
                 final int secondStart = 1;
                 if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
-                    if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                    if (userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) {
                         for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
                             String value = tv_ts_wrkhrs_date.getText().toString();
                             if (value == TimesheetSelectDay.datePeriod.get(j)) {
@@ -310,7 +310,7 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                 final int End = TimesheetSelectDay.datePeriod.size()-1;
                 final int secondEnd = TimesheetSelectDay.datePeriod.size()-2;
                 if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
-                    if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                    if (userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) {
                         for (int j = 0; j < TimesheetSelectDay.datePeriod.size(); j++) {
                             String value = tv_ts_wrkhrs_date.getText().toString();
                             if (value == TimesheetSelectDay.datePeriod.get(j)) {
