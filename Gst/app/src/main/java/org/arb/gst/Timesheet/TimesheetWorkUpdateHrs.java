@@ -141,12 +141,17 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
 
         btn_back.setOnClickListener(this);
         //----newly added 30th nov for making editText eidtable/non editable according to description status code starts-----
-        if(userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED")){
+        if(userSingletonModel.getEmployeeYN().trim().contentEquals("1")) {
+            if (userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5")) {
+                btn_save.setClickable(false);
+                btn_save.setAlpha(0.6f);
+            } else {
+                btn_save.setClickable(true);
+                btn_save.setOnClickListener(this);
+            }
+        }else if(userSingletonModel.getEmployeeYN().trim().contentEquals("0")){
             btn_save.setClickable(false);
             btn_save.setAlpha(0.6f);
-        }else{
-            btn_save.setClickable(true);
-            btn_save.setOnClickListener(this);
         }
         //----newly added 30th nov for making editText eidtable/non editable according to description status code ends-----
     }
@@ -450,7 +455,7 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
             case R.id.btn_back:
                 //---------Redirect to previous Activity with condition check and Alert dialog code starts(added on 1st dec)--------
                 if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
-                    if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                    if (userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) {
 //                    super.onBackPressed(); //----added on 6th dec
                         //-----following code is commented on 6th dec to get the calender saved state data------
                         Intent intent = new Intent(TimesheetWorkUpdateHrs.this, TimesheetSelectDay.class);
