@@ -26,7 +26,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,7 +71,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
     ArrayList<WeekDays> weekDaysArrayList = new ArrayList<>();
     public static ArrayList<String> datePeriod = new ArrayList<>();
     RecyclerView mRecyclerView;
-    public static String colorcode,selectedDate, description_status_temp = "0";
+    public static String colorcode,selectedDate, description_status_temp = "0", WeekDatedynamic;
     EditText edtxtEmployeeNote;
     TextView tv_empname, tv_period_date, tv_selected_date, tv_totalhrs, tv_period_totalhrs, tv_status;
     LinearLayout tv_addOrView_employee_note, tv_addOrView_supervisor_note;
@@ -337,6 +336,12 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
         SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         final String WeekDate = df.format(c);
         //--------------code to get current date and set in custom format, ends----------
+        if(userSingletonModel.getEmployeeYN().contentEquals("1")) {
+            WeekDatedynamic = TimesheetHome.dateOnSelectedCalender;
+        }else{
+            WeekDatedynamic = TimesheetHome.period_date;
+        }
+
 
         String url = Config.BaseUrl+"LeaveBalance";
         final ProgressDialog loading = ProgressDialog.show(TimesheetSelectDay.this, "Loading", "Please wait...", true, false);
@@ -360,10 +365,11 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                 params.put("UserId", userSingletonModel.getUserID());
                 if(userSingletonModel.getEmployeeYN().contentEquals("1")) {
                     params.put("EmployeeID", userSingletonModel.getUserID());
+//                    params.put("EmployeeID", "1");
                 }else{
                     params.put("EmployeeID", userSingletonModel.getSub_updated_employee_id());
                 }
-                params.put("WeekDate",TimesheetHome.period_date);
+                params.put("WeekDate",WeekDatedynamic);
                 params.put("CompanyId",userSingletonModel.getCompID());
                 params.put("CorpId", userSingletonModel.getCorpID());
                 return params;
@@ -403,7 +409,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                         tv_benifit_hrs.setText(jsonObject1.getString("Benefit/Comp:"));
                         tv_sick_hrs.setText(jsonObject1.getString("Sick/Personal-TEST:"));
                         tv_earned_leave_hrs.setText(jsonObject1.getString("Earned Leave:"));
-                        tv_blnc_week_date.setText(WeekDate);
+                        tv_blnc_week_date.setText(WeekDatedynamic);
 
                         RelativeLayout relativeLayout_ok = (RelativeLayout) dialog.findViewById(R.id.relativeLayout_ok);
                         android.support.v7.app.AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(this);
