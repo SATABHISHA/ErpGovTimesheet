@@ -425,6 +425,16 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                         });
                         //-------custom dialog code ends=========
 
+                    }else if(status.trim().contentEquals("false")){
+//                        Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                        String message = jsonObject.getString("message");
+                        int color = Color.parseColor("#AE0000");
+                        Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message, 4000);
+
+                        View sbView = snackbar.getView();
+                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(color);
+                        snackbar.show();
                     }
 
 
@@ -658,12 +668,15 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                editText.setClickable(false);
                editText.setFocusableInTouchMode(false);
                editText.setFocusable(false);
+               editText.setEnabled(false);
+               editText.setBackgroundColor(Color.parseColor("#EBEBEB"));
            } else {
                btn_save.setVisibility(View.VISIBLE);
                btn_cancel.setVisibility(View.VISIBLE);
                editText.setText(userSingletonModel.getTimesheetSelectDay_empNote());
                editText.setClickable(true);
                editText.setFocusableInTouchMode(true);
+               editText.setEnabled(true);
                editText.setFocusable(true);
            }
        }else if(userSingletonModel.getEmployeeYN().contentEquals("0")){
@@ -673,6 +686,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
            editText.setClickable(false);
            editText.setFocusableInTouchMode(false);
            editText.setFocusable(false);
+           editText.setBackgroundColor(Color.parseColor("#EBEBEB"));
        }
         //---newly added on 8th dec to add the condition check for editable/non editable mode edittext code ends----
         btn_cancel.setOnClickListener(new View.OnClickListener() {

@@ -1180,6 +1180,16 @@ public class HomeActivity extends AppCompatActivity
                         });
                         //-------custom dialog code ends=========
 
+                    }else if(status.trim().contentEquals("false")){
+//                        Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+                        String message = jsonObject.getString("message");
+                        int color = Color.parseColor("#AE0000");
+                        Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message, 4000);
+
+                        View sbView = snackbar.getView();
+                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(color);
+                        snackbar.show();
                     }
 
 
