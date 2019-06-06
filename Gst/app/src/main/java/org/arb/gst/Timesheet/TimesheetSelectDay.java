@@ -511,7 +511,16 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                             JSONObject jsonObject = new JSONObject(val);
                             Log.d("saveList: ",val);
                             String message = jsonObject.getString("message");
-                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            int color = Color.parseColor("#ffffff");
+                            Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message, 4000);
+
+                            View sbView = snackbar.getView();
+                            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                            textView.setTextColor(color);
+                            snackbar.show();
+
+
                             loadDataOfDayWiseTimeSheetNew();
                         }
                     }
@@ -607,7 +616,14 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                             JSONObject jsonObject = new JSONObject(val);
                             Log.d("saveList: ",val);
                             String message = jsonObject.getString("message");
-                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            int color = Color.parseColor("#ffffff");
+                            Snackbar snackbar = Snackbar.make(findViewById(R.id.cordinatorLayout), message, 4000);
+
+                            View sbView = snackbar.getView();
+                            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                            textView.setTextColor(color);
+                            snackbar.show();
                             loadDataOfDayWiseTimeSheetNew();
                             }
                     }
