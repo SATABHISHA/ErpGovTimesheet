@@ -209,16 +209,16 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
                 //------------8th dec newly added code starts---------
                 if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
-                    if ((userSingletonModel.getStatusDescription().contentEquals("Approved") || userSingletonModel.getStatusDescription().contentEquals("Submitted") || userSingletonModel.getStatusDescription().contentEquals("Posted") || userSingletonModel.getStatusDescription().contentEquals("Partially Approved")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                    if ((userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
                         Toast.makeText(getApplicationContext(), "No note is available", Toast.LENGTH_LONG).show();
-                    } else if ((userSingletonModel.getStatusDescription().contentEquals("Approved") || userSingletonModel.getStatusDescription().contentEquals("Submitted") || userSingletonModel.getStatusDescription().contentEquals("Posted") || userSingletonModel.getStatusDescription().contentEquals("Partially Approved")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                    } else if ((userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
                         loadPopupForAddOrViewNote();
 
-                    } else if (!userSingletonModel.getStatusDescription().contentEquals("Approved") || !userSingletonModel.getStatusDescription().contentEquals("Submitted") || !userSingletonModel.getStatusDescription().contentEquals("Posted") || !userSingletonModel.getStatusDescription().contentEquals("Partially Approved")) {
+                    } else if (!userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || !userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) {
                         loadPopupForAddOrViewNote();
                     }
                 }else if (HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")) {
-                   if(!userSingletonModel.getStatusDescription().contentEquals("Saved")){
+                   if(!userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("1")){
                        loadPopupForAddOrViewNote();
                    }
                 }
@@ -650,21 +650,30 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
             alertDialog.show();
         }
         //---newly added on 8th dec to add the condition check for editable/non editable mode edittext code starts----
-        if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED")  || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")){
-            btn_save.setVisibility(View.GONE);
-            btn_cancel.setVisibility(View.GONE);
-            editText.setText(userSingletonModel.getTimesheetSelectDay_empNote());
-            editText.setClickable(false);
-            editText.setFocusableInTouchMode(false);
-            editText.setFocusable(false);
-        }else{
-            btn_save.setVisibility(View.VISIBLE);
-            btn_cancel.setVisibility(View.VISIBLE);
-            editText.setText(userSingletonModel.getTimesheetSelectDay_empNote());
-            editText.setClickable(true);
-            editText.setFocusableInTouchMode(true);
-            editText.setFocusable(true);
-        }
+       if(userSingletonModel.getEmployeeYN().contentEquals("1")) {
+           if ((userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+               btn_save.setVisibility(View.GONE);
+               btn_cancel.setVisibility(View.GONE);
+               editText.setText(userSingletonModel.getTimesheetSelectDay_empNote());
+               editText.setClickable(false);
+               editText.setFocusableInTouchMode(false);
+               editText.setFocusable(false);
+           } else {
+               btn_save.setVisibility(View.VISIBLE);
+               btn_cancel.setVisibility(View.VISIBLE);
+               editText.setText(userSingletonModel.getTimesheetSelectDay_empNote());
+               editText.setClickable(true);
+               editText.setFocusableInTouchMode(true);
+               editText.setFocusable(true);
+           }
+       }else if(userSingletonModel.getEmployeeYN().contentEquals("0")){
+           btn_save.setVisibility(View.GONE);
+           btn_cancel.setVisibility(View.GONE);
+           editText.setText(userSingletonModel.getTimesheetSelectDay_empNote());
+           editText.setClickable(false);
+           editText.setFocusableInTouchMode(false);
+           editText.setFocusable(false);
+       }
         //---newly added on 8th dec to add the condition check for editable/non editable mode edittext code ends----
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1254,13 +1263,14 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 //--------newly added 4th dec and modified on 8th dec--------
                                                 //=============Following is the code to check whether empNote is empty or not(the empnote will be present in the dialog box and stored via SingletonModel class)==========
                                                 if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
-                                                    if ((days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                                                    if ((days.getString("DayStatus").contentEquals("4") || days.getString("DayStatus").contentEquals("2") || days.getString("DayStatus").contentEquals("5") || days.getString("DayStatus").contentEquals("7") || days.getString("DayStatus").contentEquals("3")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
                                                         img_empnote_add.setVisibility(View.GONE);
                                                         img_empnote_view.setVisibility(View.GONE);
-                                                    } else if ((days.getString("StatusDescription").contentEquals("APPROVED") || days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("POSTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+//                                                        tv_addOrView_employee_note.setClickable(false);
+                                                    } else if ((days.getString("DayStatus").contentEquals("4") || days.getString("DayStatus").contentEquals("2") || days.getString("DayStatus").contentEquals("5") || days.getString("DayStatus").contentEquals("7")|| days.getString("DayStatus").contentEquals("3")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
                                                         img_empnote_add.setVisibility(View.GONE);
                                                         img_empnote_view.setVisibility(View.VISIBLE);
-                                                    } else if (!days.getString("StatusDescription").contentEquals("APPROVED") || !days.getString("StatusDescription").contentEquals("SUBMITTED") || !days.getString("StatusDescription").contentEquals("POSTED") || !days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) {
+                                                    } else/*if (!days.getString("DayStatus").contentEquals("4") || !days.getString("DayStatus").contentEquals("2") || !days.getString("DayStatus").contentEquals("5") || !days.getString("DayStatus").contentEquals("7") || !days.getString("DayStatus").contentEquals("3"))*/ {
                                                         img_empnote_add.setVisibility(View.VISIBLE);
                                                         img_empnote_view.setVisibility(View.GONE);
                                                     }
@@ -1269,7 +1279,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                     if(userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
                                                         img_empnote_view.setVisibility(View.GONE);
                                                     } else if (!userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
-                                                        if(days.getString("StatusDescription").contentEquals("SAVED")){
+                                                        if(days.getString("DayStatus").contentEquals("1")){
                                                             img_empnote_view.setVisibility(View.GONE);
                                                         }else {
                                                             img_empnote_view.setVisibility(View.VISIBLE);
@@ -1291,19 +1301,19 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                         tv_addOrView_supervisor_note.setClickable(true);
                                                     }
                                                 } else if(HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
-                                                    if((days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                    if((days.getString("StatusDescription").contentEquals("Submitted") || days.getString("StatusDescription").contentEquals("Partially Returned")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
                                                         img_sup_note_view.setVisibility(View.GONE);
                                                         tv_addOrView_supervisor_note.setClickable(true);
                                                         img_sup_add_view.setVisibility(View.VISIBLE);
-                                                    }else if((days.getString("StatusDescription").contentEquals("SUBMITTED") || days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                    }else if((days.getString("StatusDescription").contentEquals("Submitted") || days.getString("StatusDescription").contentEquals("Partially Returned")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
                                                         img_sup_note_view.setVisibility(View.VISIBLE);
                                                         tv_addOrView_supervisor_note.setClickable(true);
                                                         img_sup_add_view.setVisibility(View.GONE);
-                                                    }else if((!days.getString("StatusDescription").contentEquals("SUBMITTED") || !days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                    }else if((!days.getString("StatusDescription").contentEquals("Submitted") || !days.getString("StatusDescription").contentEquals("Partially Returned")) && userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
                                                         img_sup_note_view.setVisibility(View.GONE);
                                                         tv_addOrView_supervisor_note.setClickable(false);
                                                         img_sup_add_view.setVisibility(View.GONE);
-                                                    }else if((!days.getString("StatusDescription").contentEquals("SUBMITTED") || !days.getString("StatusDescription").contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
+                                                    }else if((!days.getString("StatusDescription").contentEquals("Submitted") || !days.getString("StatusDescription").contentEquals("Partially Returned")) && !userSingletonModel.getTimesheetSelectDay_supNote().contentEquals("")){
                                                         img_sup_note_view.setVisibility(View.VISIBLE);
                                                         tv_addOrView_supervisor_note.setClickable(true);
                                                         img_sup_add_view.setVisibility(View.GONE);
