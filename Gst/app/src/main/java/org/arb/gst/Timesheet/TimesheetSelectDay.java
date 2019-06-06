@@ -210,16 +210,16 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
 
                 //------------8th dec newly added code starts---------
                 if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
-                    if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                    if ((userSingletonModel.getStatusDescription().contentEquals("Approved") || userSingletonModel.getStatusDescription().contentEquals("Submitted") || userSingletonModel.getStatusDescription().contentEquals("Posted") || userSingletonModel.getStatusDescription().contentEquals("Partially Approved")) && userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
                         Toast.makeText(getApplicationContext(), "No note is available", Toast.LENGTH_LONG).show();
-                    } else if ((userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
+                    } else if ((userSingletonModel.getStatusDescription().contentEquals("Approved") || userSingletonModel.getStatusDescription().contentEquals("Submitted") || userSingletonModel.getStatusDescription().contentEquals("Posted") || userSingletonModel.getStatusDescription().contentEquals("Partially Approved")) && !userSingletonModel.getTimesheetSelectDay_empNote().contentEquals("")) {
                         loadPopupForAddOrViewNote();
 
-                    } else if (!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED") || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                    } else if (!userSingletonModel.getStatusDescription().contentEquals("Approved") || !userSingletonModel.getStatusDescription().contentEquals("Submitted") || !userSingletonModel.getStatusDescription().contentEquals("Posted") || !userSingletonModel.getStatusDescription().contentEquals("Partially Approved")) {
                         loadPopupForAddOrViewNote();
                     }
                 }else if (HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")) {
-                   if(!userSingletonModel.getStatusDescription().contentEquals("SAVED")){
+                   if(!userSingletonModel.getStatusDescription().contentEquals("Saved")){
                        loadPopupForAddOrViewNote();
                    }
                 }
@@ -1223,6 +1223,7 @@ public class TimesheetSelectDay extends AppCompatActivity implements View.OnClic
                                                 tv_status.setText("Partially Approved");
                                                 img_status_color.setBackgroundColor(Color.parseColor(userSingletonModel.getPartially_approved_color()));
                                             }
+                                            userSingletonModel.setStatusDescription(tv_status.getText().toString()); //---6th june
 
                                             //========added on 5th june, ends============
                                             JSONArray weekDays = jobject.getJSONArray("WeekDays");

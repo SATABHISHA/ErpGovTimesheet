@@ -67,8 +67,8 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
 
 
         //----newly added 30th nov for making editText eidtable/non editable according to description status code starts-----
-        if(userSingletonModel.getEmployeeYN().contentEquals("1") /*&& HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")*/) {
-            if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+        if(userSingletonModel.getEmployeeYN().contentEquals("1") && HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
+            if (userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) {
                 holder.editText.setEnabled(false);
                 holder.editText.setFocusable(false);
                 holder.editText.setCursorVisible(false);
@@ -82,7 +82,7 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                         employeeTimesheetListModelArrayList.get(position).setEditTextAddNote(employeeTimesheetListModelArrayList.get(position).getNote());
                     }
                 }
-            } else if(!userSingletonModel.getStatusDescription().contentEquals("APPROVED") || !userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || !userSingletonModel.getStatusDescription().contentEquals("POSTED") || !userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")){
+            } else {
                 holder.editText.setEnabled(true);
                 //------newly added 30th nov to make the add/view button visible/invisible, code starts-------
                 if (!employeeTimesheetListModelArrayList.get(position).getNote().contentEquals("") || !employeeTimesheetListModelArrayList.get(position).getEditTextAddNote().contentEquals("")) {
@@ -97,7 +97,8 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
                 Log.d("noteTest:", employeeTimesheetListModelArrayList.get(position).getNote().toString());
                 //------newly added 30th nov to make the add/view button visible/invisible, code ends-------
             }
-        }else if(userSingletonModel.getEmployeeYN().contentEquals("0") /*HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")*/){
+        }
+        if(userSingletonModel.getEmployeeYN().contentEquals("0") && HomeActivity.supervisor_yn_temp.contentEquals("1") || HomeActivity.payrollclerk_yn_temp.contentEquals("1") || HomeActivity.payableclerk_yn_temp.contentEquals("1")){
             holder.editText.setEnabled(false);
             holder.editText.setFocusable(false);
             holder.editText.setCursorVisible(false);
@@ -344,7 +345,7 @@ public class CustomEmployeeTimesheetListAdapter extends RecyclerView.Adapter<Cus
 
                     //--------added on 3rd dec, code to check the condition and make the edit button visible/invisible according to the condition code starts-----
                     if(HomeActivity.supervisor_yn_temp.contentEquals("0") && HomeActivity.payrollclerk_yn_temp.contentEquals("0") && HomeActivity.payableclerk_yn_temp.contentEquals("0")) {
-                        if (userSingletonModel.getStatusDescription().contentEquals("APPROVED") || userSingletonModel.getStatusDescription().contentEquals("SUBMITTED") || userSingletonModel.getStatusDescription().contentEquals("POSTED") || userSingletonModel.getStatusDescription().contentEquals("PARTIAL_APPROVE")) {
+                        if (userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("4") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("2") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("5") || userSingletonModel.getTimesheetSelectDay_status_code().trim().contentEquals("7")) {
                             imgbtn_edit.setVisibility(View.GONE);
                         } else {
                             imgbtn_edit.setVisibility(View.VISIBLE);
