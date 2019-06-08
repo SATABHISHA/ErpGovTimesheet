@@ -1523,7 +1523,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     //=====================to convert uri to string demo starts 27th may==============
-    private String getUriRealPathAboveKitkat(Context ctx, Uri uri)
+    public String getUriRealPathAboveKitkat(Context ctx, Uri uri)
     {
         String ret = "";
 
