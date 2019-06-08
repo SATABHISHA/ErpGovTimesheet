@@ -1300,7 +1300,7 @@ public class HomeActivity extends AppCompatActivity
          editor.remove("Msg");
          editor.commit();
      }
-    //===============code to clear sharedPref data ends=========
+    //===============code to clear sharedPref data ends========
 
 
     //=============Internet checking code starts(added 22nd Nov)=============
