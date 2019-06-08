@@ -68,9 +68,8 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/rouned_broder"
                     android:paddingLeft="10dp"
-                    android:hint="Corp-Id"
+                    android:hint="Corporate ID"
                     android:singleLine="true"
-                    android:text="gst-inc-101"
                     android:imeOptions="actionNext"
                     android:textSize="16dp" />
             </LinearLayout>
@@ -111,7 +110,6 @@
                     android:paddingLeft="10dp"
                     android:hint="Username"
                     android:singleLine="true"
-                    android:text="ob"
                     android:imeOptions="actionNext"
                     android:textSize="16dp" />
             </LinearLayout>

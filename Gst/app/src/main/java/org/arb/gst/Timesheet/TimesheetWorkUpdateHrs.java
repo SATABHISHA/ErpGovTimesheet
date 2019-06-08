@@ -954,7 +954,12 @@ public class TimesheetWorkUpdateHrs extends AppCompatActivity implements View.On
                 params.put("deviceType","1");*/
 
                 params.put("CorpId", userSingletonModel.getCorpID());
-                params.put("UserID",userSingletonModel.getUserID());
+//                params.put("UserID",userSingletonModel.getUserID());
+                if(userSingletonModel.getTimesheet_personId_yn().contentEquals("0")) {
+                    params.put("UserId", userSingletonModel.getUserID());
+                }else if(userSingletonModel.getTimesheet_personId_yn().contentEquals("1")){
+                    params.put("UserId", userSingletonModel.getPayable_payroll_supervisor_person_id());
+                }
 //                params.put("WeekDate", TimesheetHome.dateOnSelectedCalender);
                 params.put("WeekDate", userSingletonModel.getTimesheetSelectDate_WeekDate());
                 params.put("Selecteddate",userSingletonModel.getDayDate());
