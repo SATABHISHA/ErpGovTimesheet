@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,6 +28,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.listener.StateUpdatedListener;
+import com.google.android.play.core.tasks.OnSuccessListener;
+import com.google.android.play.core.tasks.Task;
 
 import org.arb.gst.Home.HomeActivity;
 import org.arb.gst.Model.UserSingletonModel;
@@ -41,11 +53,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE;
+
 /**
  * Created by niverses on 18-10-2018.
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener, StateUpdatedListener<InstallState> {
     Button btnLogin;
     TextView btnForgotPassword;
     EditText edtCorpId,edtUsername,edtPassword;
@@ -56,11 +70,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String corporateID,userName,emailID;
     SharedPreferences sharedPreferences;
     UserSingletonModel userSingletonModel = UserSingletonModel.getInstance();
+    static final int MY_REQUEST_CODE = 1;
+    Context context = this;
+    AppUpdateManager appUpdateManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         checkConnection();  //----function calling to check the internet connection
+        // Creates instance of the manager.
+        appUpdateManager = AppUpdateManagerFactory.create(context);
 
         sharedPreferences = getApplication().getSharedPreferences("LoginDetails", Context.MODE_PRIVATE);
         btnLogin=(Button)findViewById(R.id.activity_login_btn_login);
@@ -110,7 +129,89 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
         }
       //===================code for one time login ends=====================
+
+
+        //==============code added on 20th june to check update status, starts=============
+
+
+// Returns an intent object that you use to check for an update.
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+// Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    // For a flexible update, use AppUpdateType.FLEXIBLE
+                    && appUpdateInfo.isUpdateTypeAllowed(IMMEDIATE)) {
+                // Request the update.
+                try {
+                    appUpdateManager.startUpdateFlowForResult(
+                            // Pass the intent that is returned by 'getAppUpdateInfo()'.
+                            appUpdateInfo,
+                            // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+                            IMMEDIATE,
+                            // The current activity making the update request.
+                            this,
+                            // Include a request code to later monitor this update request.
+                            MY_REQUEST_CODE);
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+        // Create a listener to track request state updates.
+        InstallStateUpdatedListener listener = state -> {
+            // Show module progress, log state, or install the update.
+
+        };
+
+// Before starting an update, register a listener for updates.
+        appUpdateManager.registerListener(listener);
+
+// Start an update.
+
+// When status updates are no longer needed, unregister the listener.
+        appUpdateManager.unregisterListener(listener);
+
+        //==============code added on 20th june to check update status, ends=============
     }
+
+    //==============code added on 20th june to check update status, starts=============
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MY_REQUEST_CODE) {
+            if (resultCode != RESULT_OK) {
+//                log("Update flow failed! Result code: " + resultCode);
+                // If the update is cancelled or fails,
+                // you can request to start the update again.
+
+            }
+        }
+    }
+    @Override
+    public void onStateUpdate(InstallState state) {
+        if (state.installStatus() == InstallStatus.DOWNLOADED) {
+            // After the update is downloaded, show a notification
+            // and request user confirmation to restart the app.
+            popupSnackbarForCompleteUpdate();
+        }
+
+    }
+
+    /* Displays the snackbar notification and call to action. */
+    public void popupSnackbarForCompleteUpdate() {
+        Snackbar snackbar =
+                Snackbar.make(
+                        findViewById(R.id.relativeLayout),
+                        "An update has just been downloaded.",
+                        Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RESTART", view -> appUpdateManager.completeUpdate());
+        int color = Color.parseColor("#ffffff");
+        snackbar.setActionTextColor(color);
+        snackbar.show();
+    }
+    //==============code added on 20th june to check update status, ends=============
 
 
     //=============swicth case for button onClickListner code starts=========
@@ -312,6 +413,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // register connection status listener
         MyApplication.getInstance().setConnectivityListener(this);
+
+        //====================added on 20th june for app update, code starts===========
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(
+                        appUpdateInfo -> {
+                            if (appUpdateInfo.updateAvailability()
+                                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                                // If an in-app update is already running, resume the update.
+                                try {
+                                    appUpdateManager.startUpdateFlowForResult(
+                                            appUpdateInfo,
+                                            IMMEDIATE,
+                                            this,
+                                            MY_REQUEST_CODE);
+                                } catch (IntentSender.SendIntentException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+        //====================added on 20th june for app update, code ends===========
     }
 
     /**
@@ -322,5 +444,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onNetworkConnectionChanged(boolean isConnected) {
         showSnack(isConnected);
     }
+
+
     //=============Internet checking code ends(added 22nd Nov)=============
 }
